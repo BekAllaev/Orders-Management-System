@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Root"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow">
     <Grid>
-        
+        <TextBlock Text="Hello!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="52"/>
     </Grid>
 </Window>
