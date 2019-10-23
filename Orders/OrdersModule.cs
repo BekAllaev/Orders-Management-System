@@ -28,17 +28,5 @@ namespace Orders
 
             regionManager.RequestNavigate("OrdersRegion", "OrdersDashboardView");
         }
-
-        //public void OnInitialized(IContainerProvider containerProvider)
-        //{
-        //    regionManager = containerProvider.Resolve<IRegionManager>();
-
-        //    regionManager.RequestNavigate("OrdersRegion", "OrdersDashBoardView");
-        //}
-
-        //public void RegisterTypes(IContainerRegistry containerRegistry)
-        //{
-        //    containerRegistry.RegisterForNavigation<OrdersDashBoardView>();
-        //}
     }
 }

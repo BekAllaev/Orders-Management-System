@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Prism.Modularity;
 using Orders;
+using System.Reflection;
 
 namespace Root
 {
@@ -24,15 +25,17 @@ namespace Root
 
         protected override void ConfigureModuleCatalog()
         {
-            var moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
+            //var moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
 
-            moduleCatalog.AddModule(typeof(OrdersModule));
-            //ModuleCatalog.AddModule(new ModuleInfo()
-            //{
-            //    ModuleName="Orders",
-            //    ModuleType=typeof(OrdersModule).ToString(),
-            //    InitializationMode=InitializationMode.WhenAvailable
-            //});
+            //moduleCatalog.AddModule(typeof(OrdersModule));
+
+            Type ordersModuleType = typeof(OrdersModule);
+            ModuleCatalog.AddModule(
+            new ModuleInfo()
+            {
+                ModuleName = ordersModuleType.Name,
+                ModuleType = ordersModuleType.AssemblyQualifiedName,
+            });
         }
     }
 }

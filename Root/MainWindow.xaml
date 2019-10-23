@@ -36,7 +36,7 @@
                    Margin="5 0 0 0" 
                    FontSize="30" 
                    Grid.ColumnSpan="3"/>
-
+        
         <Border BorderBrush="Black" Grid.Row="1">
             <ContentControl prismRegion:RegionManager.RegionName="OrdersRegion"/>
         </Border>
