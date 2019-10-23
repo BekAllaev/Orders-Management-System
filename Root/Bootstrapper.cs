@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Prism.Modularity;
+using Orders;
 
 namespace Root
 {
@@ -18,6 +20,19 @@ namespace Root
         protected override void InitializeShell()
         {
             Application.Current.MainWindow.Show();
+        }
+
+        protected override void ConfigureModuleCatalog()
+        {
+            var moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
+
+            moduleCatalog.AddModule(typeof(OrdersModule));
+            //ModuleCatalog.AddModule(new ModuleInfo()
+            //{
+            //    ModuleName="Orders",
+            //    ModuleType=typeof(OrdersModule).ToString(),
+            //    InitializationMode=InitializationMode.WhenAvailable
+            //});
         }
     }
 }

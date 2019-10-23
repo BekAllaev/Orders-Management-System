@@ -18,9 +18,9 @@ namespace Orders.Views
     /// <summary>
     /// Interaction logic for OrdersDashBoardView.xaml
     /// </summary>
-    public partial class OrdersDashBoardView : UserControl
+    public partial class OrdersDashboardView : UserControl
     {
-        public OrdersDashBoardView()
+        public OrdersDashboardView()
         {
             InitializeComponent();
         }
