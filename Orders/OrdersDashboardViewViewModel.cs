@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using Prism.Commands;
+using Prism.Mvvm;
 using Prism.Regions;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,28 @@ namespace Orders
     public class OrdersDashboardViewViewModel : BindableBase
     {
         #region Fields
+        IRegionManager regionManager;
         #endregion
 
         #region Constructors
         public OrdersDashboardViewViewModel(IRegionManager regionManager)
         {
+            this.regionManager = regionManager;
 
+            //NavigateToOrdersModule = new DelegateCommand(ExecuteNavigateToOrdersModule);
         }
+
         #endregion
 
         #region Commands
+
+        //public DelegateCommand NavigateToOrdersModule { get; }
+
+        //private void ExecuteNavigateToOrdersModule()
+        //{
+
+        //}
+
         #endregion
     }
 }

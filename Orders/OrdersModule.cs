@@ -19,6 +19,7 @@ namespace Orders
         public OrdersModule(IUnityContainer unityContainer)
         {
             this.unityContainer = unityContainer;
+
             regionManager = unityContainer.Resolve<IRegionManager>();
         }
 
