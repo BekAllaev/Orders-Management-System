@@ -7,9 +7,6 @@
              xmlns:local="clr-namespace:Root.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-
-
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -18,58 +15,7 @@
 
         <ContentControl prismRegion:RegionManager.RegionName="BannerRegion"/>
 
-        <Grid>
-            <Grid.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="Margin" Value="5"/>
-                    <Setter Property="BorderBrush" Value="Black"/>
-                    <Setter Property="BorderThickness" Value="1"/>
-                </Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                </Style>
-            </Grid.Resources>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Text="Orders management system"
-                   HorizontalAlignment="Left" 
-                   Margin="5 0 0 0" 
-                   FontSize="30" 
-                   Grid.ColumnSpan="3"/>
-
-            <Border BorderBrush="Black" Grid.Row="1">
-                <ContentControl prismRegion:RegionManager.RegionName="OrdersRegion"/>
-            </Border>
-
-            <Border Grid.Column="1" Grid.Row="1">
-                <TextBlock Text="Customers region" FontSize="20"/>
-            </Border>
-
-            <Border Grid.Column="2" Grid.Row="1">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-
-                    <Border>
-                        <TextBlock Text="Employees region" FontSize="15"/>
-                    </Border>
-
-                    <Border Grid.Row="1">
-                        <TextBlock Text="Products region" FontSize="15"/>
-                    </Border>
-                </Grid>
-            </Border>
-        </Grid>
+        <ContentControl prismRegion:RegionManager.RegionName="ContentRegion"
+                        Grid.Row="1"/>
     </Grid>
 </UserControl>
