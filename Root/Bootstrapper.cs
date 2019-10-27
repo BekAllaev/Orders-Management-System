@@ -7,12 +7,20 @@ using System.Threading.Tasks;
 using System.Windows;
 using Prism.Modularity;
 using Orders;
+using Root.Views;
 using System.Reflection;
 
 namespace Root
 {
     class Bootstrapper : UnityBootstrapper
     {
+        protected override void ConfigureModuleCatalog()
+        {
+            var moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
+
+            moduleCatalog.AddModule(typeof(OrdersModule));
+        }
+
         protected override DependencyObject CreateShell()
         {
             return Container.TryResolve<MainWindow>();
@@ -23,19 +31,5 @@ namespace Root
             Application.Current.MainWindow.Show();
         }
 
-        protected override void ConfigureModuleCatalog()
-        {
-            //var moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
-
-            //moduleCatalog.AddModule(typeof(OrdersModule));
-
-            Type ordersModuleType = typeof(OrdersModule);
-            ModuleCatalog.AddModule(
-            new ModuleInfo()
-            {
-                ModuleName = ordersModuleType.Name,
-                ModuleType = ordersModuleType.AssemblyQualifiedName,
-            });
-        }
     }
 }
