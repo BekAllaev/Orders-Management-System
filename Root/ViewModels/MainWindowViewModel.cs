@@ -26,7 +26,8 @@ namespace Root.ViewModels
         public void ConfigureModuleCatalog()
         {
             regionManager.Regions["GlobalRegion"].Add(unityContainer.Resolve<ContentView>());
-            regionManager.Regions["BannerRegion"].Add(unityContainer.Resolve<BannerView>());
+            //TODO: Почему BannerView загружается из данного класса если можно загрузить его во время инициализаций модуля Banner?
+            //regionManager.Regions["BannerRegion"].Add(unityContainer.Resolve<BannerView>());
         }
     }
 }

@@ -12,6 +12,7 @@ using Root.ViewModels;
 using Microsoft.Practices.Unity;
 using System.Reflection;
 using Dashboard;
+using Banner;
 
 namespace Root
 {
@@ -24,6 +25,7 @@ namespace Root
             var moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
 
             moduleCatalog.AddModule(typeof(DashboardModule));
+            moduleCatalog.AddModule(typeof(BannerModule));
             moduleCatalog.AddModule(typeof(OrdersModule));
         }
 
