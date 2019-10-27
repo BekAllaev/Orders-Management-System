@@ -8,26 +8,34 @@ using System.Windows;
 using Prism.Modularity;
 using Orders;
 using Root.Views;
+using Root.ViewModels;
+using Microsoft.Practices.Unity;
 using System.Reflection;
+using Dashboard;
 
 namespace Root
 {
     class Bootstrapper : UnityBootstrapper
     {
+        MainWindowViewModel viewModel;
+        
         protected override void ConfigureModuleCatalog()
         {
             var moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
 
+            moduleCatalog.AddModule(typeof(DashboardModule));
             moduleCatalog.AddModule(typeof(OrdersModule));
         }
 
         protected override DependencyObject CreateShell()
         {
-            return Container.TryResolve<MainWindow>();
+            viewModel = Container.Resolve<MainWindowViewModel>();
+            return Container.Resolve<MainWindow>();
         }
 
         protected override void InitializeShell()
         {
+            viewModel.ConfigureModuleCatalog();
             Application.Current.MainWindow.Show();
         }
 

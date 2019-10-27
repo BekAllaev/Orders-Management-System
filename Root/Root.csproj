@@ -101,6 +101,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="ViewModels\ContentViewViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\ContentView.xaml.cs">
       <DependentUpon>ContentView.xaml</DependentUpon>
     </Compile>
@@ -137,13 +139,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Banner\Banner.csproj">
+      <Project>{ed30496f-1193-43f6-a373-0082ba3c520f}</Project>
+      <Name>Banner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dashboard\Dashboard.csproj">
+      <Project>{BF251AF9-7B71-4EB5-9F80-2A9A9DCE6EA1}</Project>
+      <Name>Dashboard</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orders\Orders.csproj">
       <Project>{104ccdbd-b903-4514-8d0c-89195b476252}</Project>
       <Name>Orders</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

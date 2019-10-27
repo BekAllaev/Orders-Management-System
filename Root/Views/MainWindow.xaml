@@ -6,6 +6,7 @@
         xmlns:prismRegion="http://prismlibrary.com/"
         xmlns:local="clr-namespace:Root"
         mc:Ignorable="d"
+        prismRegion:ViewModelLocator.AutoWireViewModel="True"
         Title="MainWindow">
 
     <ContentControl prismRegion:RegionManager.RegionName="GlobalRegion"/>
