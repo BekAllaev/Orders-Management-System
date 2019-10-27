@@ -7,8 +7,9 @@
         xmlns:local="clr-namespace:Root"
         mc:Ignorable="d"
         Title="MainWindow">
-    
-    <Window.Resources>
+
+    <ContentControl prismRegion:RegionManager.RegionName="GlobalRegion"/>
+    <!--<Window.Resources>
         <Style TargetType="Border">
             <Setter Property="Margin" Value="5"/>
             <Setter Property="BorderBrush" Value="Black"/>
@@ -61,5 +62,5 @@
                 </Border>
             </Grid>
         </Border>
-    </Grid>
+    </Grid>-->
 </Window>

@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{FD43
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orders", "Orders\Orders.csproj", "{104CCDBD-B903-4514-8D0C-89195B476252}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banner", "Banner\Banner.csproj", "{ED30496F-1193-43F6-A373-0082BA3C520F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,12 +25,17 @@ Global
 		{104CCDBD-B903-4514-8D0C-89195B476252}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{104CCDBD-B903-4514-8D0C-89195B476252}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{104CCDBD-B903-4514-8D0C-89195B476252}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED30496F-1193-43F6-A373-0082BA3C520F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED30496F-1193-43F6-A373-0082BA3C520F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED30496F-1193-43F6-A373-0082BA3C520F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED30496F-1193-43F6-A373-0082BA3C520F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{104CCDBD-B903-4514-8D0C-89195B476252} = {FD432683-8AD9-4AE0-AE32-151850CF9F31}
+		{ED30496F-1193-43F6-A373-0082BA3C520F} = {FD432683-8AD9-4AE0-AE32-151850CF9F31}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {07EC521E-CA3D-4170-B1B0-6A55C148C141}
