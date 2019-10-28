@@ -25,9 +25,7 @@ namespace Orders
 
         public void Initialize()
         {
-            unityContainer.RegisterTypeForNavigation<OrdersDashboardView>();
-
-            regionManager.RequestNavigate("OrdersRegion", "OrdersDashboardView");
+            unityContainer.RegisterTypeForNavigation<OrdersDashboardView>(); 
         }
     }
 }

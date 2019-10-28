@@ -74,10 +74,18 @@
       <DependentUpon>DashboardMainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainView\DashboardMainViewViewModel.cs" />
+    <Compile Include="OrdersStatistic\OrderStatisticViewViewModel.cs" />
+    <Compile Include="OrdersStatistic\OrderStatisticVIew.xaml.cs">
+      <DependentUpon>OrderStatisticVIew.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainView\DashboardMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OrdersStatistic\OrderStatisticVIew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

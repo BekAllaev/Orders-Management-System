@@ -3,6 +3,7 @@ using Prism.Modularity;
 using Prism.Regions;
 using Prism.Unity;
 using Dashboard.MainView;
+using Dashboard.OrdersStatistic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +26,10 @@ namespace Dashboard
         public void Initialize()
         {
             unityContainer.RegisterTypeForNavigation<DashboardMainView>();
+            unityContainer.RegisterTypeForNavigation<OrderStatisticView>();
 
             regionManager.RequestNavigate("ContentRegion", "DashboardMainView");
+            regionManager.RequestNavigate("OrdersRegion", "OrderStatisticView");
         }
     }
 }
