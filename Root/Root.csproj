@@ -147,6 +147,10 @@
       <Project>{BF251AF9-7B71-4EB5-9F80-2A9A9DCE6EA1}</Project>
       <Name>Dashboard</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{4a940f3a-5d08-4456-b2d8-12864f885495}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orders\Orders.csproj">
       <Project>{104ccdbd-b903-4514-8d0c-89195b476252}</Project>
       <Name>Orders</Name>
