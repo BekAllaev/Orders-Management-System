@@ -30,7 +30,6 @@ namespace Orders
             unityContainer.RegisterTypeForNavigation<CreateView>();
             unityContainer.RegisterTypeForNavigation<JournalView>();
 
-            //regionManager.RequestNavigate("OrdersManagmentRegion", "CreateView");
             regionManager.RegisterViewWithRegion("OrdersManagmentRegion", typeof(CreateView));
         }
     }

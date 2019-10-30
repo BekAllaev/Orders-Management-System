@@ -9,27 +9,27 @@ using System.Threading.Tasks;
 
 namespace Orders.ViewModels
 {
-    public class CreateViewModel : BindableBase
+    public class JournalViewModel : BindableBase
     {
         #region Declarations
         IRegionManager regionManager;
         #endregion
 
         #region Construct
-        public CreateViewModel(IRegionManager regionManager)
+        public JournalViewModel(IRegionManager regionManager)
         {
             this.regionManager = regionManager;
 
-            NavigateToJournalCommand = new DelegateCommand(ExecuteNavigateToJournal);
+            NavigateToCreateCommand = new DelegateCommand(ExecuteNavigateToCreate);
         }
         #endregion
 
         #region Commands
-        public DelegateCommand NavigateToJournalCommand { get; }
+        public DelegateCommand NavigateToCreateCommand { get; }
 
-        private void ExecuteNavigateToJournal()
+        private void ExecuteNavigateToCreate()
         {
-            regionManager.RequestNavigate("OrdersManagmentRegion", "JournalView");
+            regionManager.RequestNavigate("OrdersManagmentRegion", "CreateView");
         }
         #endregion
     }

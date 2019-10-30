@@ -18,8 +18,6 @@ namespace Root
 {
     class Bootstrapper : UnityBootstrapper
     {
-        //MainWindowViewModel viewModel;
-        
         protected override void ConfigureModuleCatalog()
         {
             var moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
@@ -31,7 +29,6 @@ namespace Root
 
         protected override DependencyObject CreateShell()
         {
-            //viewModel = Container.Resolve<MainWindowViewModel>();
             return Container.Resolve<MainWindow>();
         }
 
