@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +14,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Orders.Views
+namespace Orders.Main
 {
     /// <summary>
     /// Interaction logic for OrdersDashBoardView.xaml
     /// </summary>
-    public partial class OrdersDashboardView : UserControl
+    public partial class OrdersMainView : UserControl
     {
-        public OrdersDashboardView()
+        public OrdersMainView(IUnityContainer unityContainer)
         {
             InitializeComponent();
+            //this.DataContext = unityContainer.Resolve<OrdersDashboardViewModel>();
         }
     }
 }

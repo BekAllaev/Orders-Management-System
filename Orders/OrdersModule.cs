@@ -7,6 +7,7 @@ using Prism.Modularity;
 using Prism.Unity;
 using Prism.Regions;
 using Orders.Views;
+using Orders.Main;
 using Microsoft.Practices.Unity;
 
 namespace Orders
@@ -25,7 +26,12 @@ namespace Orders
 
         public void Initialize()
         {
-            unityContainer.RegisterTypeForNavigation<OrdersDashboardView>(); 
+            unityContainer.RegisterTypeForNavigation<OrdersMainView>();
+            unityContainer.RegisterTypeForNavigation<CreateView>();
+            unityContainer.RegisterTypeForNavigation<JournalView>();
+
+            //regionManager.RequestNavigate("OrdersManagmentRegion", "CreateView");
+            regionManager.RegisterViewWithRegion("OrdersManagmentRegion", typeof(CreateView));
         }
     }
 }

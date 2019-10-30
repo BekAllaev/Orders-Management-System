@@ -73,11 +73,18 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ViewModels\OrdersDashboardViewViewModel.cs" />
+    <Compile Include="Main\OrdersMainViewModel.cs" />
     <Compile Include="OrdersModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\OrdersDashboardView.xaml.cs">
-      <DependentUpon>OrdersDashboardView.xaml</DependentUpon>
+    <Compile Include="ViewModels\CreateViewModel.cs" />
+    <Compile Include="Views\CreateView.xaml.cs">
+      <DependentUpon>CreateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JournalView.xaml.cs">
+      <DependentUpon>JournalView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Main\OrdersMainView.xaml.cs">
+      <DependentUpon>OrdersMainView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -86,7 +93,15 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Page Include="Views\OrdersDashboardView.xaml">
+    <Page Include="Views\CreateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\JournalView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Main\OrdersMainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
