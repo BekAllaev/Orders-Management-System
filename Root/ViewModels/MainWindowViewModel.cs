@@ -9,6 +9,8 @@ using Prism.Mvvm;
 using Prism.Regions;
 using Banner.Views;
 using Banner;
+using Infrastructure;
+using Prism.Commands;
 
 namespace Root.ViewModels
 {
