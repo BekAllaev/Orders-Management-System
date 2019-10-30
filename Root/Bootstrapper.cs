@@ -29,6 +29,7 @@ namespace Root
 
         protected override DependencyObject CreateShell()
         {
+            //Because of AutoWire, ViewModel of MainWindow is resolved too in this step. So we can use MainWindowViewModel
             return Container.Resolve<MainWindow>();
         }
 
@@ -36,6 +37,7 @@ namespace Root
         {
             var viewModel = (MainWindowViewModel)Application.Current.MainWindow.DataContext;
             viewModel.ConfigureModuleCatalog();
+
             Application.Current.MainWindow.Show();
         }
     }

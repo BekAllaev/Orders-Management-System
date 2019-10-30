@@ -13,24 +13,12 @@ namespace Orders.Main
     public class OrdersMainViewModel : BindableBase
     {
         #region Fields
-        IRegionManager regionManager;
         #endregion
 
         #region Constructors
-        public OrdersMainViewModel(IRegionManager regionManager)
+        public OrdersMainViewModel()
         {
-            this.regionManager = regionManager;
-
-            regionManager.Regions["OrdersManagmentRegion"].Add(typeof(CreateView));
-            //regionManager.RequestNavigate("OrdersManagmentRegion", "CreateView");
         }
-
-        #endregion
-
-        #region Commands
-
-
-
         #endregion
     }
 }
