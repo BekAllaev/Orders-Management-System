@@ -7,6 +7,8 @@
         xmlns:local="clr-namespace:Root"
         mc:Ignorable="d"
         prismRegion:ViewModelLocator.AutoWireViewModel="True"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         Title="MainWindow">
 
     <ContentControl prismRegion:RegionManager.RegionName="GlobalRegion"/>

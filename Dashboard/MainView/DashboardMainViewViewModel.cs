@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Regions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Dashboard.MainView
 {
-    class DashboardMainViewViewModel
+    public class DashboardMainViewViewModel : IRegionMemberLifetime
     {
+        public bool KeepAlive => true;
     }
 }

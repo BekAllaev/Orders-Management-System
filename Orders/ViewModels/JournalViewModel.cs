@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Orders.ViewModels
 {
-    public class JournalViewModel : BindableBase
+    public class JournalViewModel : BindableBase, IRegionMemberLifetime
     {
         #region Declarations
         IRegionManager regionManager;
@@ -22,6 +22,10 @@ namespace Orders.ViewModels
 
             NavigateToCreateCommand = new DelegateCommand(ExecuteNavigateToCreate);
         }
+        #endregion
+
+        #region Properties
+        public bool KeepAlive => true;
         #endregion
 
         #region Commands
