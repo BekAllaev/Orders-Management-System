@@ -9,6 +9,8 @@ using Prism.Regions;
 using Orders.Views;
 using Orders.Main;
 using Microsoft.Practices.Unity;
+using System.Configuration;
+using Orders.Settings;
 
 namespace Orders
 {
@@ -27,10 +29,11 @@ namespace Orders
         public void Initialize()
         {
             unityContainer.RegisterTypeForNavigation<OrdersMainView>();
+            unityContainer.RegisterTypeForNavigation<OrdersSettingView>();
             unityContainer.RegisterTypeForNavigation<CreateView>();
             unityContainer.RegisterTypeForNavigation<JournalView>();
 
-            regionManager.RegisterViewWithRegion("OrdersManagmentRegion", typeof(CreateView));
+            regionManager.RegisterViewWithRegion("OrdersManagmentRegion", Type.GetType("Orders.Views." + Properties.Settings.Default.OrdersMainView));
         }
     }
 }
