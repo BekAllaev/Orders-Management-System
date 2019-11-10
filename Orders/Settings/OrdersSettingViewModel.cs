@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Orders.Settings
 {
-    public class OrdersSettingViewModel : INavigationAware
+    public class OrdersSettingViewModel
     {
         List<string> _availableViews;
+        string _selectedView;
 
         public OrdersSettingViewModel()
         {
@@ -20,29 +21,22 @@ namespace Orders.Settings
             };
         }
 
-        public string SelectedView { set; get; }
+        public string SelectedView
+        {
+            set { _selectedView = value; }
+            get
+            {
+                Properties.Settings.Default.OrdersMainView = _selectedView.Replace(" ", "");
+
+                Properties.Settings.Default.Save();
+
+                return _selectedView;
+            }
+        }
 
         public List<string> AvailableViews
         {
             get { return _availableViews; }
         }
-
-        public void OnNavigatedTo(NavigationContext navigationContext)
-        {
-            //throw new NotImplementedException();
-        }
-
-        public bool IsNavigationTarget(NavigationContext navigationContext)
-        {
-            return true;
-        }
-
-        public void OnNavigatedFrom(NavigationContext navigationContext)
-        {
-            Properties.Settings.Default.OrdersMainView = SelectedView.Replace(" ", "");
-
-            Properties.Settings.Default.Save();
-        }
-
     }
 }
