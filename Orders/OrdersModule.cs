@@ -16,14 +16,11 @@ namespace Orders
 {
     public class OrdersModule : IModule
     {
-        IRegionManager regionManager;
         IUnityContainer unityContainer;
 
         public OrdersModule(IUnityContainer unityContainer)
         {
             this.unityContainer = unityContainer;
-
-            regionManager = unityContainer.Resolve<IRegionManager>();
         }
 
         public void Initialize()
@@ -32,10 +29,6 @@ namespace Orders
             unityContainer.RegisterTypeForNavigation<OrdersSettingView>();
             unityContainer.RegisterTypeForNavigation<CreateView>();
             unityContainer.RegisterTypeForNavigation<JournalView>();
-
-            Type targetType = Type.GetType("Orders.Views." + Properties.Settings.Default.OrdersMainView.Replace(" ", ""));
-
-            regionManager.RegisterViewWithRegion("OrdersManagmentRegion", targetType);
         }
     }
 }

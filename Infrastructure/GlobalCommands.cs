@@ -17,6 +17,6 @@ namespace Infrastructure
         /// <summary>
         /// Command which execute navigation into settings of the module
         /// </summary>
-        public static CompositeCommand NavigateToSettingsCompositeCommand = new CompositeCommand();
+        //public static CompositeCommand NavigateToSettingsCompositeCommand = new CompositeCommand();
     }
 }
