@@ -14,7 +14,7 @@ namespace Orders.Settings
 
         public OrdersSettingViewModel()
         {
-            SelectedView = "Create View";
+            SelectedView = Properties.Settings.Default.OrdersMainView;
 
             _availableViews = new List<string>()
             {
@@ -29,7 +29,7 @@ namespace Orders.Settings
             {
                 _selectedView = value;
 
-                Properties.Settings.Default.OrdersMainView = _selectedView.Replace(" ", "");
+                Properties.Settings.Default.OrdersMainView = _selectedView;
 
                 Properties.Settings.Default.Save();
             }

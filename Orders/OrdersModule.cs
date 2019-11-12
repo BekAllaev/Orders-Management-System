@@ -33,7 +33,9 @@ namespace Orders
             unityContainer.RegisterTypeForNavigation<CreateView>();
             unityContainer.RegisterTypeForNavigation<JournalView>();
 
-            regionManager.RegisterViewWithRegion("OrdersManagmentRegion", Type.GetType("Orders.Views." + Properties.Settings.Default.OrdersMainView));
+            Type targetType = Type.GetType("Orders.Views." + Properties.Settings.Default.OrdersMainView.Replace(" ", ""));
+
+            regionManager.RegisterViewWithRegion("OrdersManagmentRegion", targetType);
         }
     }
 }
