@@ -24,7 +24,7 @@ namespace Orders.ViewModels
         }
         #endregion
 
-        #region
+        #region Properties
         public bool KeepAlive => true;
         #endregion
 
