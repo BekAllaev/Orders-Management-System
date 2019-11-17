@@ -23,23 +23,12 @@ namespace Root.ViewModels
             this.regionManager = regionManager;
 
             NavigateToCommand = new DelegateCommand<string>(NavigateToExecute);
-            //NavigateToSettingsCommand = new DelegateCommand<string>(NavigateToSettingsExecute);
 
             GlobalCommands.NavigateToCompositeCommand.RegisterCommand(NavigateToCommand);
-            //GlobalCommands.NavigateToSettingsCompositeCommand.RegisterCommand(NavigateToSettingsCommand);
         }
         #endregion
 
         #region Commands
-
-        #region NavigateToSettingsCommand
-        //public DelegateCommand<string> NavigateToSettingsCommand { set; get; }
-
-        //private void NavigateToSettingsExecute(string settingsView)
-        //{
-        //    regionManager.RequestNavigate("ContentRegion", settingsView);
-        //}
-        #endregion
 
         #region NavigateToCommand
         public DelegateCommand<string> NavigateToCommand { set; get; }
