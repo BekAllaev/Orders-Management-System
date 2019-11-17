@@ -12,6 +12,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <Button Content="Back to home" 
@@ -24,6 +25,10 @@
                    FontSize="25" 
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"/>
+            <Button Content="Settings" 
+                    Grid.Column="2"
+                    Margin="10"
+                    FontSize="20"/>
         </Grid>
     </Border>
 </UserControl>
