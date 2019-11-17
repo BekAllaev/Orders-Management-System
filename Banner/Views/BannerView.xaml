@@ -28,6 +28,8 @@
             <Button Content="Settings" 
                     Grid.Column="2"
                     Margin="10"
+                    Command="{x:Static infrastructure:GlobalCommands.NavigateToCompositeCommand}"
+                    CommandParameter="SettingsView"
                     FontSize="20"/>
         </Grid>
     </Border>

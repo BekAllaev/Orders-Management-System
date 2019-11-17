@@ -13,6 +13,7 @@ using Microsoft.Practices.Unity;
 using System.Reflection;
 using Dashboard;
 using Banner;
+using Root.Settings;
 
 namespace Root
 {
@@ -29,6 +30,8 @@ namespace Root
 
         protected override DependencyObject CreateShell()
         {
+            Container.RegisterTypeForNavigation<SettingsView>();
+
             //Because of AutoWire, ViewModel of MainWindow is resolved too in this step. So we can use MainWindowViewModel
             return Container.Resolve<MainWindow>();
         }
