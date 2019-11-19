@@ -17,7 +17,7 @@ namespace Infrastructure.Settings
 
         public void WriteSetting(string settingName, object value)
         {
-            Default[settingName] = (string)value;
+            Default[settingName] = value;
 
             Default.Save();
         }
