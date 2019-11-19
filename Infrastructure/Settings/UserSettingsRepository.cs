@@ -12,12 +12,12 @@ namespace Infrastructure.Settings
 
         public object ReadSetting(string settingName)
         {
-            return Default.Properties[settingName];
+            return Default[settingName];
         }
 
         public void WriteSetting(string settingName, object value)
         {
-            Default.OrdersMainView = (string)value;
+            Default[settingName] = (string)value;
 
             Default.Save();
         }

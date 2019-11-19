@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="OrdersMainView" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Create View</Value>
     </Setting>
   </Settings>
 </SettingsFile>

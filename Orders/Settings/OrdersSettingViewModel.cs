@@ -3,6 +3,7 @@ using Prism.Regions;
 using Prism.Unity;
 using System;
 using System.Collections.Generic;
+using Infrastructure.Settings;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,14 +16,16 @@ namespace Orders.Settings
         List<string> _availableViews;
         string _selectedView;
         IRegionManager regionManager;
+        IUserSettingsRepository userSettingsRepository;
         #endregion
 
         #region Constructor
-        public OrdersSettingViewModel(IRegionManager regionManager)
+        public OrdersSettingViewModel(IRegionManager regionManager, IUserSettingsRepository userSettingsRepository)
         {
             this.regionManager = regionManager;
+            this.userSettingsRepository = userSettingsRepository;
 
-            SelectedView = Properties.Settings.Default.OrdersMainView;
+            SelectedView = (string)userSettingsRepository.ReadSetting("OrdersMainView");
 
             _availableViews = new List<string>()
             {
@@ -39,9 +42,7 @@ namespace Orders.Settings
             {
                 _selectedView = value;
 
-                Properties.Settings.Default.OrdersMainView = _selectedView;
-
-                Properties.Settings.Default.Save();
+                userSettingsRepository.WriteSetting("OrdersMainView", _selectedView);
 
                 regionManager.RequestNavigate("OrdersManagmentRegion", _selectedView.Replace(" ", ""));
             }

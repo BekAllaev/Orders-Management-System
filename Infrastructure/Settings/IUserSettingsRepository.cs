@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Infrastructure.Settings
 {
     /// <summary>
-    /// Represent method which works with user scope settings
+    /// Represent methods which works with user scope settings
     /// </summary>
     public interface IUserSettingsRepository
     {

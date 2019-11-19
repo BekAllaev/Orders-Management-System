@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Infrastructure;
+using Infrastructure.Settings;
 using Prism.Commands;
 
 namespace Root.ViewModels
@@ -15,14 +16,17 @@ namespace Root.ViewModels
     {
         #region Declarations
         IRegionManager regionManager;
+        IUnityContainer unityContainer;
         #endregion
 
         #region Constructor
-        public ContentViewModel(IRegionManager regionManager)
+        public ContentViewModel(IRegionManager regionManager,IUnityContainer unityContainer)
         {
             this.regionManager = regionManager;
 
             NavigateToCommand = new DelegateCommand<string>(NavigateToExecute);
+
+            unityContainer.RegisterInstance<IUserSettingsRepository>(new UserSettingsRepository());
 
             GlobalCommands.NavigateToCompositeCommand.RegisterCommand(NavigateToCommand);
         }

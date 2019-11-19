@@ -7,6 +7,7 @@
              xmlns:local="clr-namespace:Orders.Views"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
+             Background="Green"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>

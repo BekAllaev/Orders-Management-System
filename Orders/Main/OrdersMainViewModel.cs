@@ -1,4 +1,4 @@
-﻿ using Orders.Views;
+﻿using Orders.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Infrastructure.Settings;
 
 namespace Orders.Main
 {
@@ -14,12 +15,14 @@ namespace Orders.Main
     {
         #region Fields
         IRegionManager regionManager;
+        IUserSettingsRepository userSettingsRepository;
         #endregion
 
         #region Constructors
-        public OrdersMainViewModel(IRegionManager regionManager)
+        public OrdersMainViewModel(IRegionManager regionManager, IUserSettingsRepository userSettingsRepository)
         {
             this.regionManager = regionManager;
+            this.userSettingsRepository = userSettingsRepository;
         }
         #endregion
 
@@ -35,12 +38,16 @@ namespace Orders.Main
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            regionManager.RequestNavigate("OrdersManagmentRegion", Properties.Settings.Default.OrdersMainView.Replace(" ", ""));
+            string mainView = (string)userSettingsRepository.ReadSetting("OrdersMainView");
+
+            regionManager.RequestNavigate("OrdersManagmentRegion", mainView.Replace(" ", ""));
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            Type targetType = Type.GetType("Orders.Views." + Properties.Settings.Default.OrdersMainView.Replace(" ", ""));
+            string mainView = (string)userSettingsRepository.ReadSetting("OrdersMainView");
+
+            Type targetType = Type.GetType("Orders.Views." + mainView.Replace(" ", ""));
 
             regionManager.RegisterViewWithRegion("OrdersManagmentRegion", targetType);
         }
