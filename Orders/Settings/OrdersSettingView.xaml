@@ -14,14 +14,14 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Choose main view"
+        <TextBlock Text="Default Orders view"
                    Margin="10"
                    FontSize="28"/>
 
-        <ComboBox Grid.Row="1"
-                  Margin="5 0 5 0"
-                  ItemsSource="{Binding AvailableViews}"
-                  SelectedValue="{Binding SelectedView,Mode=TwoWay}">
-        </ComboBox>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Left">
+            <RadioButton Content="Create" Margin="5" IsChecked="{Binding IsCreateViewDefaultView}" Command="{Binding ChangeDefaultViewCommand}" CommandParameter="Create View"/>
+            <RadioButton Content="Journal" Margin="5" IsChecked="{Binding IsJournalViewDefaultView}" Command="{Binding ChangeDefaultViewCommand}" CommandParameter="Journal View"/>
+        </StackPanel>
+
     </Grid>
 </UserControl>

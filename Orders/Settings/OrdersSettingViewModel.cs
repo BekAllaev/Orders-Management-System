@@ -7,14 +7,14 @@ using Infrastructure.Settings;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Prism.Mvvm;
+using Prism.Commands;
 
 namespace Orders.Settings
 {
-    public class OrdersSettingViewModel
+    public class OrdersSettingViewModel : BindableBase
     {
         #region Declaration
-        List<string> _availableViews;
-        string _selectedView;
         IRegionManager regionManager;
         IUserSettingsRepository userSettingsRepository;
         #endregion
@@ -25,34 +25,46 @@ namespace Orders.Settings
             this.regionManager = regionManager;
             this.userSettingsRepository = userSettingsRepository;
 
-            SelectedView = (string)userSettingsRepository.ReadSetting("OrdersMainView");
+            ChangeDefaultViewCommand = new DelegateCommand<string>(ChangeDefaultViewExecute);
 
-            _availableViews = new List<string>()
-            {
-                "Create View",
-                "Journal View"
-            };
+            SetDefaultView();
+        }
+
+        #endregion
+
+        #region Commands
+
+        #region ChangeDefaultView
+        public DelegateCommand<string> ChangeDefaultViewCommand { get; }
+
+        private void ChangeDefaultViewExecute(string newDefaultView)
+        {
+            userSettingsRepository.WriteSetting("OrdersMainView", newDefaultView);
         }
         #endregion
 
+        #endregion
+
         #region Properties
-        public string SelectedView
+
+        public bool IsCreateViewDefaultView { set; get; }
+
+        public bool IsJournalViewDefaultView { set; get; }
+
+        #endregion
+
+        #region Utilities 
+        /// <summary>
+        /// Setting default view when creating instance of current ViewModel.
+        /// </summary>
+        private void SetDefaultView()
         {
-            set
-            {
-                _selectedView = value;
+            string defaultView = (string)userSettingsRepository.ReadSetting("OrdersMainView");
 
-                userSettingsRepository.WriteSetting("OrdersMainView", _selectedView);
-
-                regionManager.RequestNavigate("OrdersManagmentRegion", _selectedView.Replace(" ", ""));
-            }
-            get { return _selectedView; }
+            if (defaultView == "Create View") IsCreateViewDefaultView = true;
+            else IsJournalViewDefaultView = true;
         }
 
-        public List<string> AvailableViews
-        {
-            get { return _availableViews; }
-        }
         #endregion
     }
 }

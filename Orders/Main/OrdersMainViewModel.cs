@@ -36,12 +36,7 @@ namespace Orders.Main
             return true;
         }
 
-        public void OnNavigatedFrom(NavigationContext navigationContext)
-        {
-            string mainView = (string)userSettingsRepository.ReadSetting("OrdersMainView");
-
-            regionManager.RequestNavigate("OrdersManagmentRegion", mainView.Replace(" ", ""));
-        }
+        public void OnNavigatedFrom(NavigationContext navigationContext) { }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {

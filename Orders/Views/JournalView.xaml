@@ -7,18 +7,17 @@
              xmlns:local="clr-namespace:Orders.Views"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             Background="Green"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <TextBlock HorizontalAlignment="Left"
                    VerticalAlignment="Top"
                    FontSize="32"
                    Margin="10 10 0 0" 
-                   Text="Orders journal"/>
+                   Text="Orders management - Journal"/>
 
         <Button Grid.Column="1" 
                 HorizontalAlignment="Right"
