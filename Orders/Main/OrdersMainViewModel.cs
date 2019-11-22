@@ -11,7 +11,7 @@ using Infrastructure.Settings;
 
 namespace Orders.Main
 {
-    public class OrdersMainViewModel : BindableBase, INavigationAware
+    public class OrdersMainViewModel : BindableBase
     {
         #region Fields
         IRegionManager regionManager;
@@ -28,24 +28,6 @@ namespace Orders.Main
 
         #region Properties
 
-        #endregion
-
-        #region Implementation of INavigationAware
-        public bool IsNavigationTarget(NavigationContext navigationContext)
-        {
-            return true;
-        }
-
-        public void OnNavigatedFrom(NavigationContext navigationContext) { }
-
-        public void OnNavigatedTo(NavigationContext navigationContext)
-        {
-            string mainView = (string)userSettingsRepository.ReadSetting("OrdersMainView");
-
-            Type targetType = Type.GetType("Orders.Views." + mainView.Replace(" ", ""));
-
-            regionManager.RegisterViewWithRegion("OrdersManagmentRegion", targetType);
-        }
         #endregion
     }
 }

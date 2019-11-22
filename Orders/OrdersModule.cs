@@ -11,6 +11,7 @@ using Orders.Main;
 using Microsoft.Practices.Unity;
 using System.Configuration;
 using Orders.Settings;
+using Infrastructure.Settings;
 
 namespace Orders
 {
@@ -18,11 +19,13 @@ namespace Orders
     {
         IUnityContainer unityContainer;
         IRegionManager regionManager;
+        IUserSettingsRepository userSettingsRepository;
 
-        public OrdersModule(IUnityContainer unityContainer,IRegionManager regionManager)
+        public OrdersModule(IUnityContainer unityContainer,IRegionManager regionManager,IUserSettingsRepository userSettingsRepository)
         {
             this.unityContainer = unityContainer;
             this.regionManager = regionManager;
+            this.userSettingsRepository = userSettingsRepository;
         }
 
         public void Initialize()
@@ -33,6 +36,11 @@ namespace Orders
             unityContainer.RegisterTypeForNavigation<JournalView>();
 
             regionManager.RegisterViewWithRegion("OrdersSettingsRegion", typeof(OrdersSettingView));
+
+            string mainView = (string)userSettingsRepository.ReadSetting("OrdersMainView");
+            Type targetType = Type.GetType("Orders.Views." + mainView.Replace(" ", ""));
+            regionManager.RegisterViewWithRegion("OrdersManagmentRegion", targetType);
+
         }
     }
 }
