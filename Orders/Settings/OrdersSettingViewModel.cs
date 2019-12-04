@@ -3,7 +3,7 @@ using Prism.Regions;
 using Prism.Unity;
 using System;
 using System.Collections.Generic;
-using Infrastructure.Settings;
+using Infrastructure.SettingsRepository;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;

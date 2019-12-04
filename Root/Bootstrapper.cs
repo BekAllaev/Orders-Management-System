@@ -14,6 +14,9 @@ using System.Reflection;
 using Dashboard;
 using Banner;
 using Root.Settings;
+using Prism.Regions;
+using Syncfusion.Windows.Tools.Controls;
+using Infrastructure;
 
 namespace Root
 {
@@ -26,6 +29,16 @@ namespace Root
             moduleCatalog.AddModule(typeof(DashboardModule));
             moduleCatalog.AddModule(typeof(BannerModule));
             moduleCatalog.AddModule(typeof(OrdersModule));
+        }
+
+        protected override RegionAdapterMappings ConfigureRegionAdapterMappings()
+        {
+            RegionAdapterMappings regionAdapterMappings = base.ConfigureRegionAdapterMappings();
+            if (regionAdapterMappings != null)
+            {
+                regionAdapterMappings.RegisterMapping(typeof(DockingManager), Container.Resolve<DockingManagerRegionAdapter>());
+            }
+            return regionAdapterMappings;
         }
 
         protected override DependencyObject CreateShell()

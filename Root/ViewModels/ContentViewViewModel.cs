@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Infrastructure;
-using Infrastructure.Settings;
+using Infrastructure.SettingsRepository;
 using Prism.Commands;
 
 namespace Root.ViewModels
@@ -16,7 +16,6 @@ namespace Root.ViewModels
     {
         #region Declarations
         IRegionManager regionManager;
-        IUnityContainer unityContainer;
         #endregion
 
         #region Constructor

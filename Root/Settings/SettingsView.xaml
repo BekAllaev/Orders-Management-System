@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TabControl >
+        <!--<TabControl >
             <TabItem Header="Main" FontSize="15">
                 <TextBlock Text="Settings of Orders app"
                            HorizontalAlignment="Center"
@@ -18,6 +18,6 @@
             <TabItem Header="Orders" FontSize="15">
                 <ContentControl prismRegion:RegionManager.RegionName="OrdersSettingsRegion"/>
             </TabItem>
-        </TabControl>
+        </TabControl>-->
     </Grid>
 </UserControl>

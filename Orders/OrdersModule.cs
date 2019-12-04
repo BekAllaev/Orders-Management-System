@@ -11,7 +11,7 @@ using Orders.Main;
 using Microsoft.Practices.Unity;
 using System.Configuration;
 using Orders.Settings;
-using Infrastructure.Settings;
+using Infrastructure.SettingsRepository;
 
 namespace Orders
 {

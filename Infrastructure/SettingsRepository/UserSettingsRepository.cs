@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Settings
+namespace Infrastructure.SettingsRepository
 {
     public class UserSettingsRepository : IUserSettingsRepository
     {

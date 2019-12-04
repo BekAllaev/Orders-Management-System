@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Prism;
+using Syncfusion.Licensing;
 using System.Windows;
 
 namespace Root
@@ -15,6 +16,11 @@ namespace Root
     public partial class App : Application
     {
         Bootstrapper bootstrapper;
+
+        public App()
+        {
+            SyncfusionLicenseProvider.RegisterLicense("MTc3Mzk2QDMxMzcyZTMzMmUzME5yNzlac0gxZ01MRGFoOHBPYVlua0JnRXJIOWJ1aFZBbzUvanJlVjlyNUE9");
+        }
 
         protected override void OnStartup(StartupEventArgs e)
         {

@@ -29,7 +29,7 @@ namespace Dashboard
             unityContainer.RegisterTypeForNavigation<OrderStatisticView>();
 
             regionManager.RequestNavigate("ContentRegion", "DashboardMainView");
-            regionManager.RequestNavigate("OrdersRegion", "OrderStatisticView");
+            regionManager.RegisterViewWithRegion("OrdersRegion", typeof(OrderStatisticView));
         }
     }
 }
