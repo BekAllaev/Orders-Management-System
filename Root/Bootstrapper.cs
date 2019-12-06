@@ -13,7 +13,6 @@ using Microsoft.Practices.Unity;
 using System.Reflection;
 using Dashboard;
 using Banner;
-using Root.Settings;
 using Prism.Regions;
 using Syncfusion.Windows.Tools.Controls;
 using Infrastructure;
@@ -31,20 +30,8 @@ namespace Root
             moduleCatalog.AddModule(typeof(OrdersModule));
         }
 
-        protected override RegionAdapterMappings ConfigureRegionAdapterMappings()
-        {
-            RegionAdapterMappings regionAdapterMappings = base.ConfigureRegionAdapterMappings();
-            if (regionAdapterMappings != null)
-            {
-                regionAdapterMappings.RegisterMapping(typeof(DockingManager), Container.Resolve<DockingManagerRegionAdapter>());
-            }
-            return regionAdapterMappings;
-        }
-
         protected override DependencyObject CreateShell()
         {
-            Container.RegisterTypeForNavigation<SettingsView>();
-
             //Because of AutoWire, ViewModel of MainWindow is resolved too in this step. So we can use MainWindowViewModel
             return Container.Resolve<MainWindow>();
         }
