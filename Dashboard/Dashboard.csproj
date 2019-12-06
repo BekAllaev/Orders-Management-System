@@ -82,7 +82,7 @@
     <Compile Include="MainView\DashboardMainView.xaml.cs">
       <DependentUpon>DashboardMainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainView\DashboardMainViewViewModel.cs" />
+    <Compile Include="MainView\DashboardMainViewModel.cs" />
     <Compile Include="OrdersStatistic\OrderStatisticViewViewModel.cs" />
     <Compile Include="OrdersStatistic\OrderStatisticView.xaml.cs">
       <DependentUpon>OrderStatisticView.xaml</DependentUpon>
