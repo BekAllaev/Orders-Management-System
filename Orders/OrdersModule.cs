@@ -10,7 +10,6 @@ using Orders.Views;
 using Orders.Main;
 using Microsoft.Practices.Unity;
 using System.Configuration;
-using Orders.Settings;
 using Infrastructure.SettingsRepository;
 
 namespace Orders
@@ -31,11 +30,8 @@ namespace Orders
         public void Initialize()
         {
             unityContainer.RegisterTypeForNavigation<OrdersMainView>();
-            unityContainer.RegisterTypeForNavigation<OrdersSettingView>();
             unityContainer.RegisterTypeForNavigation<CreateView>();
             unityContainer.RegisterTypeForNavigation<JournalView>();
-
-            //regionManager.RegisterViewWithRegion("OrdersSettingsRegion", typeof(OrdersSettingView));
 
             string mainView = (string)userSettingsRepository.ReadSetting("OrdersMainView");
             Type targetType = Type.GetType("Orders.Views." + mainView.Replace(" ", ""));

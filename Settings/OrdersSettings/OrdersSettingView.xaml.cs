@@ -13,11 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Orders.Settings
+namespace Settings.OrdersSettings
 {
-    /// <summary>
-    /// Interaction logic for SettingView.xaml
-    /// </summary>
     public partial class OrdersSettingView : UserControl
     {
         public OrdersSettingView()

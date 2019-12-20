@@ -76,10 +76,6 @@
     <Compile Include="Main\OrdersMainViewModel.cs" />
     <Compile Include="OrdersModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\OrdersSettingView.xaml.cs">
-      <DependentUpon>OrdersSettingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Settings\OrdersSettingViewModel.cs" />
     <Compile Include="ViewModels\CreateViewModel.cs" />
     <Compile Include="ViewModels\JournalViewModel.cs" />
     <Compile Include="Views\CreateView.xaml.cs">
@@ -97,10 +93,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Settings\OrdersSettingView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\CreateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

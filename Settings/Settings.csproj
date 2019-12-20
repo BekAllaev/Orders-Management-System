@@ -68,8 +68,12 @@
   <ItemGroup>
     <Compile Include="SettingsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\SettingsPanelViewModel.cs" />
-    <Compile Include="Views\SettingsPanelView.xaml.cs">
+    <Compile Include="OrdersSettings\OrdersSettingView.xaml.cs">
+      <DependentUpon>OrdersSettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OrdersSettings\OrdersSettingViewModel.cs" />
+    <Compile Include="MainView\SettingsPanelViewModel.cs" />
+    <Compile Include="MainView\SettingsPanelView.xaml.cs">
       <DependentUpon>SettingsPanelView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -78,10 +82,20 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\SettingsPanelView.xaml">
+    <Page Include="OrdersSettings\OrdersSettingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainView\SettingsPanelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{4a940f3a-5d08-4456-b2d8-12864f885495}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,7 +7,8 @@ using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
 using Prism.Unity;
-using Settings.Views;
+using Settings.MainView;
+using Settings.OrdersSettings;
 
 namespace Settings
 {
@@ -26,9 +27,9 @@ namespace Settings
         {
             unityContainer.RegisterTypeForNavigation<SettingsPanelView>();
 
-            regionManager.RequestNavigate("SettingRegion", "SettingsPanelView");
+            regionManager.RegisterViewWithRegion("OrdersSettingsRegion", typeof(OrdersSettingView));
 
-            regionManager.Regions["SettingRegion"].Add(new SettingsPanelView(), "SettingsPanelView");
+            regionManager.RequestNavigate("SettingRegion", "SettingsPanelView");
         }
     }
 }

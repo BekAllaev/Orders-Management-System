@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Prism.Mvvm;
 using Prism.Commands;
 
-namespace Orders.Settings
+namespace Settings.OrdersSettings
 {
     public class OrdersSettingViewModel : BindableBase
     {

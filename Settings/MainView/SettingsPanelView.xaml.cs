@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Settings.Views
+namespace Settings.MainView
 {
     /// <summary>
     /// Interaction logic for SettingsPanelView.xaml

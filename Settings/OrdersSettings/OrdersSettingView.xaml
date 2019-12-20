@@ -1,14 +1,13 @@
-﻿<UserControl x:Class="Orders.Settings.OrdersSettingView"
+﻿<UserControl x:Class="Settings.OrdersSettings.OrdersSettingView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Orders.Settings"
              xmlns:prism="http://prismlibrary.com/"
              mc:Ignorable="d" 
              prism:ViewModelLocator.AutoWireViewModel="True"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="AliceBlue">
+    <Grid Background="Green">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>

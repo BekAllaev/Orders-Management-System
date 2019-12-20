@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Prism.Mvvm;
 
-namespace Settings.ViewModels
+namespace Settings.MainView
 {
     public class SettingsPanelViewModel : BindableBase
     {

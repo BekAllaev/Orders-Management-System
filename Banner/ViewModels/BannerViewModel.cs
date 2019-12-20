@@ -1,7 +1,7 @@
 ﻿using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Regions;
-using Settings.Views;
+using Settings.MainView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
