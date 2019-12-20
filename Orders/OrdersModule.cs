@@ -35,12 +35,11 @@ namespace Orders
             unityContainer.RegisterTypeForNavigation<CreateView>();
             unityContainer.RegisterTypeForNavigation<JournalView>();
 
-            regionManager.RegisterViewWithRegion("OrdersSettingsRegion", typeof(OrdersSettingView));
+            //regionManager.RegisterViewWithRegion("OrdersSettingsRegion", typeof(OrdersSettingView));
 
             string mainView = (string)userSettingsRepository.ReadSetting("OrdersMainView");
             Type targetType = Type.GetType("Orders.Views." + mainView.Replace(" ", ""));
             regionManager.RegisterViewWithRegion("OrdersManagmentRegion", targetType);
-
         }
     }
 }

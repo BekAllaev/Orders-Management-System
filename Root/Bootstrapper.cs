@@ -16,6 +16,7 @@ using Banner;
 using Prism.Regions;
 using Syncfusion.Windows.Tools.Controls;
 using Infrastructure;
+using Settings;
 
 namespace Root
 {
@@ -25,6 +26,7 @@ namespace Root
         {
             var moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
 
+            moduleCatalog.AddModule(typeof(SettingsModule));
             moduleCatalog.AddModule(typeof(DashboardModule));
             moduleCatalog.AddModule(typeof(BannerModule));
             moduleCatalog.AddModule(typeof(OrdersModule));

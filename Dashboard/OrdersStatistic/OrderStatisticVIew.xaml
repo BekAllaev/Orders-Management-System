@@ -28,7 +28,7 @@
                 Command="{x:Static infrastructure:GlobalCommands.NavigateToCompositeCommand}"
                 CommandParameter="OrdersMainView"
                 Margin="5"
-                FontSize="28"/>
+                FontSize="18"/>
         </StackPanel>
 
 
