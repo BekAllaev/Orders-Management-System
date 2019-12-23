@@ -19,7 +19,7 @@
         <ContentControl prismRegion:RegionManager.RegionName="ContentRegion"
                         Grid.Row="1"/>
 
-        <ContentControl prismRegion:RegionManager.RegionName="SettingRegion" 
+        <ContentControl prismRegion:RegionManager.RegionName="SettingRegion"
                         Grid.Row="1" 
                         Panel.ZIndex="1"/>
     </Grid>

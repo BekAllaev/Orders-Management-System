@@ -35,17 +35,21 @@ namespace Settings.MainView
 
             if (SettingsPanel.Width != 0)
             {
-                da.From = 300;
+                da.From = 400;
                 da.To = 0;
+                IsOpen = false;
             }
             else
             {
                 da.From = 0;
-                da.To = 300;
+                da.To = 400;
+                IsOpen = true;
             }
 
             da.Duration = TimeSpan.FromSeconds(0.3);
             SettingsPanel.BeginAnimation(Border.WidthProperty, da);
         }
+
+        public bool IsOpen { private set; get; }
     }
 }
