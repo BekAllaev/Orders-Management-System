@@ -11,7 +11,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Border x:Name="SettingsPanel" Width="0" HorizontalAlignment="Right" Padding="20">
         <Border.Effect>
-            <DropShadowEffect BlurRadius="20" Direction="180"/>
+            <DropShadowEffect BlurRadius="20" Direction="230"/>
         </Border.Effect>
         <Border.Background>
             <SolidColorBrush Color="Gray"/>
