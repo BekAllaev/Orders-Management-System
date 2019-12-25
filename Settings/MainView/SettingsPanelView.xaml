@@ -10,8 +10,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Border x:Name="SettingsPanel" Width="0" HorizontalAlignment="Right" Padding="20">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="20" Direction="180"/>
+        </Border.Effect>
         <Border.Background>
-            <SolidColorBrush Color="Gray" Opacity="0.5"/>
+            <SolidColorBrush Color="Gray"/>
         </Border.Background>
         <TabControl>
             <TabItem Header="General">
