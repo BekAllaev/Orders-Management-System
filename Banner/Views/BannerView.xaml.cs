@@ -24,10 +24,5 @@ namespace Banner.Views
         {
             InitializeComponent();
         }
-
-        public void ChangeSettingButtonIsChecked()
-        {
-            SettingsToggleButton.IsChecked = SettingsToggleButton.IsChecked == true ? false : true;
-        }
     }
 }

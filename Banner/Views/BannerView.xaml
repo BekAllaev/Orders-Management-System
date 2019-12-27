@@ -35,6 +35,7 @@
                           Margin="0 0 30 0"
                           Height="40"
                           Width="40"
+                          IsChecked="{Binding IsChecked,Mode=TwoWay}"
                           Command="{Binding OpenSettingPanelCommand}"
                           Style="{StaticResource MaterialDesignActionDarkToggleButton}">
                 <materialDesign:PackIcon Kind="Settings"/>

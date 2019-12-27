@@ -10,8 +10,13 @@ namespace Infrastructure
     public class GlobalCommands
     {
         /// <summary>
-        /// Command which execute navigation into module from which button Manage was pressed
+        /// Execute navigation into module from which button Manage was pressed
         /// </summary>
         public static CompositeCommand NavigateToCompositeCommand = new CompositeCommand();
+
+        /// <summary>
+        /// Change IsChecked state of toggle button
+        /// </summary>
+        public static CompositeCommand ChangeIsCheckedCompositeCommand = new CompositeCommand();
     }
 }

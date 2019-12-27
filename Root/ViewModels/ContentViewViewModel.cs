@@ -41,12 +41,11 @@ namespace Root.ViewModels
         private void NavigateToExecute(string targetView)
         {
             SettingsPanelView settingsPanelView = (SettingsPanelView)regionManager.Regions["SettingRegion"].ActiveViews.First();
-            BannerView bannerView = (BannerView)regionManager.Regions["BannerRegion"].ActiveViews.First();
 
             if (settingsPanelView.IsOpen)
             { 
                 settingsPanelView.StartAnimation();
-                bannerView.ChangeSettingButtonIsChecked();
+                GlobalCommands.ChangeIsCheckedCompositeCommand.Execute(null);
             }
 
             regionManager.RequestNavigate("ContentRegion", targetView);
