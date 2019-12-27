@@ -10,6 +10,7 @@ using Infrastructure;
 using Settings.MainView;
 using Infrastructure.SettingsRepository;
 using Prism.Commands;
+using Banner.Views;
 
 namespace Root.ViewModels
 {
@@ -40,8 +41,13 @@ namespace Root.ViewModels
         private void NavigateToExecute(string targetView)
         {
             SettingsPanelView settingsPanelView = (SettingsPanelView)regionManager.Regions["SettingRegion"].ActiveViews.First();
+            BannerView bannerView = (BannerView)regionManager.Regions["BannerRegion"].ActiveViews.First();
 
-            if (settingsPanelView.IsOpen) settingsPanelView.StartAnimation();
+            if (settingsPanelView.IsOpen)
+            { 
+                settingsPanelView.StartAnimation();
+                bannerView.ChangeSettingButtonIsChecked();
+            }
 
             regionManager.RequestNavigate("ContentRegion", targetView);
         }
