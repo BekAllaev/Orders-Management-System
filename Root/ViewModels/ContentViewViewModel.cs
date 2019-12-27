@@ -43,8 +43,8 @@ namespace Root.ViewModels
             SettingsPanelView settingsPanelView = (SettingsPanelView)regionManager.Regions["SettingRegion"].ActiveViews.First();
 
             if (settingsPanelView.IsOpen)
-            { 
-                settingsPanelView.StartAnimation();
+            {
+                GlobalCommands.OpenSettingsCompositeCommand.Execute(null);
                 GlobalCommands.ChangeIsCheckedCompositeCommand.Execute(null);
             }
 

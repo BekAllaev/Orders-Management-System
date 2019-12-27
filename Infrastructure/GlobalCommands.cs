@@ -18,5 +18,10 @@ namespace Infrastructure
         /// Change IsChecked state of toggle button
         /// </summary>
         public static CompositeCommand ChangeIsCheckedCompositeCommand = new CompositeCommand();
+
+        /// <summary>
+        /// Start animation of opening(closing) settings panel
+        /// </summary>
+        public static CompositeCommand OpenSettingsCompositeCommand = new CompositeCommand();
     }
 }

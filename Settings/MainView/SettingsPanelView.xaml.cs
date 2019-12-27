@@ -13,6 +13,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Infrastructure;
+using Prism.Commands;
 
 namespace Settings.MainView
 {
@@ -21,15 +23,21 @@ namespace Settings.MainView
     /// </summary>
     public partial class SettingsPanelView : UserControl
     {
+        DelegateCommand OpenSettingsCommand;
+
         public SettingsPanelView()
         {
             InitializeComponent();
+
+            OpenSettingsCommand = new DelegateCommand(OpenSettingsExecute);
+
+            GlobalCommands.OpenSettingsCompositeCommand.RegisterCommand(OpenSettingsCommand);
         }
 
         /// <summary>
         /// Start animation of opening(or closing) settings panel
         /// </summary>
-        public void StartAnimation()
+        private void OpenSettingsExecute()
         {
             DoubleAnimation da = new DoubleAnimation();
 

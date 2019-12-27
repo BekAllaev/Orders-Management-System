@@ -47,9 +47,7 @@ namespace Banner.ViewModels
 
         private void OpenSettingPanelCommandExecute()
         {
-            SettingsPanelView settingsPanelView = (SettingsPanelView)regionManager.Regions["SettingRegion"].ActiveViews.First();
-
-            settingsPanelView.StartAnimation();
+            GlobalCommands.OpenSettingsCompositeCommand.Execute(null);
         }
     }
 }
