@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Prism.Commands;
 using Prism.Mvvm;
 
-namespace Dashboard.MainView
+namespace Dashboard.Main
 {
     public class DashboardMainViewModel : BindableBase, IRegionMemberLifetime
     {

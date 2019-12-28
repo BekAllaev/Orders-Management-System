@@ -15,7 +15,7 @@ namespace Infrastructure
         public static CompositeCommand NavigateToCompositeCommand = new CompositeCommand();
 
         /// <summary>
-        /// Change IsChecked state of toggle button
+        /// Change IsChecked state of setting toggle button on Banner 
         /// </summary>
         public static CompositeCommand ChangeIsCheckedCompositeCommand = new CompositeCommand();
 

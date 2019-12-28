@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Dashboard.OrdersStatistic
+namespace Dashboard.Main
 {
     /// <summary>
-    /// Interaction logic for OrderStatistic.xaml
+    /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class OrderStatisticView : UserControl
+    public partial class DashboardMainView : UserControl
     {
-        public OrderStatisticView()
+        public DashboardMainView()
         {
             InitializeComponent();
         }

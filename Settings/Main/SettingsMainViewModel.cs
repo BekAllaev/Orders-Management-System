@@ -5,15 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Prism.Mvvm;
 
-namespace Settings.MainView
+namespace Settings.Main
 {
-    public class SettingsPanelViewModel : BindableBase
+    public class SettingsMainViewModel : BindableBase
     {
         #region Declarations
         #endregion
 
         #region Constructor
-        public SettingsPanelViewModel()
+        public SettingsMainViewModel()
         {
         }
         #endregion

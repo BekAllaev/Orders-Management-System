@@ -13,11 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Settings.OrdersSettings
+namespace Dashboard.Views
 {
-    public partial class OrdersSettingView : UserControl
+    /// <summary>
+    /// Interaction logic for OrderStatistic.xaml
+    /// </summary>
+    public partial class OrderStatisticView : UserControl
     {
-        public OrdersSettingView()
+        public OrderStatisticView()
         {
             InitializeComponent();
         }

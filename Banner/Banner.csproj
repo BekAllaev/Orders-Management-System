@@ -78,9 +78,9 @@
   <ItemGroup>
     <Compile Include="BannerModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\BannerViewModel.cs" />
-    <Compile Include="Views\BannerView.xaml.cs">
-      <DependentUpon>BannerView.xaml</DependentUpon>
+    <Compile Include="Main\BannerMainViewModel.cs" />
+    <Compile Include="Main\BannerMainView.xaml.cs">
+      <DependentUpon>BannerMainView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -88,7 +88,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\BannerView.xaml">
+    <Page Include="Main\BannerMainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

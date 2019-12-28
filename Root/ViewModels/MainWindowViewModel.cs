@@ -7,7 +7,7 @@ using Root.Views;
 using Microsoft.Practices.Unity;
 using Prism.Mvvm;
 using Prism.Regions;
-using Banner.Views;
+using Banner.Main;
 using Banner;
 using Infrastructure;
 using Prism.Commands;

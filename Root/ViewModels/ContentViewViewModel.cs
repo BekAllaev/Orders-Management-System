@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Infrastructure;
-using Settings.MainView;
+using Settings.Main;
 using Infrastructure.SettingsRepository;
 using Prism.Commands;
-using Banner.Views;
+using Banner.Main;
 
 namespace Root.ViewModels
 {
@@ -40,7 +40,7 @@ namespace Root.ViewModels
 
         private void NavigateToExecute(string targetView)
         {
-            SettingsPanelView settingsPanelView = (SettingsPanelView)regionManager.Regions["SettingRegion"].ActiveViews.First();
+            SettingsMainView settingsPanelView = (SettingsMainView)regionManager.Regions["SettingRegion"].ActiveViews.First();
 
             if (settingsPanelView.IsOpen)
             {

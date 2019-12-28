@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Banner.Views
+namespace Banner.Main
 {
     /// <summary>
     /// Interaction logic for BannerView.xaml
     /// </summary>
-    public partial class BannerView : UserControl
+    public partial class BannerMainView : UserControl
     {
-        public BannerView()
+        public BannerMainView()
         {
             InitializeComponent();
         }

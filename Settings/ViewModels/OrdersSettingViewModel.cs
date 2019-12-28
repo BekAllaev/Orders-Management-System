@@ -10,19 +10,17 @@ using System.Threading.Tasks;
 using Prism.Mvvm;
 using Prism.Commands;
 
-namespace Settings.OrdersSettings
+namespace Settings.ViewModels
 {
     public class OrdersSettingViewModel : BindableBase
     {
         #region Declaration
-        IRegionManager regionManager;
         IUserSettingsRepository userSettingsRepository;
         #endregion
 
         #region Constructor
         public OrdersSettingViewModel(IRegionManager regionManager, IUserSettingsRepository userSettingsRepository)
         {
-            this.regionManager = regionManager;
             this.userSettingsRepository = userSettingsRepository;
 
             ChangeDefaultViewCommand = new DelegateCommand<string>(ChangeDefaultViewExecute);

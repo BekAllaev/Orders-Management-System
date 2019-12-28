@@ -2,8 +2,8 @@
 using Prism.Modularity;
 using Prism.Regions;
 using Prism.Unity;
-using Dashboard.MainView;
-using Dashboard.OrdersStatistic;
+using Dashboard.Main;
+using Dashboard.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;

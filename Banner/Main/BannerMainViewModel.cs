@@ -1,7 +1,7 @@
 ﻿using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Regions;
-using Settings.MainView;
+using Settings.Main;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +12,14 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Prism.Mvvm;
 
-namespace Banner.ViewModels
+namespace Banner.Main
 {
-    public class BannerViewModel : BindableBase
+    public class BannerMainViewModel : BindableBase
     {
         IRegionManager regionManager;
         bool _isChecked;
 
-        public BannerViewModel(IRegionManager regionManager)
+        public BannerMainViewModel(IRegionManager regionManager)
         {
             this.regionManager = regionManager;
 

@@ -13,14 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Dashboard.MainView
+namespace Settings.Views
 {
-    /// <summary>
-    /// Interaction logic for MainView.xaml
-    /// </summary>
-    public partial class DashboardMainView : UserControl
+    public partial class OrdersSettingView : UserControl
     {
-        public DashboardMainView()
+        public OrdersSettingView()
         {
             InitializeComponent();
         }

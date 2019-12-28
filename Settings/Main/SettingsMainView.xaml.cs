@@ -16,16 +16,16 @@ using System.Windows.Shapes;
 using Infrastructure;
 using Prism.Commands;
 
-namespace Settings.MainView
+namespace Settings.Main
 {
     /// <summary>
     /// Interaction logic for SettingsPanelView.xaml
     /// </summary>
-    public partial class SettingsPanelView : UserControl
+    public partial class SettingsMainView : UserControl
     {
         DelegateCommand OpenSettingsCommand;
 
-        public SettingsPanelView()
+        public SettingsMainView()
         {
             InitializeComponent();
 
