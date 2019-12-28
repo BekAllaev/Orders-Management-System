@@ -29,7 +29,7 @@ namespace Settings
 
             regionManager.RegisterViewWithRegion("OrdersSettingsRegion", typeof(OrdersSettingView));
 
-            regionManager.RequestNavigate("SettingRegion", "SettingsPanelView");
+            regionManager.RequestNavigate("SettingRegion", "SettingsMainView");
         }
     }
 }

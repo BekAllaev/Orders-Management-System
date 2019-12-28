@@ -26,7 +26,7 @@ namespace Banner
         {
             unityContainer.RegisterTypeForNavigation<BannerMainView>();
 
-            regionManager.RequestNavigate("BannerRegion", "BannerView");
+            regionManager.RequestNavigate("BannerRegion", "BannerMainView");
         }
     }
 }
