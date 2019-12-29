@@ -16,9 +16,12 @@ namespace Banner.Main
 {
     public class BannerMainViewModel : BindableBase
     {
+        #region Declarations
         IRegionManager regionManager;
         bool _isChecked;
+        #endregion
 
+        #region Constructors
         public BannerMainViewModel(IRegionManager regionManager)
         {
             this.regionManager = regionManager;
@@ -29,12 +32,9 @@ namespace Banner.Main
 
             GlobalCommands.ChangeIsCheckedCompositeCommand.RegisterCommand(ChangeIsCheckedCommand);
         }
+        #endregion
 
-        private void ChangeIsCheckedExecute()
-        {
-            IsChecked = IsChecked == true ? false : true;
-        }
-
+        #region Properties
         public DelegateCommand OpenSettingPanelCommand { get; }
 
         public DelegateCommand ChangeIsCheckedCommand { get; }
@@ -44,10 +44,18 @@ namespace Banner.Main
             set { SetProperty(ref _isChecked, value); } 
             get { return _isChecked; } 
         }
+        #endregion
+
+        #region Utilities 
+        private void ChangeIsCheckedExecute()
+        {
+            IsChecked = IsChecked == true ? false : true;
+        }
 
         private void OpenSettingPanelCommandExecute()
         {
             GlobalCommands.OpenSettingsCompositeCommand.Execute(null);
         }
+        #endregion
     }
 }

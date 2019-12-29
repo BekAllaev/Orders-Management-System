@@ -16,18 +16,24 @@ namespace Root.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
+        #region Declarations
         IRegionManager regionManager;
         IUnityContainer unityContainer;
+        #endregion
 
+        #region Constructors
         public MainWindowViewModel(IUnityContainer unityContainer,IRegionManager regionManager)
         {
             this.unityContainer = unityContainer;
             this.regionManager = regionManager;
         }
+        #endregion
 
+        #region Utilities
         public void ConfigureModuleCatalog()
         {
             regionManager.Regions["GlobalRegion"].Add(unityContainer.Resolve<ContentView>());
         }
+        #endregion
     }
 }
