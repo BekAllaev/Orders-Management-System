@@ -9,7 +9,7 @@ namespace DataAccessLocal
     public partial class NorthwindContext : DbContext
     {
         public NorthwindContext()
-            : base("name=Northwind")
+            : base("name=NorthwindContext")
         {
         }
 
