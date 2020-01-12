@@ -42,7 +42,7 @@
                 </Grid.RowDefinitions>
 
                 <Border>
-                    <TextBlock Text="Employees region" FontSize="15"/>
+                    <ContentControl prism:RegionManager.RegionName="EmployeesRegion" Margin="5"/>
                 </Border>
 
                 <Border Grid.Row="1">

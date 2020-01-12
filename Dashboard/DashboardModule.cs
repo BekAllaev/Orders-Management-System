@@ -27,9 +27,11 @@ namespace Dashboard
         {
             unityContainer.RegisterTypeForNavigation<DashboardMainView>();
             unityContainer.RegisterTypeForNavigation<OrderStatisticView>();
+            unityContainer.RegisterTypeForNavigation<EmployeeStatisticView>();
 
             regionManager.RequestNavigate("ContentRegion", "DashboardMainView");
             regionManager.RequestNavigate("OrdersRegion", "OrderStatisticView");
+            regionManager.RequestNavigate("EmployeesRegion", "EmployeeStatisticView");
         }
     }
 }

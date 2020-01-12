@@ -19,7 +19,7 @@ namespace Root
 
         public App()
         {
-            SyncfusionLicenseProvider.RegisterLicense("MTc3Mzk2QDMxMzcyZTMzMmUzME5yNzlac0gxZ01MRGFoOHBPYVlua0JnRXJIOWJ1aFZBbzUvanJlVjlyNUE9");
+            SyncfusionLicenseProvider.RegisterLicense("MTk1NDgyQDMxMzcyZTM0MmUzMEVRRDhDWENqQ2t6aGM0YUZPbkJkNHk3YmFndWpxbWlyZ2RGSnBtRkd0Q1k9");
         }
 
         protected override void OnStartup(StartupEventArgs e)
