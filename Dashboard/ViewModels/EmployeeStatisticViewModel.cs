@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 using ReactiveUI;
 using Prism.Regions;
 using DataAccessLocal;
-using DataAccessLocal.Models;
 using System.Collections.ObjectModel;
 using DynamicData;
+using DynamicData.Kernel;
+using System.Data.Entity;
+using System.Reactive.Linq;
+using DynamicData.Binding;
 
 namespace Dashboard.ViewModels
 {
@@ -17,10 +20,8 @@ namespace Dashboard.ViewModels
         #region Declarations
         NorthwindContext northwindContext;
 
-        ReadOnlyObservableCollection<Employee> _employees;
+        ReadOnlyObservableCollection<EmployeeSales> _employees;
 
-        SourceCache<Employee,int> employeesList;
-        SourceCache<Order, int> ordersList;
         SourceList<Order_Detail> orderDetailsList;
         #endregion
 
@@ -29,11 +30,14 @@ namespace Dashboard.ViewModels
         {
             this.northwindContext = northwindContext;
 
-            employeesList = new SourceCache<Employee, int>(p => p.EmployeeID);
-            ordersList = new SourceCache<Order, int>(p => p.OrderID);
             orderDetailsList = new SourceList<Order_Detail>();
 
-            employeesList.Connect()
+            orderDetailsList.Connect()
+                .Transform(orderDetail => new { LastName = orderDetail.Order.Employee.LastName, Sales = orderDetail.UnitPrice * orderDetail.Quantity })
+                .GroupOn(orderDetail => orderDetail.LastName)
+                .Transform(groupOfOrderDetail => new EmployeeSales() { LastName = groupOfOrderDetail.GroupKey, Sales = groupOfOrderDetail.List.Items.Sum(a => a.Sales) })
+                .ObserveOnDispatcher()
+                .Sort(SortExpressionComparer<EmployeeSales>.Ascending(a => a.Sales))
                 .Bind(out _employees)
                 .Subscribe();
         }
@@ -44,24 +48,32 @@ namespace Dashboard.ViewModels
         #endregion
 
         #region INavigationAware implementation
-        public bool IsNavigationTarget(NavigationContext navigationContext)
-        {
-            return true;
-        }
+        public bool IsNavigationTarget(NavigationContext navigationContext) => true;
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            //throw new NotImplementedException();
+
         }
 
-        public void OnNavigatedTo(NavigationContext navigationContext)
+        public async void OnNavigatedTo(NavigationContext navigationContext)
         {
-            //throw new NotImplementedException();
+            if (orderDetailsList.Count == 0) await Task.Run(() => { orderDetailsList.AddRange(northwindContext.Order_Details); });
         }
         #endregion
 
         #region Properties
-        public ReadOnlyObservableCollection<Employee> Employees => _employees;
+        public ReadOnlyObservableCollection<EmployeeSales> Employees => _employees;
         #endregion
     }
+
+    #region Screen object
+    /// <summary>
+    /// Sales made by employee
+    /// </summary>
+    public class EmployeeSales
+    {
+        public string LastName { set; get; }
+        public decimal Sales { set; get; }
+    }
+    #endregion
 }

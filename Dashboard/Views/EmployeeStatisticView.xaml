@@ -17,7 +17,7 @@
             <syncfusion:SfChart.SecondaryAxis>
                 <syncfusion:NumericalAxis/>
             </syncfusion:SfChart.SecondaryAxis>
-            <syncfusion:ColumnSeries ItemsSource="{Binding Employees,IsAsync=True}" XBindingPath="LastName" YBindingPath=""/>
+            <syncfusion:ColumnSeries ItemsSource="{Binding Employees,IsAsync=True}" Palette="Metro" XBindingPath="LastName" YBindingPath="Sales"/>
         </syncfusion:SfChart>
     </Grid>
 </UserControl>

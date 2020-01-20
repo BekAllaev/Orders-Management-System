@@ -1,4 +1,4 @@
-namespace DataAccessLocal.Models
+namespace DataAccessLocal
 {
     using System;
     using System.Collections.Generic;
