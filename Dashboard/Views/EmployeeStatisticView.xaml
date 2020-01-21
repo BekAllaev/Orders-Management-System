@@ -6,18 +6,35 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:local="clr-namespace:Dashboard.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <syncfusion:SfChart Header="Sales by employees">
+
+    <GroupBox Background="White">
+        <GroupBox.HeaderTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <materialDesign:PackIcon Kind="DriversLicense" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 10 0"/>
+
+                    <TextBlock Text="EMPLOYEES" FontSize="20" Grid.Column="1"/>
+                </Grid>
+            </DataTemplate>
+        </GroupBox.HeaderTemplate>
+        
+        <syncfusion:SfChart Header="Sales by employees" Margin="5" FontSize="15">
             <syncfusion:SfChart.PrimaryAxis>
-                <syncfusion:CategoryAxis/>
+                <syncfusion:CategoryAxis FontSize="15"/>
             </syncfusion:SfChart.PrimaryAxis>
             <syncfusion:SfChart.SecondaryAxis>
-                <syncfusion:NumericalAxis/>
+                <syncfusion:NumericalAxis FontSize="15"/>
             </syncfusion:SfChart.SecondaryAxis>
-            <syncfusion:ColumnSeries ItemsSource="{Binding Employees,IsAsync=True}" Palette="Metro" XBindingPath="LastName" YBindingPath="Sales"/>
+            <syncfusion:ColumnSeries ItemsSource="{Binding Employees,IsAsync=True}" Palette="Elite" XBindingPath="LastName" YBindingPath="Sales"/>
         </syncfusion:SfChart>
-    </Grid>
+    </GroupBox>
 </UserControl>

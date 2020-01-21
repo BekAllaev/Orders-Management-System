@@ -8,7 +8,7 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Background="Teal">
         <Grid.Resources>
             <Style TargetType="Border">
                 <Setter Property="Margin" Value="5"/>
@@ -34,21 +34,17 @@
             <TextBlock Text="Customers region" FontSize="20"/>
         </Border>
 
-        <Border Grid.Column="2" Grid.Row="1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+        <Grid Grid.Column="2" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-                <Border>
-                    <ContentControl prism:RegionManager.RegionName="EmployeesRegion" Margin="5"/>
-                </Border>
+            <ContentControl prism:RegionManager.RegionName="EmployeesRegion" Margin="5"/>
 
-                <Border Grid.Row="1">
-                    <TextBlock Text="Products region" FontSize="15"/>
-                </Border>
-            </Grid>
-        </Border>
+            <Border Grid.Row="1">
+                <TextBlock Text="Products region" FontSize="15"/>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>
