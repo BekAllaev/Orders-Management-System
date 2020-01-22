@@ -19,6 +19,7 @@ namespace Dashboard.ViewModels
         #region Declaration
         NorthwindContext northwindContext;
 
+        SourceList<Product> productsList;
         #endregion
 
         #region Constructor
@@ -50,4 +51,16 @@ namespace Dashboard.ViewModels
         }
         #endregion
     }
+
+    #region Screen object
+    /// <summary>
+    /// Name of category and amount of products in sale representative this category
+    /// </summary>
+    public class CateogryInfo
+    {
+        public string CategoryName { set; get; }
+
+        public int NumberOfProduct { set; get; }
+    }
+    #endregion
 }
