@@ -26,15 +26,11 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Border BorderBrush="Black" Grid.Row="1">
-            <ContentControl prism:RegionManager.RegionName="OrdersRegion"/>
-        </Border>
+        <ContentControl prism:RegionManager.RegionName="OrdersRegion" Margin="5"/>
 
-        <Border Grid.Column="1" Grid.Row="1">
-            <TextBlock Text="Customers region" FontSize="20"/>
-        </Border>
+        <ContentControl prism:RegionManager.RegionName="CustomersRegion" Grid.Column="1" Margin="5"/>
 
-        <Grid Grid.Column="2" Grid.Row="1">
+        <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
