@@ -20,6 +20,8 @@ namespace Dashboard.ViewModels
         NorthwindContext northwindContext;
 
         SourceList<Product> productsList;
+
+        ReadOnlyObservableCollection<CateogrySummary> _categorySummaries;
         #endregion
 
         #region Constructor
@@ -27,6 +29,14 @@ namespace Dashboard.ViewModels
         {
             this.northwindContext = northwindContext;
 
+            productsList = new SourceList<Product>();
+
+            productsList.Connect()
+                .GroupOn(product => product.Category.CategoryName)
+                .Transform(groupOfProducts => new CateogrySummary() { CategoryName = groupOfProducts.GroupKey, NumberOfProducts = groupOfProducts.List.Count })
+                .ObserveOnDispatcher()
+                .Bind(out _categorySummaries)
+                .Subscribe();
         }
         #endregion
 
@@ -35,32 +45,32 @@ namespace Dashboard.ViewModels
         #endregion
 
         #region Implementation of INavigationAware
-        public bool IsNavigationTarget(NavigationContext navigationContext)
-        {
-            throw new NotImplementedException();
-        }
+        public bool IsNavigationTarget(NavigationContext navigationContext) { return true; }
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            throw new NotImplementedException();
         }
 
-        public void OnNavigatedTo(NavigationContext navigationContext)
+        public async void OnNavigatedTo(NavigationContext navigationContext)
         {
-            throw new NotImplementedException();
+            if (productsList.Count == 0) await Task.Run(() => productsList.AddRange(northwindContext.Products));
         }
+        #endregion
+
+        #region Properties
+        public ReadOnlyObservableCollection<CateogrySummary> CateogrySummaries => _categorySummaries;
         #endregion
     }
 
     #region Screen object
     /// <summary>
-    /// Name of category and amount of products in sale representative this category
+    /// Category name and number of products representative this category
     /// </summary>
-    public class CateogryInfo
+    public class CateogrySummary
     {
         public string CategoryName { set; get; }
 
-        public int NumberOfProduct { set; get; }
+        public int NumberOfProducts { set; get; }
     }
     #endregion
 }

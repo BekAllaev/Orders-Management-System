@@ -27,10 +27,32 @@
             </DataTemplate>
         </GroupBox.HeaderTemplate>
 
-        <syncfusion:SfChart Margin="5">
-            <syncfusion:PieSeries>
-                
+        <syncfusion:SfChart Margin="5" Header="Products by categories" FontSize="15" AreaBorderBrush="White">
+            <syncfusion:SfChart.Resources>
+                <ItemsPanelTemplate x:Key="itemsPanelTemplate">
+                    <WrapPanel ItemWidth="130" Margin="0"/>
+                </ItemsPanelTemplate>
+            </syncfusion:SfChart.Resources>
+            <syncfusion:SfChart.PrimaryAxis>
+                <syncfusion:CategoryAxis/>
+            </syncfusion:SfChart.PrimaryAxis>
+            <syncfusion:SfChart.SecondaryAxis>
+                <syncfusion:NumericalAxis/>
+            </syncfusion:SfChart.SecondaryAxis>
+            <syncfusion:PieSeries ItemsSource="{Binding CateogrySummaries,IsAsync=True}" EnableSmartLabels="True" Palette="Elite" YBindingPath="NumberOfProducts" XBindingPath="CategoryName">
+                <syncfusion:PieSeries.AdornmentsInfo>
+                    <syncfusion:ChartAdornmentInfo ShowLabel="True" UseSeriesPalette="True" ShowConnectorLine="True"/>
+                </syncfusion:PieSeries.AdornmentsInfo>
             </syncfusion:PieSeries>
+
+            <syncfusion:SfChart.Legend>
+                <syncfusion:ChartLegend DockPosition="Bottom"
+                                        ItemsPanel="{StaticResource itemsPanelTemplate}"
+                                        ToggleSeriesVisibility="True"
+                                        CheckBoxVisibility="Visible"
+                                        IconVisibility="Visible">
+                </syncfusion:ChartLegend>
+            </syncfusion:SfChart.Legend>
         </syncfusion:SfChart>
     </GroupBox>
 </UserControl>
