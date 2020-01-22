@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using ReactiveUI;
+using System.Reactive.Linq;
 using Prism.Regions;
 using DataAccessLocal;
 using System.Collections.ObjectModel;
 using DynamicData;
-using DynamicData.Kernel;
-using System.Data.Entity;
-using System.Reactive.Linq;
+using ReactiveUI;
 using DynamicData.Binding;
 
 namespace Dashboard.ViewModels
