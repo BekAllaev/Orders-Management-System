@@ -48,7 +48,6 @@
             <syncfusion:SfChart.Legend>
                 <syncfusion:ChartLegend DockPosition="Bottom"
                                         ItemsPanel="{StaticResource itemsPanelTemplate}"
-                                        ToggleSeriesVisibility="True"
                                         CheckBoxVisibility="Visible"
                                         IconVisibility="Visible">
                 </syncfusion:ChartLegend>
