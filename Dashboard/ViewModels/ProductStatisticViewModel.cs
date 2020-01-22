@@ -14,8 +14,24 @@ using DynamicData.Binding;
 
 namespace Dashboard.ViewModels
 {
-    public class ProductStatisticViewModel : ReactiveObject, INavigationAware
+    public class ProductStatisticViewModel : ReactiveObject, INavigationAware, IRegionMemberLifetime
     {
+        #region Declaration
+        NorthwindContext northwindContext;
+
+        #endregion
+
+        #region Constructor
+        public ProductStatisticViewModel(NorthwindContext northwindContext)
+        {
+            this.northwindContext = northwindContext;
+
+        }
+        #endregion
+
+        #region Implementation of IRegionMemberLifeTime
+        public bool KeepAlive => true;
+        #endregion
 
         #region Implementation of INavigationAware
         public bool IsNavigationTarget(NavigationContext navigationContext)

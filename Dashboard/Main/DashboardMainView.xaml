@@ -42,9 +42,7 @@
 
             <ContentControl prism:RegionManager.RegionName="EmployeesRegion" Margin="5"/>
 
-            <Border Grid.Row="1">
-                <TextBlock Text="Products region" FontSize="15"/>
-            </Border>
+            <ContentControl prism:RegionManager.RegionName="ProductsRegion" Grid.Row="1" Margin="5"/>
         </Grid>
     </Grid>
 </UserControl>
