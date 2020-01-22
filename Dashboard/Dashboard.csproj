@@ -134,9 +134,13 @@
       <DependentUpon>DashboardMainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Main\DashboardMainViewModel.cs" />
+    <Compile Include="ViewModels\CustomerStatisticViewModel.cs" />
     <Compile Include="ViewModels\EmployeeStatisticViewModel.cs" />
     <Compile Include="ViewModels\OrderStatisticViewModel.cs" />
     <Compile Include="ViewModels\ProductStatisticViewModel.cs" />
+    <Compile Include="Views\CustomerStatisticView.xaml.cs">
+      <DependentUpon>CustomerStatisticView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EmployeeStatisticView.xaml.cs">
       <DependentUpon>EmployeeStatisticView.xaml</DependentUpon>
     </Compile>
@@ -150,6 +154,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Main\DashboardMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomerStatisticView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
