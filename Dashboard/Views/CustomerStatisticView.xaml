@@ -23,5 +23,6 @@
             </DataTemplate>
         </GroupBox.HeaderTemplate>
 
+        
     </GroupBox>
 </UserControl>

@@ -17,13 +17,17 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Button Content="Back to home" 
+            <Button Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+                    Margin="10"
                     Command="{x:Static infrastructure:GlobalCommands.NavigateToCompositeCommand}"
-                    CommandParameter="DashboardMainView"
-                    FontSize="18" 
-                    Margin="10"/>
+                    CommandParameter="DashboardMainView">
+                <materialDesign:PackIcon
+                    Kind="Home"
+                    Height="24"
+                    Width="24"/>
+            </Button>
             <TextBlock Grid.Column="1"
-                   Text="Orders management system"
+                   Text="Orders Management System"
                    FontSize="25" 
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"/>
