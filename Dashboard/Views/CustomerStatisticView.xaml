@@ -4,9 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:prism="http://prismlibrary.com/"
              xmlns:local="clr-namespace:Dashboard.Views"
+             prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <GroupBox Background="White">
         <GroupBox.HeaderTemplate>
             <DataTemplate>
@@ -23,6 +27,52 @@
             </DataTemplate>
         </GroupBox.HeaderTemplate>
 
-        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Border CornerRadius="3" BorderThickness="0.5">
+                <syncfusion:SfChart Margin="5" Header="Customers by countries" FontSize="15" AreaBorderBrush="White">
+                    <syncfusion:SfChart.Resources>
+                        <ItemsPanelTemplate x:Key="itemsPanelTemplate">
+                            <WrapPanel ItemWidth="120" Margin="0"/>
+                        </ItemsPanelTemplate>
+                    </syncfusion:SfChart.Resources>
+                    <syncfusion:SfChart.PrimaryAxis>
+                        <syncfusion:CategoryAxis/>
+                    </syncfusion:SfChart.PrimaryAxis>
+                    <syncfusion:SfChart.SecondaryAxis>
+                        <syncfusion:NumericalAxis/>
+                    </syncfusion:SfChart.SecondaryAxis>
+                    <syncfusion:PieSeries ItemsSource="{Binding Customers}" EnableAnimation="True" EnableSmartLabels="True" Palette="Elite" YBindingPath="NumberOfCustomers" XBindingPath="CountryName">
+                        <syncfusion:PieSeries.AdornmentsInfo>
+                            <syncfusion:ChartAdornmentInfo ShowLabel="True" UseSeriesPalette="True" ShowConnectorLine="True"/>
+                        </syncfusion:PieSeries.AdornmentsInfo>
+                    </syncfusion:PieSeries>
+
+                    <syncfusion:SfChart.Legend>
+                        <syncfusion:ChartLegend DockPosition="Bottom"
+                                        ItemsPanel="{StaticResource itemsPanelTemplate}"
+                                        CheckBoxVisibility="Visible"
+                                        IconVisibility="Visible">
+                        </syncfusion:ChartLegend>
+                    </syncfusion:SfChart.Legend>
+                </syncfusion:SfChart>
+            </Border>
+
+            <Border CornerRadius="3" BorderThickness="0.5" Grid.Row="1">
+                <syncfusion:SfChart Header="Purchases by customers(Top 10)" Margin="5" FontSize="15" >
+                    <syncfusion:SfChart.PrimaryAxis>
+                        <syncfusion:CategoryAxis FontSize="15"/>
+                    </syncfusion:SfChart.PrimaryAxis>
+                    <syncfusion:SfChart.SecondaryAxis>
+                        <syncfusion:NumericalAxis FontSize="15"/>
+                    </syncfusion:SfChart.SecondaryAxis>
+                    <syncfusion:ColumnSeries EnableAnimation="True" ItemsSource="{Binding Purchases}" Palette="Elite" XBindingPath="CompanyName" YBindingPath="Purchases"/>
+                </syncfusion:SfChart>
+            </Border>
+        </Grid>
     </GroupBox>
 </UserControl>
