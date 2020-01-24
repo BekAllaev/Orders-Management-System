@@ -33,7 +33,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <Border CornerRadius="3" BorderThickness="0.5">
+            <Border CornerRadius="3" BorderThickness="0.3">
                 <syncfusion:SfChart Margin="5" Header="Customers by countries" FontSize="15" AreaBorderBrush="White">
                     <syncfusion:SfChart.Resources>
                         <ItemsPanelTemplate x:Key="itemsPanelTemplate">
@@ -62,7 +62,8 @@
                 </syncfusion:SfChart>
             </Border>
 
-            <Border CornerRadius="3" BorderThickness="0.5" Grid.Row="1">
+
+            <Border CornerRadius="3" BorderThickness="0.3" Grid.Row="1">
                 <syncfusion:SfChart Header="Purchases by customers(Top 10)" Margin="5" FontSize="15" >
                     <syncfusion:SfChart.PrimaryAxis>
                         <syncfusion:CategoryAxis FontSize="15"/>
