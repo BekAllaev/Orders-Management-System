@@ -44,7 +44,7 @@ namespace Dashboard.ViewModels
                 .Transform(orderDetails => new { CompanyName = orderDetails.Order.Customer.CompanyName, Purchase = orderDetails.UnitPrice * orderDetails.Quantity })
                 .GroupOn(orderByCustomer => orderByCustomer.CompanyName)
                 .Transform(groupOfOrders => new PurchasesByCustomers() { CompanyName = groupOfOrders.GroupKey, Purchases = groupOfOrders.List.Items.Sum(a => a.Purchase) })
-                .Sort(SortExpressionComparer<PurchasesByCustomers>.Descending(a=>a.Purchases))
+                .Sort(SortExpressionComparer<PurchasesByCustomers>.Descending(a => a.Purchases))
                 .Top(10)
                 .ObserveOnDispatcher()
                 .Bind(out _purchases)
@@ -85,8 +85,8 @@ namespace Dashboard.ViewModels
     /// <summary>
     /// Country and number of customers representative this country
     /// </summary>
-    public class CustomersByCountry 
-    { 
+    public class CustomersByCountry
+    {
         public string CountryName { set; get; }
 
         public int NumberOfCustomers { set; get; }
@@ -95,8 +95,8 @@ namespace Dashboard.ViewModels
     /// <summary>
     /// Customer and purchases made by customer
     /// </summary>
-    public class PurchasesByCustomers 
-    { 
+    public class PurchasesByCustomers
+    {
         public string CompanyName { set; get; }
 
         public decimal Purchases { set; get; }
