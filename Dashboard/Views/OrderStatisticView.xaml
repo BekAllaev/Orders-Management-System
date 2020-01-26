@@ -173,7 +173,7 @@
             </Grid>
 
             <Border Grid.Row="1" BorderThickness="0.3" CornerRadius="5">
-                <syncfusion:SfChart Header="Sales by employees" Margin="12" FontSize="15" Grid.Row="1">
+                <syncfusion:SfChart Header="Sales by countries" Margin="12" FontSize="15" Grid.Row="1">
                     <syncfusion:SfChart.PrimaryAxis>
                         <syncfusion:CategoryAxis FontSize="12"/>
                     </syncfusion:SfChart.PrimaryAxis>

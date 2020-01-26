@@ -21,7 +21,7 @@ namespace Dashboard.ViewModels
 
         SourceList<Product> productsList;
 
-        ReadOnlyObservableCollection<CateogrySummary> _categorySummaries;
+        ReadOnlyObservableCollection<ProductsByCateogries> _categorySummaries;
         #endregion
 
         #region Constructor
@@ -33,7 +33,7 @@ namespace Dashboard.ViewModels
 
             productsList.Connect()
                 .GroupOn(product => product.Category.CategoryName)
-                .Transform(groupOfProducts => new CateogrySummary() { CategoryName = groupOfProducts.GroupKey, NumberOfProducts = groupOfProducts.List.Count })
+                .Transform(groupOfProducts => new ProductsByCateogries() { CategoryName = groupOfProducts.GroupKey, NumberOfProducts = groupOfProducts.List.Count })
                 .ObserveOnDispatcher()
                 .Bind(out _categorySummaries)
                 .Subscribe();
@@ -58,7 +58,7 @@ namespace Dashboard.ViewModels
         #endregion
 
         #region Properties
-        public ReadOnlyObservableCollection<CateogrySummary> CateogrySummaries => _categorySummaries;
+        public ReadOnlyObservableCollection<ProductsByCateogries> CateogrySummaries => _categorySummaries;
         #endregion
     }
 
@@ -66,7 +66,7 @@ namespace Dashboard.ViewModels
     /// <summary>
     /// Category name and number of products representative this category
     /// </summary>
-    public class CateogrySummary
+    public class ProductsByCateogries
     {
         public string CategoryName { set; get; }
 

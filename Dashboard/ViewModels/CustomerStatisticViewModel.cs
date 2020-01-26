@@ -93,7 +93,7 @@ namespace Dashboard.ViewModels
     }
 
     /// <summary>
-    /// Customer and purchases made by customer
+    /// Company and purchases made by company
     /// </summary>
     public class PurchasesByCustomers
     {
