@@ -113,31 +113,60 @@
                 <Border Grid.Column="2" BorderThickness="0.3" CornerRadius="3">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock" x:Key="header">
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="FontSize" Value="15"/>
+                                <Setter Property="Margin" Value="10 0 0 0"/>
+                            </Style>
+                            <Style TargetType="TextBlock" x:Key="value">
+                                <Setter Property="HorizontalAlignment" Value="Right"/>
+                                <Setter Property="FontSize" Value="22"/>
+                                <Setter Property="Margin" Value="0,0,0,0"/>
+                                <Setter Property="Foreground" Value="{DynamicResource SecondaryAccentBrush}"/>
+                            </Style>
+                            <Style TargetType="Border" x:Key="inner">
+                                <Setter Property="BorderBrush" Value="DarkGray"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                <Setter Property="Margin" Value="10,0,10,10"/>
+                            </Style>
+                        </Grid.Resources>
 
-                        <TextBlock Text="Summary" Margin="0 0 0 10"/>
+                        <TextBlock Text="Summary" Margin="0 12 0 40" FontSize="15"/>
 
-                        <TextBlock Text="Overall sales sum" Grid.Row="1"/>
-                        <TextBlock Text="{Binding OverallSalesSum}" Grid.Row="2"/>
-                        <TextBlock Text="Overall orders quantity" Grid.Row="3"/>
-                        <TextBlock Text="{Binding OrdersQuantity}" Grid.Row="4"/>
-                        <TextBlock Text="Average" Grid.Row="5"/>
-                        <TextBlock Text="{Binding AverageCheck}" Grid.Row="6"/>
-                        <TextBlock Text="Max check" Grid.Row="7"/>
-                        <TextBlock Text="{Binding MaxCheck}" Grid.Row="8"/>
-                        <TextBlock Text="Min check" Grid.Row="9"/>
-                        <TextBlock Text="{Binding MinCheck}" Grid.Row="10"/>
+                        <TextBlock Text="Overall sales sum" Grid.Row="1" Style="{StaticResource header}"/>
+                        <Border Grid.Row="2" Style="{StaticResource inner}">
+                            <TextBlock Text="{Binding OverallSalesSum}" Style="{StaticResource value}"/>
+                        </Border>
+                        <TextBlock Text="Overall orders quantity" Grid.Row="3" Style="{StaticResource header}"/>
+                        <Border Grid.Row="4" Style="{StaticResource inner}">
+                            <TextBlock Text="{Binding OrdersQuantity}" Style="{StaticResource value}"/>
+                        </Border>
+                        <TextBlock Text="Average" Grid.Row="5" Style="{StaticResource header}"/>
+                        <Border Grid.Row="6" Style="{StaticResource inner}">
+                            <TextBlock Text="{Binding AverageCheck}" Style="{StaticResource value}"/>
+                        </Border>
+                        <TextBlock Text="Max check" Grid.Row="7" Style="{StaticResource header}"/>
+                        <Border Grid.Row="8" Style="{StaticResource inner}">
+                            <TextBlock Text="{Binding MaxCheck}" Style="{StaticResource value}"/>
+                        </Border>
+                        <TextBlock Text="Min check" Grid.Row="9" Style="{StaticResource header}"/>
+                        <Border Grid.Row="10" Style="{StaticResource inner}">
+                            <TextBlock Text="{Binding MinCheck}" Style="{StaticResource value}"/>
+                        </Border>
                     </Grid>
                 </Border>
 
