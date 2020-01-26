@@ -48,8 +48,6 @@ namespace Dashboard.ViewModels
 
             var connectableOrderDetails = orderDetailsList.Connect().Publish(); //Because of we have several subscribers we use Publish operator 
 
-            connectableOrderDetails.Connect();
-
             connectableOrderDetails.Transform(orderDetail => new { Country = orderDetail.Order.Customer.Country, Sale = orderDetail.UnitPrice * orderDetail.Quantity }).
                 GroupOn(orderDetail => orderDetail.Country).
                 Transform(groupOfOrderDetails => new SalesByCountry() { Country = groupOfOrderDetails.GroupKey, Sales = groupOfOrderDetails.List.Items.Sum(a => a.Sale) }).
@@ -75,8 +73,6 @@ namespace Dashboard.ViewModels
                 Transform(groupOfOrderDetails => new { OrderID = groupOfOrderDetails.GroupKey, SaleByOrder = groupOfOrderDetails.List.Items.Sum(a => a.Sale) }).
                 Publish();
 
-            orderDetails.Connect();
-
             orderDetails.Select(a => a.Last().Range.Min(b => b.SaleByOrder).ToString(format)).
                 ToProperty(this, vm => vm.MinCheck, out _minCheck);
 
@@ -89,6 +85,8 @@ namespace Dashboard.ViewModels
             orderDetails.Select(a => a.Last().Range.Count.ToString()).
                 ToProperty(this, vm => vm.OrdersQuantity, out _ordersQuantity);
 
+            connectableOrderDetails.Connect();
+            orderDetails.Connect();
         }
         #endregion
 
