@@ -33,22 +33,127 @@
                 </Grid>
             </DataTemplate>
         </GroupBox.HeaderTemplate>
-        
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <syncfusion:SfChart Header="Sales by employees" Margin="5" FontSize="15" Grid.Row="1">
-                <syncfusion:SfChart.PrimaryAxis>
-                    <syncfusion:CategoryAxis FontSize="15"/>
-                </syncfusion:SfChart.PrimaryAxis>
-                <syncfusion:SfChart.SecondaryAxis>
-                    <syncfusion:NumericalAxis FontSize="15"/>
-                </syncfusion:SfChart.SecondaryAxis>
-                <syncfusion:BarSeries EnableAnimation="True" ItemsSource="{Binding Employees,IsAsync=True}" Palette="Elite" XBindingPath="LastName" YBindingPath="Sales"/>
-            </syncfusion:SfChart>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Border BorderThickness="0.3" CornerRadius="5">
+                    <syncfusion:SfChart Margin="5" Header="Orders by countries(Top 10)" FontSize="15" AreaBorderBrush="White">
+                        <syncfusion:SfChart.Resources>
+                            <ItemsPanelTemplate x:Key="itemsPanelTemplate">
+                                <WrapPanel ItemWidth="130" Margin="0"/>
+                            </ItemsPanelTemplate>
+                        </syncfusion:SfChart.Resources>
+                        <syncfusion:SfChart.PrimaryAxis>
+                            <syncfusion:CategoryAxis/>
+                        </syncfusion:SfChart.PrimaryAxis>
+                        <syncfusion:SfChart.SecondaryAxis>
+                            <syncfusion:NumericalAxis/>
+                        </syncfusion:SfChart.SecondaryAxis>
+                        <syncfusion:PieSeries Margin="5" ItemsSource="{Binding OrdersByCountries}" EnableSmartLabels="True" EnableAnimation="False" Palette="Elite" YBindingPath="NumberOfOrders" XBindingPath="Country">
+                            <syncfusion:PieSeries.AdornmentsInfo>
+                                <syncfusion:ChartAdornmentInfo ShowLabel="True" UseSeriesPalette="True" ShowConnectorLine="True"/>
+                            </syncfusion:PieSeries.AdornmentsInfo>
+                        </syncfusion:PieSeries>
+
+                        <syncfusion:SfChart.Legend>
+                            <syncfusion:ChartLegend DockPosition="Bottom"
+                                        ItemsPanel="{StaticResource itemsPanelTemplate}"
+                                        CheckBoxVisibility="Visible"
+                                        IconVisibility="Visible">
+                            </syncfusion:ChartLegend>
+                        </syncfusion:SfChart.Legend>
+                    </syncfusion:SfChart>
+                </Border>
+
+                <Border Grid.Column="1" BorderThickness="0.3" CornerRadius="5">
+                    <syncfusion:SfChart Margin="5" Header="Sales by categories" FontSize="15" AreaBorderBrush="White">
+                        <syncfusion:SfChart.Resources>
+                            <ItemsPanelTemplate x:Key="itemsPanelTemplate">
+                                <WrapPanel ItemWidth="130" Margin="0"/>
+                            </ItemsPanelTemplate>
+                        </syncfusion:SfChart.Resources>
+                        <syncfusion:SfChart.PrimaryAxis>
+                            <syncfusion:CategoryAxis/>
+                        </syncfusion:SfChart.PrimaryAxis>
+                        <syncfusion:SfChart.SecondaryAxis>
+                            <syncfusion:NumericalAxis/>
+                        </syncfusion:SfChart.SecondaryAxis>
+                        <syncfusion:PieSeries Margin="5" ItemsSource="{Binding SalesByCategories}" EnableSmartLabels="True" EnableAnimation="False" Palette="Elite" YBindingPath="Sales" XBindingPath="Category">
+                            <syncfusion:PieSeries.AdornmentsInfo>
+                                <syncfusion:ChartAdornmentInfo ShowLabel="True" 
+                                                               UseSeriesPalette="True" 
+                                                               ShowConnectorLine="True"
+                                                               SegmentLabelFormat="$#"
+                                                               FontSize="10"
+                                                               Margin="1"/>
+                            </syncfusion:PieSeries.AdornmentsInfo>
+                        </syncfusion:PieSeries>
+
+                        <syncfusion:SfChart.Legend>
+                            <syncfusion:ChartLegend DockPosition="Bottom"
+                                        ItemsPanel="{StaticResource itemsPanelTemplate}"
+                                        CheckBoxVisibility="Visible"
+                                        IconVisibility="Visible">
+                            </syncfusion:ChartLegend>
+                        </syncfusion:SfChart.Legend>
+                    </syncfusion:SfChart>
+                </Border>
+
+                <Border Grid.Column="2" BorderThickness="0.3" CornerRadius="3">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Summary" Margin="0 0 0 10"/>
+
+                        <TextBlock Text="Overall sales sum" Grid.Row="1"/>
+                        <TextBlock Text="{Binding OverallSalesSum}" Grid.Row="2"/>
+                        <TextBlock Text="Overall orders quantity" Grid.Row="3"/>
+                        <TextBlock Text="{Binding OrdersQuantity}" Grid.Row="4"/>
+                        <TextBlock Text="Average" Grid.Row="5"/>
+                        <TextBlock Text="{Binding AverageCheck}" Grid.Row="6"/>
+                        <TextBlock Text="Max check" Grid.Row="7"/>
+                        <TextBlock Text="{Binding MaxCheck}" Grid.Row="8"/>
+                        <TextBlock Text="Min check" Grid.Row="9"/>
+                        <TextBlock Text="{Binding MinCheck}" Grid.Row="10"/>
+                    </Grid>
+                </Border>
+
+            </Grid>
+
+            <Border Grid.Row="1" BorderThickness="0.3" CornerRadius="5">
+                <syncfusion:SfChart Header="Sales by employees" Margin="12" FontSize="15" Grid.Row="1">
+                    <syncfusion:SfChart.PrimaryAxis>
+                        <syncfusion:CategoryAxis FontSize="12"/>
+                    </syncfusion:SfChart.PrimaryAxis>
+                    <syncfusion:SfChart.SecondaryAxis>
+                        <syncfusion:NumericalAxis FontSize="12" OpposedPosition="True" AutoScrollingDelta="50000" />
+                    </syncfusion:SfChart.SecondaryAxis>
+                    <syncfusion:BarSeries EnableAnimation="False" ItemsSource="{Binding SalesByCountries}" Palette="Elite" XBindingPath="Country" YBindingPath="Sales"/>
+                </syncfusion:SfChart>
+            </Border>
         </Grid>
     </GroupBox>
 </UserControl>

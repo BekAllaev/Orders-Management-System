@@ -34,7 +34,7 @@
             <syncfusion:SfChart.SecondaryAxis>
                 <syncfusion:NumericalAxis FontSize="15"/>
             </syncfusion:SfChart.SecondaryAxis>
-            <syncfusion:ColumnSeries EnableAnimation="True" ItemsSource="{Binding Employees,IsAsync=True}" Palette="Elite" XBindingPath="LastName" YBindingPath="Sales"/>
+            <syncfusion:ColumnSeries EnableAnimation="False" ItemsSource="{Binding Employees,IsAsync=True}" Palette="Elite" XBindingPath="LastName" YBindingPath="Sales"/>
         </syncfusion:SfChart>
     </GroupBox>
 </UserControl>

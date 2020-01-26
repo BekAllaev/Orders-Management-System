@@ -33,7 +33,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <Border CornerRadius="3" BorderThickness="0.3">
+            <Border CornerRadius="5" BorderThickness="0.3">
                 <syncfusion:SfChart Margin="5" Header="Customers by countries" FontSize="15" AreaBorderBrush="White">
                     <syncfusion:SfChart.Resources>
                         <ItemsPanelTemplate x:Key="itemsPanelTemplate">
@@ -46,7 +46,7 @@
                     <syncfusion:SfChart.SecondaryAxis>
                         <syncfusion:NumericalAxis/>
                     </syncfusion:SfChart.SecondaryAxis>
-                    <syncfusion:PieSeries ItemsSource="{Binding Customers}" EnableAnimation="True" EnableSmartLabels="True" Palette="Elite" YBindingPath="NumberOfCustomers" XBindingPath="CountryName">
+                    <syncfusion:PieSeries ItemsSource="{Binding Customers}" EnableAnimation="False" EnableSmartLabels="True" Palette="Elite" YBindingPath="NumberOfCustomers" XBindingPath="CountryName">
                         <syncfusion:PieSeries.AdornmentsInfo>
                             <syncfusion:ChartAdornmentInfo ShowLabel="True" UseSeriesPalette="True" ShowConnectorLine="True"/>
                         </syncfusion:PieSeries.AdornmentsInfo>
@@ -62,8 +62,7 @@
                 </syncfusion:SfChart>
             </Border>
 
-
-            <Border CornerRadius="3" BorderThickness="0.3" Grid.Row="1">
+            <Border CornerRadius="5" BorderThickness="0.3" Grid.Row="1">
                 <syncfusion:SfChart Header="Purchases by customers(Top 10)" Margin="5" FontSize="15" >
                     <syncfusion:SfChart.PrimaryAxis>
                         <syncfusion:CategoryAxis FontSize="15"/>
@@ -71,7 +70,7 @@
                     <syncfusion:SfChart.SecondaryAxis>
                         <syncfusion:NumericalAxis FontSize="15"/>
                     </syncfusion:SfChart.SecondaryAxis>
-                    <syncfusion:ColumnSeries EnableAnimation="True" ItemsSource="{Binding Purchases}" Palette="Elite" XBindingPath="CompanyName" YBindingPath="Purchases"/>
+                    <syncfusion:ColumnSeries EnableAnimation="False" ItemsSource="{Binding Purchases}" Palette="Elite" XBindingPath="CompanyName" YBindingPath="Purchases"/>
                 </syncfusion:SfChart>
             </Border>
         </Grid>
