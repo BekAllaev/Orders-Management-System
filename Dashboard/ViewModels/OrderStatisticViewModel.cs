@@ -42,8 +42,11 @@ namespace Dashboard.ViewModels
                 Bind(out _ordersByCountries).
                 Subscribe();
 
-            orderDetailsList.Connect().
-                Transform(orderDetail => new { Country = orderDetail.Order.Customer.Country, Sale = orderDetail.UnitPrice * orderDetail.Quantity }).
+            var connectableOrderDetails = orderDetailsList.Connect().Publish();
+
+            connectableOrderDetails.Connect();
+
+            connectableOrderDetails.Transform(orderDetail => new { Country = orderDetail.Order.Customer.Country, Sale = orderDetail.UnitPrice * orderDetail.Quantity }).
                 GroupOn(orderDetail => orderDetail.Country).
                 Transform(groupOfOrderDetails => new SalesByCountry() { Country = groupOfOrderDetails.GroupKey, Sales = groupOfOrderDetails.List.Items.Sum(a => a.Sale) }).
                 Sort(SortExpressionComparer<SalesByCountry>.Ascending(a => a.Sales)).
@@ -51,7 +54,7 @@ namespace Dashboard.ViewModels
                 Bind(out _salesByCountries).
                 Subscribe();
 
-            orderDetailsList.Connect().
+            connectableOrderDetails.
                 Transform(orderDetail => new { Category = orderDetail.Product.Category.CategoryName, Sale = orderDetail.UnitPrice * orderDetail.Quantity }).
                 GroupOn(orderDetail => orderDetail.Category).
                 Transform(groupOfOrderDeatils => new SalesByCategory() { Category = groupOfOrderDeatils.GroupKey, Sales = groupOfOrderDeatils.List.Items.Sum(a => a.Sale) }).
@@ -59,14 +62,16 @@ namespace Dashboard.ViewModels
                 Bind(out _salesByCategories).
                 Subscribe();
 
-            orderDetailsList.Connect().
-                Select(a => orderDetailsList.Items.Select(b => b.Quantity * b.UnitPrice).Sum().ToString(format)).
+            connectableOrderDetails.Select(a => orderDetailsList.Items.Select(b => b.Quantity * b.UnitPrice).Sum().ToString(format)).
                 ToProperty(this, vm => vm.OverallSalesSum, out _overallSalesSum);
 
-            var orderDetails = orderDetailsList.Connect().
+            var orderDetails = connectableOrderDetails.
                 Transform(orderDetail => new { OrderID = orderDetail.OrderID, Sale = orderDetail.UnitPrice * orderDetail.Quantity }).
                 GroupOn(orderDetail => orderDetail.OrderID).
-                Transform(groupOfOrderDetails => new { OrderID = groupOfOrderDetails.GroupKey, SaleByOrder = groupOfOrderDetails.List.Items.Sum(a => a.Sale) });
+                Transform(groupOfOrderDetails => new { OrderID = groupOfOrderDetails.GroupKey, SaleByOrder = groupOfOrderDetails.List.Items.Sum(a => a.Sale) }).
+                Publish();
+
+            orderDetails.Connect();
 
             orderDetails.Select(a => a.Last().Range.Min(b => b.SaleByOrder).ToString(format)).
                 ToProperty(this, vm => vm.MinCheck, out _minCheck);
@@ -79,6 +84,7 @@ namespace Dashboard.ViewModels
 
             orderDetails.Select(a => a.Last().Range.Count.ToString()).
                 ToProperty(this, vm => vm.OrdersQuantity, out _ordersQuantity);
+
         }
         #endregion
 
