@@ -41,9 +41,9 @@ namespace Dashboard.ViewModels
                 Subscribe();
 
             orderDetailsList.Connect().
-                Transform(orderDetails => new { CompanyName = orderDetails.Order.Customer.CompanyName, Purchase = orderDetails.UnitPrice * orderDetails.Quantity }).
-                GroupOn(orderByCustomer => orderByCustomer.CompanyName).
-                Transform(groupOfOrders => new PurchasesByCustomers() { CompanyName = groupOfOrders.GroupKey, Purchases = groupOfOrders.List.Items.Sum(a => a.Purchase) }).
+                Transform(orderDetails => new { CompanyName = orderDetails.Order.Customer.CompanyName, PurchaseByOrderDetail = orderDetails.UnitPrice * orderDetails.Quantity }).
+                GroupOn(orderDetails => orderDetails.CompanyName).
+                Transform(groupOfOrderDetails => new PurchasesByCustomers() { CompanyName = groupOfOrderDetails.GroupKey, Purchases = groupOfOrderDetails.List.Items.Sum(a => a.PurchaseByOrderDetail) }).
                 Sort(SortExpressionComparer<PurchasesByCustomers>.Descending(a => a.Purchases)).
                 Top(10).
                 ObserveOnDispatcher().

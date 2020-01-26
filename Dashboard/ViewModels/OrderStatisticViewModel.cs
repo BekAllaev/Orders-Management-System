@@ -39,7 +39,7 @@ namespace Dashboard.ViewModels
             ordersList = new SourceList<Order>();
 
             ordersList.Connect().
-                GroupOn(orders => orders.ShipCountry).
+                GroupOn(order => order.ShipCountry).
                 Transform(groupOfOrders => new OrdersByCountry() { Country = groupOfOrders.GroupKey, NumberOfOrders = groupOfOrders.List.Count }).
                 ObserveOnDispatcher().
                 Top(10).
@@ -48,29 +48,29 @@ namespace Dashboard.ViewModels
 
             var connectableOrderDetails = orderDetailsList.Connect().Publish(); //Because of we have several subscribers we use Publish operator 
 
-            connectableOrderDetails.Transform(orderDetail => new { Country = orderDetail.Order.Customer.Country, Sale = orderDetail.UnitPrice * orderDetail.Quantity }).
+            connectableOrderDetails.Transform(orderDetail => new { Country = orderDetail.Order.Customer.Country, SaleByOrderDetail = orderDetail.UnitPrice * orderDetail.Quantity }).
                 GroupOn(orderDetail => orderDetail.Country).
-                Transform(groupOfOrderDetails => new SalesByCountry() { Country = groupOfOrderDetails.GroupKey, Sales = groupOfOrderDetails.List.Items.Sum(a => a.Sale) }).
+                Transform(groupOfOrderDetails => new SalesByCountry() { Country = groupOfOrderDetails.GroupKey, Sales = groupOfOrderDetails.List.Items.Sum(a => a.SaleByOrderDetail) }).
                 Sort(SortExpressionComparer<SalesByCountry>.Ascending(a => a.Sales)).
                 ObserveOnDispatcher().
                 Bind(out _salesByCountries).
                 Subscribe();
 
             connectableOrderDetails.
-                Transform(orderDetail => new { Category = orderDetail.Product.Category.CategoryName, Sale = orderDetail.UnitPrice * orderDetail.Quantity }).
+                Transform(orderDetail => new { Category = orderDetail.Product.Category.CategoryName, SaleByOrderDetail = orderDetail.UnitPrice * orderDetail.Quantity }).
                 GroupOn(orderDetail => orderDetail.Category).
-                Transform(groupOfOrderDeatils => new SalesByCategory() { Category = groupOfOrderDeatils.GroupKey, Sales = groupOfOrderDeatils.List.Items.Sum(a => a.Sale) }).
+                Transform(groupOfOrderDeatils => new SalesByCategory() { Category = groupOfOrderDeatils.GroupKey, Sales = groupOfOrderDeatils.List.Items.Sum(a => a.SaleByOrderDetail) }).
                 ObserveOnDispatcher().
                 Bind(out _salesByCategories).
                 Subscribe();
 
-            connectableOrderDetails.Select(a => orderDetailsList.Items.Select(b => b.Quantity * b.UnitPrice).Sum().ToString(format)).
+            connectableOrderDetails.Select(a => orderDetailsList.Items.Select(orderDetail => orderDetail.Quantity * orderDetail.UnitPrice).Sum().ToString(format)).
                 ToProperty(this, vm => vm.OverallSalesSum, out _overallSalesSum);
 
             var orderDetails = connectableOrderDetails.
-                Transform(orderDetail => new { OrderID = orderDetail.OrderID, Sale = orderDetail.UnitPrice * orderDetail.Quantity }).
+                Transform(orderDetail => new { OrderID = orderDetail.OrderID, SaleByOrderDetail = orderDetail.UnitPrice * orderDetail.Quantity }).
                 GroupOn(orderDetail => orderDetail.OrderID).
-                Transform(groupOfOrderDetails => new { OrderID = groupOfOrderDetails.GroupKey, SaleByOrder = groupOfOrderDetails.List.Items.Sum(a => a.Sale) }).
+                Transform(groupOfOrderDetails => new { OrderID = groupOfOrderDetails.GroupKey, SaleByOrder = groupOfOrderDetails.List.Items.Sum(a => a.SaleByOrderDetail) }).
                 Publish();
 
             orderDetails.Select(a => a.Last().Range.Min(b => b.SaleByOrder).ToString(format)).

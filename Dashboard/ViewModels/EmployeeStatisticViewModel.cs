@@ -29,9 +29,9 @@ namespace Dashboard.ViewModels
             orderDetailsList = new SourceList<Order_Detail>();
 
             orderDetailsList.Connect().
-                Transform(orderDetail => new { LastName = orderDetail.Order.Employee.LastName, Sales = orderDetail.UnitPrice * orderDetail.Quantity }).
+                Transform(orderDetail => new { LastName = orderDetail.Order.Employee.LastName, SaleByOrderDetail = orderDetail.UnitPrice * orderDetail.Quantity }).
                 GroupOn(orderDetail => orderDetail.LastName).
-                Transform(groupOfOrderDetail => new EmployeeSales() { LastName = groupOfOrderDetail.GroupKey, Sales = groupOfOrderDetail.List.Items.Sum(a => a.Sales) }).
+                Transform(groupOfOrderDetail => new EmployeeSales() { LastName = groupOfOrderDetail.GroupKey, Sales = groupOfOrderDetail.List.Items.Sum(a => a.SaleByOrderDetail) }).
                 ObserveOnDispatcher().
                 Sort(SortExpressionComparer<EmployeeSales>.Ascending(a => a.Sales)).
                 Bind(out _employees).
