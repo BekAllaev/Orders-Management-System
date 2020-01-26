@@ -28,14 +28,14 @@ namespace Dashboard.ViewModels
 
             orderDetailsList = new SourceList<Order_Detail>();
 
-            orderDetailsList.Connect()
-                .Transform(orderDetail => new { LastName = orderDetail.Order.Employee.LastName, Sales = orderDetail.UnitPrice * orderDetail.Quantity })
-                .GroupOn(orderDetail => orderDetail.LastName)
-                .Transform(groupOfOrderDetail => new EmployeeSales() { LastName = groupOfOrderDetail.GroupKey, Sales = groupOfOrderDetail.List.Items.Sum(a => a.Sales) })
-                .ObserveOnDispatcher()
-                .Sort(SortExpressionComparer<EmployeeSales>.Ascending(a => a.Sales))
-                .Bind(out _employees)
-                .Subscribe();
+            orderDetailsList.Connect().
+                Transform(orderDetail => new { LastName = orderDetail.Order.Employee.LastName, Sales = orderDetail.UnitPrice * orderDetail.Quantity }).
+                GroupOn(orderDetail => orderDetail.LastName).
+                Transform(groupOfOrderDetail => new EmployeeSales() { LastName = groupOfOrderDetail.GroupKey, Sales = groupOfOrderDetail.List.Items.Sum(a => a.Sales) }).
+                ObserveOnDispatcher().
+                Sort(SortExpressionComparer<EmployeeSales>.Ascending(a => a.Sales)).
+                Bind(out _employees).
+                Subscribe();
         }
         #endregion
 

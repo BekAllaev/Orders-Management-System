@@ -31,12 +31,12 @@ namespace Dashboard.ViewModels
 
             productsList = new SourceList<Product>();
 
-            productsList.Connect()
-                .GroupOn(product => product.Category.CategoryName)
-                .Transform(groupOfProducts => new ProductsByCateogries() { CategoryName = groupOfProducts.GroupKey, NumberOfProducts = groupOfProducts.List.Count })
-                .ObserveOnDispatcher()
-                .Bind(out _categorySummaries)
-                .Subscribe();
+            productsList.Connect().
+                GroupOn(product => product.Category.CategoryName).
+                Transform(groupOfProducts => new ProductsByCateogries() { CategoryName = groupOfProducts.GroupKey, NumberOfProducts = groupOfProducts.List.Count }).
+                ObserveOnDispatcher().
+                Bind(out _categorySummaries).
+                Subscribe();
         }
         #endregion
 

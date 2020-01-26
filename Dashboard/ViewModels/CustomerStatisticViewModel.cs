@@ -40,15 +40,15 @@ namespace Dashboard.ViewModels
                 Bind(out _customers).
                 Subscribe();
 
-            orderDetailsList.Connect()
-                .Transform(orderDetails => new { CompanyName = orderDetails.Order.Customer.CompanyName, Purchase = orderDetails.UnitPrice * orderDetails.Quantity })
-                .GroupOn(orderByCustomer => orderByCustomer.CompanyName)
-                .Transform(groupOfOrders => new PurchasesByCustomers() { CompanyName = groupOfOrders.GroupKey, Purchases = groupOfOrders.List.Items.Sum(a => a.Purchase) })
-                .Sort(SortExpressionComparer<PurchasesByCustomers>.Descending(a => a.Purchases))
-                .Top(10)
-                .ObserveOnDispatcher()
-                .Bind(out _purchases)
-                .Subscribe();
+            orderDetailsList.Connect().
+                Transform(orderDetails => new { CompanyName = orderDetails.Order.Customer.CompanyName, Purchase = orderDetails.UnitPrice * orderDetails.Quantity }).
+                GroupOn(orderByCustomer => orderByCustomer.CompanyName).
+                Transform(groupOfOrders => new PurchasesByCustomers() { CompanyName = groupOfOrders.GroupKey, Purchases = groupOfOrders.List.Items.Sum(a => a.Purchase) }).
+                Sort(SortExpressionComparer<PurchasesByCustomers>.Descending(a => a.Purchases)).
+                Top(10).
+                ObserveOnDispatcher().
+                Bind(out _purchases).
+                Subscribe();
         }
         #endregion
 
