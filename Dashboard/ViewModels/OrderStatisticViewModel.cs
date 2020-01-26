@@ -27,6 +27,10 @@ namespace Dashboard.ViewModels
         #endregion
 
         #region Constructor
+        //In case if you have some question on how to work with IConnectableObservables there are several references:
+        //Little sample: http://rxwiki.wikidot.com/101samples#toc48
+        //Definition of Publish operator:http://reactivex.io/documentation/operators/publish.html
+        //In case when we have more than one subscriber to IObservable we use Publish
         public OrderStatisticViewModel(NorthwindContext northwindContext)
         {
             this.northwindContext = northwindContext;
@@ -42,7 +46,7 @@ namespace Dashboard.ViewModels
                 Bind(out _ordersByCountries).
                 Subscribe();
 
-            var connectableOrderDetails = orderDetailsList.Connect().Publish();
+            var connectableOrderDetails = orderDetailsList.Connect().Publish(); //Because of we have several subscribers we use Publish operator 
 
             connectableOrderDetails.Connect();
 
