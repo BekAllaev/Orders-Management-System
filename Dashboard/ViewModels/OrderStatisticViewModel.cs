@@ -38,13 +38,13 @@ namespace Dashboard.ViewModels
             orderDetailsList = new SourceList<Order_Detail>();
             ordersList = new SourceList<Order>();
 
-            //ordersList.Connect().
-            //    GroupOn(order => order.ShipCountry).
-            //    Transform(groupOfOrders => new OrdersByCountry() { Country = groupOfOrders.GroupKey, NumberOfOrders = groupOfOrders.List.Count }).
-            //    ObserveOnDispatcher().
-            //    Top(10).
-            //    Bind(out _ordersByCountries).
-            //    Subscribe();
+            ordersList.Connect().
+                GroupOn(order => order.ShipCountry).
+                Transform(groupOfOrders => new OrdersByCountry() { Country = groupOfOrders.GroupKey, NumberOfOrders = groupOfOrders.List.Count }).
+                ObserveOnDispatcher().
+                Top(10).
+                Bind(out _ordersByCountries).
+                Subscribe();
 
             var connectableOrderDetails = orderDetailsList.Connect().Publish(); //Because of we have several subscribers we use Publish operator 
 
