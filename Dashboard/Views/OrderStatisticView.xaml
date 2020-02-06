@@ -60,7 +60,7 @@
                         <syncfusion:SfChart.SecondaryAxis>
                             <syncfusion:NumericalAxis/>
                         </syncfusion:SfChart.SecondaryAxis>
-                        <syncfusion:PieSeries Margin="5" ItemsSource="{Binding OrdersByCountries}" EnableSmartLabels="True" EnableAnimation="False" Palette="Elite" YBindingPath="NumberOfOrders" XBindingPath="Country">
+                        <syncfusion:PieSeries Margin="5" ItemsSource="{Binding OrdersByCountries}" EnableSmartLabels="True" EnableAnimation="True" Palette="Elite" YBindingPath="NumberOfOrders" XBindingPath="Country">
                             <syncfusion:PieSeries.AdornmentsInfo>
                                 <syncfusion:ChartAdornmentInfo ShowLabel="True" UseSeriesPalette="True" ShowConnectorLine="True"/>
                             </syncfusion:PieSeries.AdornmentsInfo>
@@ -89,7 +89,7 @@
                         <syncfusion:SfChart.SecondaryAxis>
                             <syncfusion:NumericalAxis/>
                         </syncfusion:SfChart.SecondaryAxis>
-                        <syncfusion:PieSeries Margin="5" ItemsSource="{Binding SalesByCategories}" EnableSmartLabels="True" EnableAnimation="False" Palette="Elite" YBindingPath="Sales" XBindingPath="Category">
+                        <syncfusion:PieSeries Margin="5" ItemsSource="{Binding SalesByCategories}" EnableSmartLabels="True" EnableAnimation="True" Palette="Elite" YBindingPath="Sales" XBindingPath="Category">
                             <syncfusion:PieSeries.AdornmentsInfo>
                                 <syncfusion:ChartAdornmentInfo ShowLabel="True" 
                                                                UseSeriesPalette="True" 
@@ -180,7 +180,7 @@
                     <syncfusion:SfChart.SecondaryAxis>
                         <syncfusion:NumericalAxis FontSize="12" OpposedPosition="True" AutoScrollingDelta="50000" />
                     </syncfusion:SfChart.SecondaryAxis>
-                    <syncfusion:BarSeries EnableAnimation="False" ItemsSource="{Binding SalesByCountries}" Palette="Elite" XBindingPath="Country" YBindingPath="Sales"/>
+                    <syncfusion:BarSeries EnableAnimation="True" ItemsSource="{Binding SalesByCountries}" Palette="Elite" XBindingPath="Country" YBindingPath="Sales"/>
                 </syncfusion:SfChart>
             </Border>
         </Grid>
