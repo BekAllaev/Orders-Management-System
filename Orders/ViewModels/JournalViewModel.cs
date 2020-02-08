@@ -19,8 +19,6 @@ namespace Orders.ViewModels
         public JournalViewModel(IRegionManager regionManager)
         {
             this.regionManager = regionManager;
-
-            NavigateToCreateCommand = new DelegateCommand(ExecuteNavigateToCreate);
         }
         #endregion
 
@@ -29,12 +27,6 @@ namespace Orders.ViewModels
         #endregion
 
         #region Commands
-        public DelegateCommand NavigateToCreateCommand { get; }
-
-        private void ExecuteNavigateToCreate()
-        {
-            regionManager.RequestNavigate("OrdersManagmentRegion", "CreateView");
-        }
         #endregion
     }
 }

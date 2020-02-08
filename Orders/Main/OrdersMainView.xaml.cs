@@ -21,10 +21,9 @@ namespace Orders.Main
     /// </summary>
     public partial class OrdersMainView : UserControl
     {
-        public OrdersMainView(IUnityContainer unityContainer)
+        public OrdersMainView()
         {
             InitializeComponent();
-            //this.DataContext = unityContainer.Resolve<OrdersDashboardViewModel>();
         }
     }
 }
