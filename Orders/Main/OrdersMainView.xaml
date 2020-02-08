@@ -26,7 +26,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <materialDesign:PackIcon Kind="BorderColor" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 10 0"/>
+                        <materialDesign:PackIcon Kind="BorderColor" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 2 10 0"/>
 
                         <TextBlock FontSize="20" Grid.Column="1">
                             <Run Text="Orders management - "/>
@@ -35,6 +35,7 @@
 
                         <Button Grid.Column="2" 
                                 FontSize="18" 
+                                Width="200"
                                 Content="{Binding Path=DataContext.SwitchButtonContent, ElementName=ordersMainView, Mode=TwoWay}"
                                 Command="{Binding Path=DataContext.SwitchViewCommand, ElementName=ordersMainView}"/>
                     </Grid>
