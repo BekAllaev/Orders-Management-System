@@ -3,6 +3,7 @@ using Orders.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Orders.Main
 {
-    public class OrdersMainViewModel : BindableBase
+    public class OrdersMainViewModel : ReactiveObject
     {
         #region Fields
         IRegionManager regionManager;
@@ -52,13 +53,13 @@ namespace Orders.Main
         #region Properties
         public string SwitchButtonContent 
         {
-            set { SetProperty(ref _switchButtonContent, value); }
+            set { this.RaiseAndSetIfChanged(ref _switchButtonContent, value); }
             get { return _switchButtonContent; }
         }
 
         public string NameOfCurrentView
         {
-            set { SetProperty(ref _currentView, value); }
+            set { this.RaiseAndSetIfChanged(ref _currentView, value); }
             get { return _currentView; }
         }
         #endregion
