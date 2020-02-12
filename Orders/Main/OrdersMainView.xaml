@@ -10,13 +10,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              x:Name="ordersMainView">
-    <Grid>
+    <Grid Background="Teal">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <GroupBox Margin="10" BorderThickness="0">
+        <GroupBox Margin="10" Background="White" BorderThickness="0">
             <GroupBox.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -41,7 +41,8 @@
                     </Grid>
                 </DataTemplate>
             </GroupBox.HeaderTemplate>
-            <ContentControl prism:RegionManager.RegionName="OrdersManagmentRegion"/>
+            
+            <ContentControl prism:RegionManager.RegionName="OrdersCreateJournalRegion"/>
         </GroupBox>
 
         <Border Grid.Column="1"

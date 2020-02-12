@@ -29,13 +29,9 @@ namespace Orders
 
         public void Initialize()
         {
-            unityContainer.RegisterTypeForNavigation<OrdersMainView>();
             unityContainer.RegisterTypeForNavigation<CreateView>();
             unityContainer.RegisterTypeForNavigation<JournalView>();
-
-            string mainView = (string)userSettingsRepository.ReadSetting("OrdersMainView");
-            Type targetType = Type.GetType("Orders.Views." + mainView.Replace(" ", ""));
-            regionManager.RegisterViewWithRegion("OrdersManagmentRegion", targetType);
+            unityContainer.RegisterTypeForNavigation<OrdersMainView>();
         }
     }
 }

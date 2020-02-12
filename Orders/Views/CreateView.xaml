@@ -4,19 +4,133 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Orders.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:customControl="clr-namespace:Infrastructure.UserControls;assembly=Infrastructure"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
+             x:Name="ParentView"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   FontSize="32"
-                   Margin="10 10 0 0" 
-                   Text="Orders management - Create"/>
+
+        <GroupBox BorderThickness="0.5"
+                  Margin="5">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <materialDesign:PackIcon Kind="Store" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 10 0"/>
+
+                        <TextBlock Text="PRODUCTS ON STORE" 
+                                   FontSize="18"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="1"/>
+                    </Grid>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+
+
+            <DataGrid ItemsSource="{Binding ProductsInStore}" 
+                      SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
+                      IsReadOnly="True"/>
+        </GroupBox>
+
+        <GroupBox BorderThickness="0.5"
+                  Grid.Column="1"
+                  Margin="5">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <materialDesign:PackIcon Kind="TimerSandFull" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 10 0"/>
+
+                        <TextBlock Text="PRODUCTS IN ORDER" 
+                                   FontSize="18"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="1"/>
+
+                        <Button Grid.Column="2" 
+                                Content="Unselect"
+                                FontSize="18"
+                                HorizontalAlignment="Right"
+                                Command="{Binding Path=DataContext.UnSelectCommand,ElementName=ParentView}"/>
+                    </Grid>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Border BorderBrush="Black" BorderThickness="0.5">
+
+                    <ListView x:Name="MyListView" 
+                          ItemsSource="{Binding ProductsInOrder}"
+                          SelectedItem="{Binding SelectedProductInOrder}"
+                          FontSize="14">
+                        <ListView.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="2"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </ListView.Resources>
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Background" Value="LightGray"/>
+                                <Setter Property="BorderBrush" Value="{x:Null}"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Margin" Value="1"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Height="45" 
+                          Background="LightGray">
+                                    <Grid.Resources>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </Style>
+                                    </Grid.Resources>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding ProductID}" Margin="0 0 20 0"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding ProductName}" TextAlignment="Center" Width="100"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding UnitPrice}" TextAlignment="Center"/>
+                                    <customControl:UpDownControl Grid.Column="3" Margin="2" ItemsSource="{Binding Quantity}" CurrentValue="{Binding SelectedQuantity,Mode=TwoWay}"/>
+                                    <customControl:UpDownControl Grid.Column="4" Margin="2" ItemsSource="{Binding Discount}" CurrentValue="{Binding SelectedDiscount,Mode=TwoWay}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+                <TextBlock Grid.Row="1" 
+                           FontSize="23"                        
+                           HorizontalAlignment="Right"
+                           Margin="5"
+                           Text="{Binding TotalSum, StringFormat='Total sum: {0}'}"/>
+            </Grid>
+        </GroupBox>
     </Grid>
 </UserControl>

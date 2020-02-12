@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Orders.Main
 {
-    public class OrdersMainViewModel : ReactiveObject
+    public class OrdersMainViewModel : ReactiveObject, INavigationAware
     {
         #region Fields
         IRegionManager regionManager;
@@ -30,9 +30,9 @@ namespace Orders.Main
             this.regionManager = regionManager;
             this.userSettingsRepository = userSettingsRepository;
 
-            SwitchViewCommand = new DelegateCommand(SwitchViewCommandExecute);
-
             string ordersMainView = (string)userSettingsRepository.ReadSetting("OrdersMainView");
+
+            SwitchViewCommand = new DelegateCommand(SwitchViewCommandExecute);
 
             switch (ordersMainView)
             {
@@ -51,7 +51,7 @@ namespace Orders.Main
         #endregion
 
         #region Properties
-        public string SwitchButtonContent 
+        public string SwitchButtonContent
         {
             set { this.RaiseAndSetIfChanged(ref _switchButtonContent, value); }
             get { return _switchButtonContent; }
@@ -84,6 +84,24 @@ namespace Orders.Main
                     NameOfCurrentView = "Create";
                     break;
             }
+        }
+        #endregion
+
+        #region
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            string ordersMainView = (string)userSettingsRepository.ReadSetting("OrdersMainView");
+            regionManager.RequestNavigate("OrdersCreateJournalRegion", ordersMainView.Replace(" ", ""));
         }
         #endregion
 

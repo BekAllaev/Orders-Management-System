@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\ReactiveUI.Fody.11.1.23\build\ReactiveUI.Fody.props" Condition="Exists('..\packages\ReactiveUI.Fody.11.1.23\build\ReactiveUI.Fody.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -39,6 +41,12 @@
     <Reference Include="DynamicData, Version=6.14.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamicData.6.14.3\lib\net461\DynamicData.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=1.2.2.920, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.2.2\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -68,6 +76,12 @@
     <Reference Include="ReactiveUI, Version=11.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ReactiveUI.11.1.23\lib\net461\ReactiveUI.dll</HintPath>
     </Reference>
+    <Reference Include="ReactiveUI.Fody.Helpers, Version=11.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReactiveUI.Fody.11.1.23\lib\net461\ReactiveUI.Fody.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="ReactiveUI.WPF, Version=11.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReactiveUI.WPF.11.1.23\lib\net461\ReactiveUI.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Splat, Version=9.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Splat.9.3.11\lib\net461\Splat.dll</HintPath>
     </Reference>
@@ -75,6 +89,7 @@
       <HintPath>..\packages\Splat.Drawing.9.3.11\lib\net461\Splat.Drawing.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -144,6 +159,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAccessLocal\DataAccessLocal.csproj">
+      <Project>{b5802c88-529e-4d85-98fa-8c1537c27f12}</Project>
+      <Name>DataAccessLocal</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{4a940f3a-5d08-4456-b2d8-12864f885495}</Project>
       <Name>Infrastructure</Name>
@@ -156,5 +175,11 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Fody.6.0.8\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.0.8\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\ReactiveUI.Fody.11.1.23\build\ReactiveUI.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ReactiveUI.Fody.11.1.23\build\ReactiveUI.Fody.props'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Fody.6.0.8\build\Fody.targets" Condition="Exists('..\packages\Fody.6.0.8\build\Fody.targets')" />
 </Project>
