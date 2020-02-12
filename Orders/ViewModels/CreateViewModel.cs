@@ -24,9 +24,11 @@ namespace Orders.ViewModels
 
         ReadOnlyObservableCollection<ProductInOrder> _productsInOrder;
         ReadOnlyObservableCollection<ProductOnStore> _productsInStore;
+        ReadOnlyObservableCollection<Employee> _employees;
 
         SourceCache<Product, int> products;
         SourceList<ProductInOrder> productsInOrder;
+        SourceList<Employee> employees;
         #endregion
 
         public CreateViewModel(NorthwindContext northwindContext)
@@ -35,6 +37,7 @@ namespace Orders.ViewModels
 
             products = new SourceCache<Product, int>(p => p.ProductID);
             productsInOrder = new SourceList<ProductInOrder>();
+            employees = new SourceList<Employee>();
 
             this.WhenValueChanged(vm => vm.SelectedProduct).Subscribe(p => AddToOrder(p));
             var canUnSelectExecute = this.WhenAnyValue(x => x.SelectedProductInOrder).
@@ -54,6 +57,11 @@ namespace Orders.ViewModels
                 Bind(out _productsInOrder).
                 ActOnEveryObject(x => SubscribeToChanges(x), y => SetInitialValues(y));
 
+            employees.Connect().
+                ObserveOnDispatcher().
+                Bind(out _employees).
+                Subscribe();
+
             UnSelectCommand = ReactiveCommand.Create(RemoveFromOrder, canUnSelectExecute);
         }
 
@@ -68,6 +76,8 @@ namespace Orders.ViewModels
         {
             if (product == null) return;
             if (productsInOrder.Items.Any(o => o.ProductID == product.ProductID)) return;
+
+            if (productsInOrder.Count == 0) OrderDate = DateTime.Now.ToLongDateString();
 
             ProductInOrder productInOrder = new ProductInOrder(product);
             productsInOrder.Add(productInOrder);
@@ -158,6 +168,7 @@ namespace Orders.ViewModels
         public async void OnNavigatedTo(NavigationContext navigationContext)
         {
             if (products.Count == 0) await Task.Run(() => products.AddOrUpdate(northwindContext.Products));
+            if (employees.Count == 0) await Task.Run(() => employees.AddRange(northwindContext.Employees));
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext) { return true; }
@@ -168,7 +179,9 @@ namespace Orders.ViewModels
         #region Properties
         public ReadOnlyObservableCollection<ProductInOrder> ProductsInOrder => _productsInOrder;
         public ReadOnlyObservableCollection<ProductOnStore> ProductsInStore => _productsInStore;
+        public ReadOnlyObservableCollection<Employee> Employees => _employees;
 
+        [Reactive] public string OrderDate { set; get; }
         [Reactive] public ProductOnStore SelectedProduct { private get; set; }
         [Reactive] public ProductInOrder SelectedProductInOrder { private get; set; }
 

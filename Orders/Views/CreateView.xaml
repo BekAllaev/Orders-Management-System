@@ -73,12 +73,33 @@
 
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Border BorderBrush="Black" BorderThickness="0.5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
+                    <TextBox Text="{Binding OrderDate}"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             IsReadOnly="True"
+                             materialDesign:HintAssist.Hint="Order date"
+                             materialDesign:HintAssist.HintOpacity=".5"
+                             Margin="10"
+                             VerticalAlignment="Center" 
+                             FontSize="18"
+                             Grid.ColumnSpan="2"/>
+                </Grid>
+
+                <Border BorderBrush="Black" BorderThickness="0.5" Grid.Row="1">
                     <ListView x:Name="MyListView" 
                           ItemsSource="{Binding ProductsInOrder}"
                           SelectedItem="{Binding SelectedProductInOrder}"
@@ -125,7 +146,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </Border>
-                <TextBlock Grid.Row="1" 
+                <TextBlock Grid.Row="2" 
                            FontSize="23"                        
                            HorizontalAlignment="Right"
                            Margin="5"
