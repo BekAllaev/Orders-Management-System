@@ -97,6 +97,25 @@
                              VerticalAlignment="Center" 
                              FontSize="18"
                              Grid.ColumnSpan="2"/>
+                    <ComboBox Grid.Row="1"
+                              FontSize="18"
+                              ItemsSource="{Binding Employees}" 
+                              DisplayMemberPath="LastName" 
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"          
+                              materialDesign:HintAssist.Hint="Employee"
+                              IsEditable="False" 
+                              materialDesign:HintAssist.HintOpacity=".5"
+                              Margin="10"/>
+                    <ComboBox Grid.Row="1"
+                              Grid.Column="1"
+                              FontSize="18"
+                              ItemsSource="{Binding Customers}" 
+                              DisplayMemberPath="CompanyName" 
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"          
+                              materialDesign:HintAssist.Hint="Customer"
+                              IsEditable="False" 
+                              materialDesign:HintAssist.HintOpacity=".5"
+                              Margin="10"/>
                 </Grid>
 
                 <Border BorderBrush="Black" BorderThickness="0.5" Grid.Row="1">

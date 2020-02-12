@@ -25,10 +25,12 @@ namespace Orders.ViewModels
         ReadOnlyObservableCollection<ProductInOrder> _productsInOrder;
         ReadOnlyObservableCollection<ProductOnStore> _productsInStore;
         ReadOnlyObservableCollection<Employee> _employees;
+        ReadOnlyObservableCollection<Customer> _customers;
 
         SourceCache<Product, int> products;
         SourceList<ProductInOrder> productsInOrder;
         SourceList<Employee> employees;
+        SourceList<Customer> customers;
         #endregion
 
         public CreateViewModel(NorthwindContext northwindContext)
@@ -38,6 +40,7 @@ namespace Orders.ViewModels
             products = new SourceCache<Product, int>(p => p.ProductID);
             productsInOrder = new SourceList<ProductInOrder>();
             employees = new SourceList<Employee>();
+            customers = new SourceList<Customer>();
 
             this.WhenValueChanged(vm => vm.SelectedProduct).Subscribe(p => AddToOrder(p));
             var canUnSelectExecute = this.WhenAnyValue(x => x.SelectedProductInOrder).
@@ -60,6 +63,11 @@ namespace Orders.ViewModels
             employees.Connect().
                 ObserveOnDispatcher().
                 Bind(out _employees).
+                Subscribe();
+
+            customers.Connect().
+                ObserveOnDispatcher().
+                Bind(out _customers).
                 Subscribe();
 
             UnSelectCommand = ReactiveCommand.Create(RemoveFromOrder, canUnSelectExecute);
@@ -169,6 +177,7 @@ namespace Orders.ViewModels
         {
             if (products.Count == 0) await Task.Run(() => products.AddOrUpdate(northwindContext.Products));
             if (employees.Count == 0) await Task.Run(() => employees.AddRange(northwindContext.Employees));
+            if (customers.Count == 0) await Task.Run(() => customers.AddRange(northwindContext.Customers));
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext) { return true; }
@@ -180,6 +189,8 @@ namespace Orders.ViewModels
         public ReadOnlyObservableCollection<ProductInOrder> ProductsInOrder => _productsInOrder;
         public ReadOnlyObservableCollection<ProductOnStore> ProductsInStore => _productsInStore;
         public ReadOnlyObservableCollection<Employee> Employees => _employees;
+        public ReadOnlyObservableCollection<Customer> Customers => _customers;
+
 
         [Reactive] public string OrderDate { set; get; }
         [Reactive] public ProductOnStore SelectedProduct { private get; set; }
