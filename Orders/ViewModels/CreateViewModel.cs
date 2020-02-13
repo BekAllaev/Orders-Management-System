@@ -59,6 +59,7 @@ namespace Orders.ViewModels
                 Subscribe(x =>
                 {
                     if (x.Item1 != null || x.Item2 != null || x.Item3 != 0) OrderDate = DateTime.Now.ToShortDateString();
+                    else OrderDate = "";
                 });
 
             products.Connect().
