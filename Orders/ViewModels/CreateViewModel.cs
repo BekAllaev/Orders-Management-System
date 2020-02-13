@@ -46,6 +46,21 @@ namespace Orders.ViewModels
             var canUnSelectExecute = this.WhenAnyValue(x => x.SelectedProductInOrder).
                 Select(selectedProductInOrder => selectedProductInOrder == null ? false : true);
 
+            productsInOrder.CountChanged.Subscribe(currentCount => { CountOfProductsInOrder = currentCount; });
+
+            var canCreateOrderExecute = this.WhenAnyValue(vm => vm.SelectedCustomer, vm => vm.SelectedEmployee, vm => vm.CountOfProductsInOrder).
+                Select(x =>
+                {
+                    if (x.Item1 == null || x.Item2 == null || x.Item3 == 0) return false;
+                    return true;
+                });
+
+            this.WhenAnyValue(vm => vm.SelectedCustomer, vm => vm.SelectedEmployee, vm => vm.CountOfProductsInOrder).
+                Subscribe(x =>
+                {
+                    if (x.Item1 != null || x.Item2 != null || x.Item3 != 0) OrderDate = DateTime.Now.ToShortDateString();
+                });
+
             products.Connect().
                 Transform(product => new ProductOnStore(product)).
                 Filter(x => x.UnitsInStock != 0).
@@ -70,13 +85,25 @@ namespace Orders.ViewModels
                 Bind(out _customers).
                 Subscribe();
 
-            UnSelectCommand = ReactiveCommand.Create(RemoveFromOrder, canUnSelectExecute);
+            UnselectCommand = ReactiveCommand.Create(RemoveFromOrder, canUnSelectExecute);
+
+            CreateOrderCommand = ReactiveCommand.Create(CreateOrderExecute, canCreateOrderExecute);
         }
 
         #region Commands
-        public ReactiveCommand<Unit, Unit> UnSelectCommand { get; }
+
+        #region Unselect
+        public ReactiveCommand<Unit, Unit> UnselectCommand { get; }
 
         private void RemoveFromOrder() => productsInOrder.Remove(SelectedProductInOrder);
+        #endregion
+
+        #region Create
+        public ReactiveCommand<Unit, Unit> CreateOrderCommand { get; }
+
+        private void CreateOrderExecute() { }
+        #endregion
+
         #endregion
 
         #region Utilities
@@ -85,8 +112,6 @@ namespace Orders.ViewModels
             if (product == null) return;
             if (productsInOrder.Items.Any(o => o.ProductID == product.ProductID)) return;
 
-            if (productsInOrder.Count == 0) OrderDate = DateTime.Now.ToLongDateString();
-
             ProductInOrder productInOrder = new ProductInOrder(product);
             productsInOrder.Add(productInOrder);
         }
@@ -94,16 +119,8 @@ namespace Orders.ViewModels
         private void SetInitialValues(ProductInOrder productToRemove)
         {
             productToRemove.SelectedQuantity = 0;
-
-            products.Edit((a) =>
-            {
-                var tempProduct = a.Items.FirstOrDefault(b => b.ProductID == productToRemove.ProductID);
-                tempProduct.UnitsInStock += productToRemove.SourceProductOnStore.UnitsOnOrder;
-                tempProduct.UnitsOnOrder = 0;
-            });
-
-            //productToRemove.SourceProductOnStore.UnitsInStock += productToRemove.SourceProductOnStore.UnitsOnOrder;
-            //productToRemove.SourceProductOnStore.UnitsOnOrder = 0;
+            productToRemove.SourceProductOnStore.UnitsInStock += productToRemove.SourceProductOnStore.UnitsOnOrder;
+            productToRemove.SourceProductOnStore.UnitsOnOrder = 0;
 
             TotalSum -= productToRemove.Sum;
         }
@@ -191,10 +208,12 @@ namespace Orders.ViewModels
         public ReadOnlyObservableCollection<Employee> Employees => _employees;
         public ReadOnlyObservableCollection<Customer> Customers => _customers;
 
-
+        [Reactive] public Employee SelectedEmployee { set; get; }
+        [Reactive] public Customer SelectedCustomer { set; get; }
         [Reactive] public string OrderDate { set; get; }
         [Reactive] public ProductOnStore SelectedProduct { private get; set; }
         [Reactive] public ProductInOrder SelectedProductInOrder { private get; set; }
+        [Reactive] int CountOfProductsInOrder { set; get; }
 
         decimal _totalsum;
         public decimal TotalSum

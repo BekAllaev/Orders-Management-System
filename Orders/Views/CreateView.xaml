@@ -62,11 +62,19 @@
                                    VerticalAlignment="Center"
                                    Grid.Column="1"/>
 
-                        <Button Grid.Column="2" 
-                                Content="Unselect"
-                                FontSize="18"
-                                HorizontalAlignment="Right"
-                                Command="{Binding Path=DataContext.UnSelectCommand,ElementName=ParentView}"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2">
+                            <Button Content="Unselect"
+                                    FontSize="18"
+                                    Margin="5"
+                                    Width="120"
+                                    Command="{Binding Path=DataContext.UnselectCommand,ElementName=ParentView}"/>
+                            <Button Background="Red"
+                                    Content="Create"
+                                    Margin="5"
+                                    FontSize="18"
+                                    Width="120"
+                                    Command="{Binding Path=DataContext.CreateOrderCommand,ElementName=ParentView}"/>
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </GroupBox.HeaderTemplate>
@@ -80,8 +88,9 @@
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="186*"/>
+                        <ColumnDefinition Width="151*"/>
+                        <ColumnDefinition Width="35*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -96,9 +105,10 @@
                              Margin="10"
                              VerticalAlignment="Center" 
                              FontSize="18"
-                             Grid.ColumnSpan="2"/>
+                             Grid.ColumnSpan="3"/>
                     <ComboBox Grid.Row="1"
                               FontSize="18"
+                              SelectedItem="{Binding SelectedEmployee}"
                               ItemsSource="{Binding Employees}" 
                               DisplayMemberPath="LastName" 
                               Style="{StaticResource MaterialDesignFloatingHintComboBox}"          
@@ -109,13 +119,14 @@
                     <ComboBox Grid.Row="1"
                               Grid.Column="1"
                               FontSize="18"
+                              SelectedItem="{Binding SelectedCustomer}"
                               ItemsSource="{Binding Customers}" 
                               DisplayMemberPath="CompanyName" 
                               Style="{StaticResource MaterialDesignFloatingHintComboBox}"          
                               materialDesign:HintAssist.Hint="Customer"
                               IsEditable="False" 
                               materialDesign:HintAssist.HintOpacity=".5"
-                              Margin="10"/>
+                              Margin="10" Grid.ColumnSpan="2"/>
                 </Grid>
 
                 <Border BorderBrush="Black" BorderThickness="0.5" Grid.Row="1">
