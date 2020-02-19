@@ -58,7 +58,7 @@ namespace Orders.ViewModels
             this.WhenAnyValue(vm => vm.SelectedCustomer, vm => vm.SelectedEmployee, vm => vm.CountOfProductsInOrder).
                 Subscribe(x =>
                 {
-                    if (x.Item1 != null || x.Item2 != null || x.Item3 != 0) OrderDate = DateTime.Now.ToShortDateString();
+                    if (x.Item1 != null || x.Item2 != null || x.Item3 != 0) OrderDate = DateTime.Now.ToLongDateString();
                     else OrderDate = "";
                 });
 
@@ -87,7 +87,6 @@ namespace Orders.ViewModels
                 Subscribe();
 
             UnselectCommand = ReactiveCommand.Create(RemoveFromOrder, canUnSelectExecute);
-
             CreateOrderCommand = ReactiveCommand.Create(CreateOrderExecute, canCreateOrderExecute);
         }
 
@@ -102,7 +101,52 @@ namespace Orders.ViewModels
         #region Create
         public ReactiveCommand<Unit, Unit> CreateOrderCommand { get; }
 
-        private void CreateOrderExecute() { }
+        private void CreateOrderExecute()
+        {
+            Order newOrder = new Order();
+            Order lastOrder = northwindContext.Orders.ToList().Last();
+            int idOfLastOrder = lastOrder.OrderID;
+            string shipCountry = "USA";
+
+            newOrder.OrderID = ++idOfLastOrder;
+            newOrder.CustomerID = SelectedCustomer.CustomerID;
+            newOrder.EmployeeID = SelectedEmployee.EmployeeID;
+            newOrder.OrderDate = DateTime.Parse(OrderDate);
+            newOrder.ShipCountry = shipCountry;
+
+            using (var contextTransaction = northwindContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    northwindContext.Orders.Add(newOrder);
+                    northwindContext.SaveChanges();
+
+                    northwindContext.Order_Details.AddRange(
+                        new List<Order_Detail>(
+                            ProductsInOrder.Select(p => new Order_Detail
+                            {
+                                OrderID = newOrder.OrderID,
+                                ProductID = p.ProductID,
+                                UnitPrice = (decimal)p.UnitPrice,
+                                Quantity = (short)p.SelectedQuantity,
+                                Discount = p.SelectedQuantity
+                            })));
+
+                    northwindContext.SaveChanges();
+
+                    contextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    contextTransaction.Rollback();
+                }
+            }
+
+            productsInOrder.Clear();
+            OrderDate = String.Empty;
+            SelectedCustomer = null;
+            SelectedEmployee = null;
+        }
         #endregion
 
         #endregion
@@ -291,7 +335,7 @@ namespace Orders.ViewModels
             public List<int> Discount { get; }
 
             [Reactive]
-            public int SelectedQuantity { set; get; }
+            public short SelectedQuantity { set; get; }
 
             [Reactive]
             public int SelectedDiscount { set; get; }
