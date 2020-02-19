@@ -8,6 +8,7 @@
              xmlns:customControl="clr-namespace:Infrastructure.UserControls;assembly=Infrastructure"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
              mc:Ignorable="d" 
              x:Name="ParentView"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -37,10 +38,27 @@
                 </DataTemplate>
             </GroupBox.HeaderTemplate>
 
-
-            <DataGrid ItemsSource="{Binding ProductsInStore}" 
-                      SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
-                      IsReadOnly="True"/>
+            <syncfusion:SfDataGrid Margin="4"
+                                   ToolTip="You can select by Mouse click and holding Ctrl or Shift keys"
+                                   ItemsSource="{Binding ProductsInStore}"
+                                   SelectionMode="Multiple"
+                                   SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
+                                   AllowGrouping="False"
+                                   AutoGenerateColumns="False" 
+                                   ColumnSizer="AutoWithLastColumnFill"  
+                                   ShowBusyIndicator="True"  
+                                   ShowGroupDropArea="False"
+                                   AutoExpandGroups="False"
+                                   AllowFrozenGroupHeaders="True"
+                                   RowSelectionBrush="{DynamicResource PrimaryHueMidBrush}" 
+                                   SelectionForegroundBrush="White">
+                <syncfusion:SfDataGrid.Columns>
+                    <syncfusion:GridTextColumn HeaderText="ID" MappingName="ProductID" />
+                    <syncfusion:GridTextColumn HeaderText="Product name" MappingName="ProductName" Width="300" />
+                    <syncfusion:GridCurrencyColumn HeaderText="Unit price" MappingName="UnitPrice"/>
+                    <syncfusion:GridNumericColumn HeaderText="Units in stock" MappingName="UnitsInStock" NumberDecimalDigits="0" />
+                </syncfusion:SfDataGrid.Columns>
+            </syncfusion:SfDataGrid>
         </GroupBox>
 
         <GroupBox BorderThickness="0.5"
@@ -113,7 +131,6 @@
                               DisplayMemberPath="LastName" 
                               Style="{StaticResource MaterialDesignFloatingHintComboBox}"          
                               materialDesign:HintAssist.Hint="Employee"
-                              IsEditable="False" 
                               materialDesign:HintAssist.HintOpacity=".5"
                               Margin="10"/>
                     <ComboBox Grid.Row="1"
@@ -124,57 +141,45 @@
                               DisplayMemberPath="CompanyName" 
                               Style="{StaticResource MaterialDesignFloatingHintComboBox}"          
                               materialDesign:HintAssist.Hint="Customer"
-                              IsEditable="False" 
                               materialDesign:HintAssist.HintOpacity=".5"
                               Margin="10" Grid.ColumnSpan="2"/>
                 </Grid>
 
                 <Border BorderBrush="Black" BorderThickness="0.5" Grid.Row="1">
-                    <ListView x:Name="MyListView" 
-                          ItemsSource="{Binding ProductsInOrder}"
-                          SelectedItem="{Binding SelectedProductInOrder}"
-                          FontSize="14">
-                        <ListView.Resources>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Margin" Value="2"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                            </Style>
-                        </ListView.Resources>
-
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="Background" Value="LightGray"/>
-                                <Setter Property="BorderBrush" Value="{x:Null}"/>
-                                <Setter Property="BorderThickness" Value="0"/>
-                                <Setter Property="Margin" Value="1"/>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Height="45" 
-                          Background="LightGray">
-                                    <Grid.Resources>
-                                        <Style TargetType="TextBlock">
-                                            <Setter Property="VerticalAlignment" Value="Center"/>
-                                        </Style>
-                                    </Grid.Resources>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding ProductID}" Margin="0 0 20 0"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding ProductName}" TextAlignment="Center" Width="100"/>
-                                    <TextBlock Grid.Column="2" Text="{Binding UnitPrice}" TextAlignment="Center"/>
-                                    <customControl:UpDownControl Grid.Column="3" Margin="2" ItemsSource="{Binding Quantity}" CurrentValue="{Binding SelectedQuantity,Mode=TwoWay}"/>
-                                    <customControl:UpDownControl Grid.Column="4" Margin="2" ItemsSource="{Binding Discount}" CurrentValue="{Binding SelectedDiscount,Mode=TwoWay}"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    <syncfusion:SfDataGrid Margin="4"
+                                   ToolTip="You can select by Mouse click and holding Ctrl or Shift keys"
+                                   ItemsSource="{Binding ProductsInOrder}"
+                                   SelectionMode="Multiple"
+                                   SelectedItem="{Binding SelectedProductInOrder, Mode=TwoWay}"
+                                   AllowGrouping="False"
+                                   AutoGenerateColumns="False" 
+                                   ColumnSizer="AutoWithLastColumnFill"  
+                                   ShowBusyIndicator="True"  
+                                   ShowGroupDropArea="False"
+                                   AutoExpandGroups="False"
+                                   AllowFrozenGroupHeaders="True"
+                                   RowSelectionBrush="{DynamicResource PrimaryHueMidBrush}" 
+                                   SelectionForegroundBrush="White" 
+                                   RowHeight="45">
+                        <syncfusion:SfDataGrid.Columns>
+                            <syncfusion:GridTextColumn HeaderText="ID" Width="28" HorizontalHeaderContentAlignment="Center" MappingName="ProductID" />
+                            <syncfusion:GridTextColumn HeaderText="Product name" MappingName="ProductName"/>
+                            <syncfusion:GridTemplateColumn HeaderText="Quantity" Width="150">
+                                <syncfusion:GridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <customControl:UpDownControl ItemsSource="{Binding Quantity}" CurrentValue="{Binding SelectedQuantity,Mode=TwoWay}"/>
+                                    </DataTemplate>
+                                </syncfusion:GridTemplateColumn.CellTemplate>
+                            </syncfusion:GridTemplateColumn>
+                            <syncfusion:GridTemplateColumn HeaderText="Discount" Width="150">
+                                <syncfusion:GridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <customControl:UpDownControl ItemsSource="{Binding Discount}" CurrentValue="{Binding SelectedDiscount,Mode=TwoWay}"/>
+                                    </DataTemplate>
+                                </syncfusion:GridTemplateColumn.CellTemplate>
+                            </syncfusion:GridTemplateColumn>
+                        </syncfusion:SfDataGrid.Columns>
+                    </syncfusion:SfDataGrid>
                 </Border>
                 <TextBlock Grid.Row="2" 
                            FontSize="23"                        

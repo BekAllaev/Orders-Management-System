@@ -35,7 +35,7 @@
 
                         <Button Grid.Column="2" 
                                 FontSize="18" 
-                                Width="200"
+                                Width="130"
                                 Content="{Binding Path=DataContext.SwitchButtonContent, ElementName=ordersMainView, Mode=TwoWay}"
                                 Command="{Binding Path=DataContext.SwitchViewCommand, ElementName=ordersMainView}"/>
                     </Grid>

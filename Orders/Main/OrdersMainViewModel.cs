@@ -38,12 +38,12 @@ namespace Orders.Main
             {
                 case "Journal View":
                     ordersCurrentView = OrdersViews.Journal;
-                    SwitchButtonContent = "Navigate to Creation";
+                    SwitchButtonContent = "To Creation";
                     NameOfCurrentView = "Journal";
                     break;
                 case "Create View":
                     ordersCurrentView = OrdersViews.Create;
-                    SwitchButtonContent = "Navigate to Journal";
+                    SwitchButtonContent = "To Journal";
                     NameOfCurrentView = "Create";
                     break;
             }
@@ -74,13 +74,13 @@ namespace Orders.Main
                 case OrdersViews.Create:
                     regionManager.RequestNavigate("OrdersCreateJournalRegion", "JournalView");
                     ordersCurrentView = OrdersViews.Journal;
-                    SwitchButtonContent = "Navigate to Create";
+                    SwitchButtonContent = "To Create";
                     NameOfCurrentView = "Journal";
                     break;
                 case OrdersViews.Journal:
                     regionManager.RequestNavigate("OrdersCreateJournalRegion", "CreateView");
                     ordersCurrentView = OrdersViews.Create;
-                    SwitchButtonContent = "Navigate to Journal";
+                    SwitchButtonContent = "To Journal";
                     NameOfCurrentView = "Create";
                     break;
             }

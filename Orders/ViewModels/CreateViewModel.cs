@@ -121,8 +121,7 @@ namespace Orders.ViewModels
                     northwindContext.Orders.Add(newOrder);
                     northwindContext.SaveChanges();
 
-                    northwindContext.Order_Details.AddRange(
-                        new List<Order_Detail>(
+                    northwindContext.Order_Details.AddRange(new List<Order_Detail>(
                             ProductsInOrder.Select(p => new Order_Detail
                             {
                                 OrderID = newOrder.OrderID,
