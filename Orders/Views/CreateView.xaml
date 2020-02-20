@@ -39,7 +39,6 @@
             </GroupBox.HeaderTemplate>
 
             <syncfusion:SfDataGrid Margin="4"
-                                   ToolTip="You can select by Mouse click and holding Ctrl or Shift keys"
                                    ItemsSource="{Binding ProductsInStore}"
                                    SelectionMode="Single"
                                    SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
@@ -147,9 +146,7 @@
 
                 <Border BorderBrush="Black" BorderThickness="0.5" Grid.Row="1">
                     <syncfusion:SfDataGrid Margin="4"
-                                   ToolTip="You can select by Mouse click and holding Ctrl or Shift keys"
                                    ItemsSource="{Binding ProductsInOrder}"
-                                   SelectionMode="Multiple"
                                    SelectedItem="{Binding SelectedProductInOrder, Mode=TwoWay}"
                                    AllowGrouping="False"
                                    AutoGenerateColumns="False" 
@@ -161,7 +158,7 @@
                                    RowSelectionBrush="{DynamicResource PrimaryHueMidBrush}" 
                                    SelectionForegroundBrush="White" 
                                    RowHeight="45"
-                                   FontSize="15">
+                                   FontSize="14">
                         <syncfusion:SfDataGrid.Columns>
                             <syncfusion:GridTextColumn HeaderText="ID" Width="28" HorizontalHeaderContentAlignment="Center" MappingName="ProductID" />
                             <syncfusion:GridTextColumn HeaderText="Product name" MappingName="ProductName"/>
