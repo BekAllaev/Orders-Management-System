@@ -166,11 +166,7 @@
                             <syncfusion:GridTemplateColumn HeaderText="Quantity" Width="100">
                                 <syncfusion:GridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <syncfusion:UpDown MinValue="0" Value="{Binding SelectedQuantity,Mode=TwoWay}" MaxValue="{Binding QunatityInStoke}" NumberDecimalDigits="0">
-                                            <i:Interaction.Behaviors>
-                                                <behavior:ZeroToOneBehavior/>
-                                            </i:Interaction.Behaviors>
-                                        </syncfusion:UpDown>
+                                        <syncfusion:UpDown MinValue="1" Value="{Binding SelectedQuantity,Mode=TwoWay}" MaxValue="{Binding QunatityInStoke}" NumberDecimalDigits="0"/>
                                     </DataTemplate>
                                 </syncfusion:GridTemplateColumn.CellTemplate>
                             </syncfusion:GridTemplateColumn>

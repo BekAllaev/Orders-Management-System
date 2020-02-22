@@ -23,11 +23,7 @@ namespace Infrastructure.Behaviors
 
         private void AssociatedObject_ValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            SetToOne((UpDown)d);
-        }
-
-        private void SetToOne(UpDown upDown)
-        {
+            UpDown upDown = (UpDown)d;
             if (upDown.Value == 0) upDown.Value = 1;
         }
     }
