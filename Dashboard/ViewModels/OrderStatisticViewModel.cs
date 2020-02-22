@@ -39,7 +39,7 @@ namespace Dashboard.ViewModels
             ordersList = new SourceList<Order>();
 
             ordersList.Connect().
-                GroupOn(order => order.ShipCountry).
+                GroupOn(order => order.Customer.Country).
                 Transform(groupOfOrders => new OrdersByCountry() { Country = groupOfOrders.GroupKey, NumberOfOrders = groupOfOrders.List.Count }).
                 ObserveOnDispatcher().
                 Top(10).
