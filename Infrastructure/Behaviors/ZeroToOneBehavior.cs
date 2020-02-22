@@ -13,20 +13,12 @@ namespace Infrastructure.Behaviors
     {
         protected override void OnAttached()
         {
-            //AssociatedObject.Initialized += AssociatedObject_Initialized;
             AssociatedObject.ValueChanged += AssociatedObject_ValueChanged;
         }
 
         protected override void OnDetaching()
         {
-            AssociatedObject.Initialized -= AssociatedObject_Initialized;
             AssociatedObject.ValueChanged -= AssociatedObject_ValueChanged;
-        }
-
-        private void AssociatedObject_Initialized(object sender, EventArgs e)
-        {
-            UpDown upDown = (UpDown)sender;
-            upDown.Value = 1;
         }
 
         private void AssociatedObject_ValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
