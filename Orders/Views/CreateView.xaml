@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Orders.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:customControl="clr-namespace:Infrastructure.UserControls;assembly=Infrastructure"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:behavior="clr-namespace:Infrastructure.Behaviors;assembly=Infrastructure"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
@@ -157,22 +158,26 @@
                                    AllowFrozenGroupHeaders="True"
                                    RowSelectionBrush="{DynamicResource PrimaryHueMidBrush}" 
                                    SelectionForegroundBrush="White" 
-                                   RowHeight="45"
                                    FontSize="14">
                         <syncfusion:SfDataGrid.Columns>
-                            <syncfusion:GridTextColumn HeaderText="ID" Width="28" HorizontalHeaderContentAlignment="Center" MappingName="ProductID" />
+                            <syncfusion:GridTextColumn HeaderText="ID" HorizontalHeaderContentAlignment="Center" MappingName="ProductID" />
                             <syncfusion:GridTextColumn HeaderText="Product name" MappingName="ProductName"/>
-                            <syncfusion:GridTemplateColumn HeaderText="Quantity" Width="150">
+                            <syncfusion:GridCurrencyColumn HeaderText="Unit price" MappingName="UnitPrice" Width="100"/>
+                            <syncfusion:GridTemplateColumn HeaderText="Quantity" Width="100">
                                 <syncfusion:GridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <customControl:UpDownControl ItemsSource="{Binding Quantity}" CurrentValue="{Binding SelectedQuantity,Mode=TwoWay}"/>
+                                        <syncfusion:UpDown MinValue="0" Value="{Binding SelectedQuantity,Mode=TwoWay}" MaxValue="{Binding QunatityInStoke}" NumberDecimalDigits="0">
+                                            <i:Interaction.Behaviors>
+                                                <behavior:ZeroToOneBehavior/>
+                                            </i:Interaction.Behaviors>
+                                        </syncfusion:UpDown>
                                     </DataTemplate>
                                 </syncfusion:GridTemplateColumn.CellTemplate>
                             </syncfusion:GridTemplateColumn>
-                            <syncfusion:GridTemplateColumn HeaderText="Discount" Width="150">
+                            <syncfusion:GridTemplateColumn HeaderText="Discount" Width="100">
                                 <syncfusion:GridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <customControl:UpDownControl ItemsSource="{Binding Discount}" CurrentValue="{Binding SelectedDiscount,Mode=TwoWay}"/>
+                                        <syncfusion:UpDown MinValue="0" MaxValue="10" NumberDecimalDigits="0"/>
                                     </DataTemplate>
                                 </syncfusion:GridTemplateColumn.CellTemplate>
                             </syncfusion:GridTemplateColumn>

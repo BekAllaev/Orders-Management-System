@@ -314,8 +314,7 @@ namespace Orders.ViewModels
                 SelectedDiscount = 0;
                 SelectedQuantity = 1;
 
-                Quantity = new List<int>();
-                Quantity.AddRange(Enumerable.Range(1, Convert.ToInt32(product.UnitsInStock)));
+                QunatityInStoke = product.UnitsInStock;
                 Discount = new List<int>(100);
                 Discount.AddRange(Enumerable.Range(0, 101));
 
@@ -329,7 +328,7 @@ namespace Orders.ViewModels
 
             public decimal? UnitPrice { set; get; }
 
-            public List<int> Quantity { get; }
+            public short? QunatityInStoke { set; get; }
 
             public List<int> Discount { get; }
 
