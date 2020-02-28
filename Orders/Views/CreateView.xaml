@@ -53,7 +53,7 @@
                                    RowSelectionBrush="{DynamicResource PrimaryHueMidBrush}" 
                                    SelectionForegroundBrush="White">
                 <syncfusion:SfDataGrid.Columns>
-                    <syncfusion:GridTextColumn HeaderText="ID" MappingName="ProductID" />
+                    <syncfusion:GridTextColumn HeaderText="ID" MappingName="ProductID"/>
                     <syncfusion:GridTextColumn HeaderText="Product name" MappingName="ProductName" Width="300" />
                     <syncfusion:GridCurrencyColumn HeaderText="Unit price" MappingName="UnitPrice"/>
                     <syncfusion:GridNumericColumn HeaderText="Units in stock" MappingName="UnitsInStock" NumberDecimalDigits="0" />

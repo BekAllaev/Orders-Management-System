@@ -171,6 +171,8 @@ namespace Orders.ViewModels
 
         private void SubscribeToChanges(ProductInOrder newProductInOrder)
         {
+            int previousSelectedQuantity = 0;
+
             newProductInOrder.WhenAnyValue(x => x.SelectedDiscount, x => x.SelectedQuantity)
             .Subscribe(a =>
             {
@@ -178,7 +180,8 @@ namespace Orders.ViewModels
                 int newSelectedQuantity = a.Item2;
 
                 //-UnitPrice или +UnitPrice к TotalSum и цене товара в заказке
-                decimal newValue = (newSelectedQuantity - (short)newProductInOrder.SourceProductOnStore.UnitsOnOrder) * (decimal)newProductInOrder.UnitPrice;
+                decimal newValue = (decimal)newProductInOrder.UnitPrice * (newSelectedQuantity - previousSelectedQuantity);
+                //decimal newValue = (newSelectedQuantity - (short)newProductInOrder.SourceProductOnStore.UnitsOnOrder) * (decimal)newProductInOrder.UnitPrice;
 
                 //-1% или +1% скидки от товара
                 decimal percentageOff = (decimal)(newSelectedDiscount - newProductInOrder.PreviousSelectedDiscount) / 100;
@@ -205,14 +208,17 @@ namespace Orders.ViewModels
 
                 newProductInOrder.Sum += newValue;
                 TotalSum += newValue;
+
             });
 
             newProductInOrder.WhenAnyValue(x => x.SelectedQuantity)
                 .Select(newSelectedQuantity =>
                 {
-                    short? unitsOnOrder = newProductInOrder.SourceProductOnStore.UnitsOnOrder;
+                    int delta = newSelectedQuantity - previousSelectedQuantity; //Quantity of products that will be added or removed(in case of negative value) from the stock
 
-                    return newSelectedQuantity - unitsOnOrder;
+                    previousSelectedQuantity = newSelectedQuantity;
+
+                    return delta;
                 })
                 .Subscribe(newValue =>
                 {
