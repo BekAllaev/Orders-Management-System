@@ -41,7 +41,6 @@
 
             <syncfusion:SfDataGrid Margin="4"
                                    ItemsSource="{Binding ProductsInStore}"
-                                   SelectionMode="Single"
                                    SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
                                    AllowGrouping="False"
                                    AutoGenerateColumns="False" 
@@ -50,13 +49,14 @@
                                    ShowGroupDropArea="False"
                                    AutoExpandGroups="False"
                                    AllowFrozenGroupHeaders="True"
-                                   RowSelectionBrush="{DynamicResource PrimaryHueMidBrush}" 
-                                   SelectionForegroundBrush="White">
+                                   RowSelectionBrush="{x:Null}" 
+                                   SelectionForegroundBrush="Black">
                 <syncfusion:SfDataGrid.Columns>
                     <syncfusion:GridTextColumn HeaderText="ID" MappingName="ProductID"/>
-                    <syncfusion:GridTextColumn HeaderText="Product name" MappingName="ProductName" Width="300" />
+                    <syncfusion:GridTextColumn HeaderText="Product name" MappingName="ProductName" Width="200" />
                     <syncfusion:GridCurrencyColumn HeaderText="Unit price" MappingName="UnitPrice"/>
                     <syncfusion:GridNumericColumn HeaderText="Units in stock" MappingName="UnitsInStock" NumberDecimalDigits="0" />
+                    <syncfusion:GridCheckBoxColumn HeaderText="Purchase" MappingName="IsInOrder" AllowEditing="True" Width="100"/>
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>
         </GroupBox>
@@ -81,11 +81,10 @@
                                    Grid.Column="1"/>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2">
-                            <Button Content="Unselect"
+                            <Button Content="Clear"
                                     FontSize="18"
                                     Margin="5"
-                                    Width="120"
-                                    Command="{Binding Path=DataContext.UnselectCommand,ElementName=ParentView}"/>
+                                    Width="120"/>
                             <Button Background="Red"
                                     Content="Create"
                                     Margin="5"

@@ -305,6 +305,13 @@ namespace Orders.ViewModels
                 set { SetAndRaise(ref _unitsOnOrder, value); }
                 get { return _unitsOnOrder; }
             }
+
+            bool _isInOrder;
+            public bool IsInOrder
+            {
+                set { SetAndRaise(ref _isInOrder, value); }
+                get { return _isInOrder; }
+            }
             #endregion
         }
 
