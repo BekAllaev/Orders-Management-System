@@ -179,20 +179,19 @@ namespace Orders.ViewModels
                 int newSelectedDiscount = a.Item1;
                 int newSelectedQuantity = a.Item2;
 
-                //-UnitPrice или +UnitPrice к TotalSum и цене товара в заказке
+                //Value(price) that will be added(or removed) to(from) TotalPrice
                 decimal newValue = (decimal)newProductInOrder.UnitPrice * (newSelectedQuantity - previousSelectedQuantity);
-                //decimal newValue = (newSelectedQuantity - (short)newProductInOrder.SourceProductOnStore.UnitsOnOrder) * (decimal)newProductInOrder.UnitPrice;
 
-                //-1% или +1% скидки от товара
+                //-1% or +1% discount
                 decimal percentageOff = (decimal)(newSelectedDiscount - newProductInOrder.PreviousSelectedDiscount) / 100;
 
-                //Запускается когда меняется SelectedDiscount
+                //Executing when the SelectedDiscount has changed
                 if (percentageOff != 0)
                 {
                     newProductInOrder.Sum -= newProductInOrder.SelectedQuantity * (decimal)newProductInOrder.UnitPrice * percentageOff;
                     TotalSum -= newProductInOrder.SelectedQuantity * (decimal)newProductInOrder.UnitPrice * percentageOff;
                 }
-                //Запускается когда меняется SelectedQuantity и при этом SelectedDiscount больше нуля
+                //Executing when the SelectedQuantity has changed and the SelectedDiscount is greater than zero.
                 else if (newSelectedDiscount != 0)
                 {
                     decimal sumOff = ((decimal)newProductInOrder.PreviousSelectedDiscount / 100) * newProductInOrder.SelectedQuantity * (decimal)newProductInOrder.UnitPrice;
@@ -208,17 +207,16 @@ namespace Orders.ViewModels
 
                 newProductInOrder.Sum += newValue;
                 TotalSum += newValue;
-
             });
 
             newProductInOrder.WhenAnyValue(x => x.SelectedQuantity)
                 .Select(newSelectedQuantity =>
                 {
-                    int delta = newSelectedQuantity - previousSelectedQuantity; //Quantity of products that will be added or removed(in case of negative value) from the stock
+                    int deltaQuantity = newSelectedQuantity - previousSelectedQuantity; //Quantity of products that will be added or removed(in case of negative value) from the stock of the current product
 
                     previousSelectedQuantity = newSelectedQuantity;
 
-                    return delta;
+                    return deltaQuantity;
                 })
                 .Subscribe(newValue =>
                 {
