@@ -27,6 +27,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
                         <materialDesign:PackIcon Kind="Store" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 10 0"/>
@@ -35,13 +36,17 @@
                                    FontSize="18"
                                    VerticalAlignment="Center"
                                    Grid.Column="1"/>
+
+                        <Button Content="Remove all"
+                                Grid.Column="2"
+                                HorizontalAlignment="Right"
+                                Command="{Binding Path=DataContext.RemoveAllCommand,ElementName=ParentView}"/>
                     </Grid>
                 </DataTemplate>
             </GroupBox.HeaderTemplate>
 
             <syncfusion:SfDataGrid Margin="4"
                                    ItemsSource="{Binding ProductsInStore}"
-                                   SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
                                    AllowGrouping="False"
                                    AutoGenerateColumns="False" 
                                    ColumnSizer="AutoWithLastColumnFill"  
@@ -81,10 +86,10 @@
                                    Grid.Column="1"/>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2">
-                            <Button Content="Clear"
+                            <!--<Button Content="Clear"
                                     FontSize="18"
                                     Margin="5"
-                                    Width="120"/>
+                                    Width="120"/>-->
                             <Button Background="Red"
                                     Content="Create"
                                     Margin="5"
@@ -183,7 +188,7 @@
                            FontSize="23"                        
                            HorizontalAlignment="Right"
                            Margin="5"
-                           Text="{Binding TotalSum, StringFormat='Total sum: {0}'}"/>
+                           Text="{Binding TotalSumString, StringFormat='Total sum: {0}'}"/>
             </Grid>
         </GroupBox>
     </Grid>

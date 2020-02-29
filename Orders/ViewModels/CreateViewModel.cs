@@ -27,8 +27,8 @@ namespace Orders.ViewModels
         ReadOnlyObservableCollection<Employee> _employees;
         ReadOnlyObservableCollection<Customer> _customers;
 
-        SourceCache<Product, int> products;
-        SourceList<ProductInOrder> productsInOrder;
+        SourceCache<ProductOnStore, int> products;
+        SourceCache<ProductInOrder, int> productsInOrder;
         SourceList<Employee> employees;
         SourceList<Customer> customers;
         #endregion
@@ -37,14 +37,17 @@ namespace Orders.ViewModels
         {
             this.northwindContext = northwindContext;
 
-            products = new SourceCache<Product, int>(p => p.ProductID);
-            productsInOrder = new SourceList<ProductInOrder>();
+            products = new SourceCache<ProductOnStore, int>(p => p.ProductID);
+            productsInOrder = new SourceCache<ProductInOrder, int>(p => p.ProductID);
             employees = new SourceList<Employee>();
             customers = new SourceList<Customer>();
 
-            this.WhenValueChanged(vm => vm.SelectedProduct).Subscribe(p => AddToOrder(p));
-            var canUnSelectExecute = this.WhenAnyValue(x => x.SelectedProductInOrder).
-                Select(selectedProductInOrder => selectedProductInOrder == null ? false : true);
+            var canRemoveAllExecute = productsInOrder.CountChanged.
+                Select(currentCountOfItems =>
+                {
+                    if (currentCountOfItems == 0) return false;
+                    else return true;
+                });
 
             productsInOrder.CountChanged.Subscribe(currentCount => { CountOfProductsInOrder = currentCount; });
 
@@ -63,7 +66,7 @@ namespace Orders.ViewModels
                 });
 
             products.Connect().
-                Transform(product => new ProductOnStore(product)).
+                OnItemAdded(a => SubscribeToIsInOrderChange(a)).
                 Filter(x => x.UnitsInStock != 0).
                 Sort(SortExpressionComparer<ProductOnStore>.Ascending(item => item.ProductID)).
                 ObserveOnDispatcher().
@@ -74,7 +77,9 @@ namespace Orders.ViewModels
                 Sort(SortExpressionComparer<ProductInOrder>.Ascending(x => x.ProductID)).
                 ObserveOnDispatcher().
                 Bind(out _productsInOrder).
-                ActOnEveryObject(x => SubscribeToChanges(x), y => SetInitialValues(y));
+                OnItemAdded(x => SubscribeToChanges(x)).
+                OnItemRemoved(y => SetInitialValues(y)).
+                Subscribe();
 
             employees.Connect().
                 ObserveOnDispatcher().
@@ -86,16 +91,27 @@ namespace Orders.ViewModels
                 Bind(out _customers).
                 Subscribe();
 
-            UnselectCommand = ReactiveCommand.Create(RemoveFromOrder, canUnSelectExecute);
+            RemoveAllCommand = ReactiveCommand.Create(RemoveAllCommandExecute, canRemoveAllExecute);
             CreateOrderCommand = ReactiveCommand.Create(CreateOrderExecute, canCreateOrderExecute);
         }
 
         #region Commands
 
-        #region Unselect
-        public ReactiveCommand<Unit, Unit> UnselectCommand { get; }
+        #region Remove all 
+        /// <summary>
+        /// Removing all products from order
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> RemoveAllCommand { get; }
 
-        private void RemoveFromOrder() => productsInOrder.Remove(SelectedProductInOrder);
+        private void RemoveAllCommandExecute()
+        {
+            var listOfProducts = products.Items.ToList();
+            listOfProducts.ForEach(product =>
+            {
+                if (product.IsInOrder != null)
+                    if ((bool)product.IsInOrder) product.IsInOrder = false;
+            });
+        }
         #endregion
 
         #region Create
@@ -151,13 +167,21 @@ namespace Orders.ViewModels
         #endregion
 
         #region Utilities
-        private void AddToOrder(ProductOnStore product)
+        private void SubscribeToIsInOrderChange(ProductOnStore productOnStore)
         {
-            if (product == null) return;
-            if (productsInOrder.Items.Any(o => o.ProductID == product.ProductID)) return;
-
-            ProductInOrder productInOrder = new ProductInOrder(product);
-            productsInOrder.Add(productInOrder);
+            productOnStore.WhenAnyValue(a => a.IsInOrder).
+            Subscribe(isProductInOrder =>
+            {
+                if (isProductInOrder != null)
+                {
+                    if ((bool)isProductInOrder)
+                    {
+                        ProductInOrder newProductInOrder = new ProductInOrder(productOnStore);
+                        productsInOrder.AddOrUpdate(newProductInOrder);
+                    }
+                    else { productsInOrder.Remove(productOnStore.ProductID); }
+                }
+            });
         }
 
         private void SetInitialValues(ProductInOrder productToRemove)
@@ -207,6 +231,8 @@ namespace Orders.ViewModels
 
                 newProductInOrder.Sum += newValue;
                 TotalSum += newValue;
+
+                TotalSumString = TotalSum.ToString("C2");
             });
 
             newProductInOrder.WhenAnyValue(x => x.SelectedQuantity)
@@ -240,7 +266,12 @@ namespace Orders.ViewModels
         #region Implementation of INavigationAware
         public async void OnNavigatedTo(NavigationContext navigationContext)
         {
-            if (products.Count == 0) await Task.Run(() => products.AddOrUpdate(northwindContext.Products));
+            if (products.Count == 0) await Task.Run(() =>
+            {
+                var listOfProducts = northwindContext.Products.ToList();
+                var listOfProductsOnStore = listOfProducts.Select(b => new ProductOnStore(b));
+                products.AddOrUpdate(listOfProductsOnStore);
+            });
             if (employees.Count == 0) await Task.Run(() => employees.AddRange(northwindContext.Employees));
             if (customers.Count == 0) await Task.Run(() => customers.AddRange(northwindContext.Customers));
         }
@@ -259,16 +290,23 @@ namespace Orders.ViewModels
         [Reactive] public Employee SelectedEmployee { set; get; }
         [Reactive] public Customer SelectedCustomer { set; get; }
         [Reactive] public string OrderDate { set; get; }
-        [Reactive] public ProductOnStore SelectedProduct { private get; set; }
         [Reactive] public ProductInOrder SelectedProductInOrder { private get; set; }
         [Reactive] int CountOfProductsInOrder { set; get; }
 
-        decimal _totalsum;
-        public decimal TotalSum
+        string _totalSumString;
+        public string TotalSumString
         {
-            set { this.RaiseAndSetIfChanged(ref _totalsum, value); }
-            get { return _totalsum; }
+            set { this.RaiseAndSetIfChanged(ref _totalSumString, value); }
+            get { return _totalSumString; }
         }
+
+        private decimal TotalSum { set; get; }
+        //decimal _totalsum;
+        //public decimal TotalSum
+        //{
+        //    set { this.RaiseAndSetIfChanged(ref _totalsum, value); }
+        //    get { return _totalsum; }
+        //}
 
         public bool KeepAlive => true;
         #endregion
@@ -306,8 +344,8 @@ namespace Orders.ViewModels
                 get { return _unitsOnOrder; }
             }
 
-            bool _isInOrder;
-            public bool IsInOrder
+            bool? _isInOrder;
+            public bool? IsInOrder
             {
                 set { SetAndRaise(ref _isInOrder, value); }
                 get { return _isInOrder; }
