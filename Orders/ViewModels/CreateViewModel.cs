@@ -66,7 +66,7 @@ namespace Orders.ViewModels
                 });
 
             products.Connect().
-                OnItemAdded(a => SubscribeToIsInOrderChange(a)).
+                OnItemAdded(a => MakeSubscribtion(a)).
                 Filter(x => x.UnitsInStock != 0).
                 Sort(SortExpressionComparer<ProductOnStore>.Ascending(item => item.ProductID)).
                 ObserveOnDispatcher().
@@ -106,11 +106,8 @@ namespace Orders.ViewModels
         private void RemoveAllCommandExecute()
         {
             var listOfProducts = products.Items.ToList();
-            listOfProducts.ForEach(product =>
-            {
-                if (product.IsInOrder != null)
-                    if ((bool)product.IsInOrder) product.IsInOrder = false;
-            });
+
+            listOfProducts.ForEach(product => { if (product.Added) product.Added = false; });
         }
         #endregion
 
@@ -167,20 +164,23 @@ namespace Orders.ViewModels
         #endregion
 
         #region Utilities
-        private void SubscribeToIsInOrderChange(ProductOnStore productOnStore)
+        /// <summary>
+        /// Subscribes to the changes of added property 
+        /// </summary>
+        /// <param name="productOnStore">
+        /// New product that was added into products on store list
+        /// </param>
+        private void MakeSubscribtion(ProductOnStore productOnStore)
         {
-            productOnStore.WhenAnyValue(a => a.IsInOrder).
-            Subscribe(isProductInOrder =>
+            productOnStore.WhenAnyValue(a => a.Added).
+            Subscribe(isInOrder =>
             {
-                if (isProductInOrder != null)
+                if (isInOrder)
                 {
-                    if ((bool)isProductInOrder)
-                    {
-                        ProductInOrder newProductInOrder = new ProductInOrder(productOnStore);
-                        productsInOrder.AddOrUpdate(newProductInOrder);
-                    }
-                    else { productsInOrder.Remove(productOnStore.ProductID); }
+                    ProductInOrder newProductInOrder = new ProductInOrder(productOnStore);
+                    productsInOrder.AddOrUpdate(newProductInOrder);
                 }
+                else { productsInOrder.Remove(productOnStore.ProductID); }
             });
         }
 
@@ -301,13 +301,9 @@ namespace Orders.ViewModels
         }
 
         private decimal TotalSum { set; get; }
-        //decimal _totalsum;
-        //public decimal TotalSum
-        //{
-        //    set { this.RaiseAndSetIfChanged(ref _totalsum, value); }
-        //    get { return _totalsum; }
-        //}
+        #endregion
 
+        #region Implementation of IRegionMemeberLifetime
         public bool KeepAlive => true;
         #endregion
 
@@ -344,11 +340,11 @@ namespace Orders.ViewModels
                 get { return _unitsOnOrder; }
             }
 
-            bool? _isInOrder;
-            public bool? IsInOrder
+            bool _added;
+            public bool Added
             {
-                set { SetAndRaise(ref _isInOrder, value); }
-                get { return _isInOrder; }
+                set { SetAndRaise(ref _added, value); }
+                get { return _added; }
             }
             #endregion
         }

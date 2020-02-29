@@ -57,11 +57,11 @@
                                    RowSelectionBrush="{x:Null}" 
                                    SelectionForegroundBrush="Black">
                 <syncfusion:SfDataGrid.Columns>
+                    <syncfusion:GridCheckBoxColumn HeaderText="Add" MappingName="Added" AllowEditing="True"/>
                     <syncfusion:GridTextColumn HeaderText="ID" MappingName="ProductID"/>
                     <syncfusion:GridTextColumn HeaderText="Product name" MappingName="ProductName" Width="200"/>
                     <syncfusion:GridCurrencyColumn HeaderText="Unit price" MappingName="UnitPrice"/>
                     <syncfusion:GridNumericColumn HeaderText="Units in stock" MappingName="UnitsInStock" NumberDecimalDigits="0" />
-                    <syncfusion:GridCheckBoxColumn HeaderText="Purchase" MappingName="IsInOrder" AllowEditing="True"/>
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>
         </GroupBox>
@@ -86,13 +86,8 @@
                                    Grid.Column="1"/>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2">
-                            <!--<Button Content="Clear"
-                                    FontSize="18"
-                                    Margin="5"
-                                    Width="120"/>-->
                             <Button Background="Red"
                                     Content="Create"
-                                    Margin="5"
                                     FontSize="18"
                                     Width="120"
                                     Command="{Binding Path=DataContext.CreateOrderCommand,ElementName=ParentView}"/>
@@ -149,41 +144,40 @@
                               Margin="10" Grid.ColumnSpan="2"/>
                 </Grid>
 
-                <Border BorderBrush="Black" BorderThickness="0.5" Grid.Row="1">
-                    <syncfusion:SfDataGrid Margin="4"
-                                   ItemsSource="{Binding ProductsInOrder}"
-                                   SelectedItem="{Binding SelectedProductInOrder, Mode=TwoWay}"
-                                   AllowGrouping="False"
-                                   AutoGenerateColumns="False" 
-                                   ColumnSizer="AutoWithLastColumnFill"  
-                                   ShowBusyIndicator="True"  
-                                   ShowGroupDropArea="False"
-                                   AutoExpandGroups="False"
-                                   AllowFrozenGroupHeaders="True"
-                                   RowSelectionBrush="{DynamicResource PrimaryHueMidBrush}" 
-                                   SelectionForegroundBrush="White" 
-                                   FontSize="14">
-                        <syncfusion:SfDataGrid.Columns>
-                            <syncfusion:GridTextColumn HeaderText="ID" HorizontalHeaderContentAlignment="Center" MappingName="ProductID" />
-                            <syncfusion:GridTextColumn HeaderText="Product name" MappingName="ProductName"/>
-                            <syncfusion:GridCurrencyColumn HeaderText="Unit price" MappingName="UnitPrice" Width="100"/>
-                            <syncfusion:GridTemplateColumn HeaderText="Quantity" Width="100">
-                                <syncfusion:GridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <syncfusion:UpDown MinValue="1" Value="{Binding SelectedQuantity,Mode=TwoWay}" MaxValue="{Binding QunatityInStoke}" NumberDecimalDigits="0"/>
-                                    </DataTemplate>
-                                </syncfusion:GridTemplateColumn.CellTemplate>
-                            </syncfusion:GridTemplateColumn>
-                            <syncfusion:GridTemplateColumn HeaderText="Discount" Width="100">
-                                <syncfusion:GridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <syncfusion:UpDown MinValue="0" MaxValue="10" NumberDecimalDigits="0"/>
-                                    </DataTemplate>
-                                </syncfusion:GridTemplateColumn.CellTemplate>
-                            </syncfusion:GridTemplateColumn>
-                        </syncfusion:SfDataGrid.Columns>
-                    </syncfusion:SfDataGrid>
-                </Border>
+                <syncfusion:SfDataGrid Margin="4"
+                                       Grid.Row="1"
+                                       ItemsSource="{Binding ProductsInOrder}"
+                                       SelectedItem="{Binding SelectedProductInOrder, Mode=TwoWay}"
+                                       AllowGrouping="False"
+                                       AutoGenerateColumns="False" 
+                                       ColumnSizer="AutoWithLastColumnFill"  
+                                       ShowBusyIndicator="True"  
+                                       ShowGroupDropArea="False"
+                                       AutoExpandGroups="False"
+                                       AllowFrozenGroupHeaders="True"
+                                       RowSelectionBrush="{DynamicResource PrimaryHueMidBrush}" 
+                                       SelectionForegroundBrush="White" 
+                                       FontSize="14">
+                    <syncfusion:SfDataGrid.Columns>
+                        <syncfusion:GridTextColumn HeaderText="ID" HorizontalHeaderContentAlignment="Center" MappingName="ProductID" />
+                        <syncfusion:GridTextColumn HeaderText="Product name" MappingName="ProductName"/>
+                        <syncfusion:GridCurrencyColumn HeaderText="Unit price" MappingName="UnitPrice" Width="100"/>
+                        <syncfusion:GridTemplateColumn HeaderText="Quantity" Width="100">
+                            <syncfusion:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <syncfusion:UpDown MinValue="1" Value="{Binding SelectedQuantity,Mode=TwoWay}" MaxValue="{Binding QunatityInStoke}" NumberDecimalDigits="0"/>
+                                </DataTemplate>
+                            </syncfusion:GridTemplateColumn.CellTemplate>
+                        </syncfusion:GridTemplateColumn>
+                        <syncfusion:GridTemplateColumn HeaderText="Discount" Width="100">
+                            <syncfusion:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <syncfusion:UpDown MinValue="0" MaxValue="10" NumberDecimalDigits="0"/>
+                                </DataTemplate>
+                            </syncfusion:GridTemplateColumn.CellTemplate>
+                        </syncfusion:GridTemplateColumn>
+                    </syncfusion:SfDataGrid.Columns>
+                </syncfusion:SfDataGrid>
                 <TextBlock Grid.Row="2" 
                            FontSize="23"                        
                            HorizontalAlignment="Right"
