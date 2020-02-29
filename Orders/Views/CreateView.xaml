@@ -58,10 +58,10 @@
                                    SelectionForegroundBrush="Black">
                 <syncfusion:SfDataGrid.Columns>
                     <syncfusion:GridTextColumn HeaderText="ID" MappingName="ProductID"/>
-                    <syncfusion:GridTextColumn HeaderText="Product name" MappingName="ProductName" Width="200" />
+                    <syncfusion:GridTextColumn HeaderText="Product name" MappingName="ProductName" Width="200"/>
                     <syncfusion:GridCurrencyColumn HeaderText="Unit price" MappingName="UnitPrice"/>
                     <syncfusion:GridNumericColumn HeaderText="Units in stock" MappingName="UnitsInStock" NumberDecimalDigits="0" />
-                    <syncfusion:GridCheckBoxColumn HeaderText="Purchase" MappingName="IsInOrder" AllowEditing="True" Width="100"/>
+                    <syncfusion:GridCheckBoxColumn HeaderText="Purchase" MappingName="IsInOrder" AllowEditing="True"/>
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>
         </GroupBox>
