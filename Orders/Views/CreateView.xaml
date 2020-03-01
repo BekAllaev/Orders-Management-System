@@ -38,6 +38,7 @@
                                    Grid.Column="1"/>
 
                         <Button Content="Remove all"
+                                FontSize="18"
                                 Grid.Column="2"
                                 HorizontalAlignment="Right"
                                 Command="{Binding Path=DataContext.RemoveAllCommand,ElementName=ParentView}"/>
@@ -169,10 +170,10 @@
                                 </DataTemplate>
                             </syncfusion:GridTemplateColumn.CellTemplate>
                         </syncfusion:GridTemplateColumn>
-                        <syncfusion:GridTemplateColumn HeaderText="Discount" Width="100">
+                        <syncfusion:GridTemplateColumn HeaderText="Discount(%)" Width="100">
                             <syncfusion:GridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <syncfusion:UpDown MinValue="0" MaxValue="10" NumberDecimalDigits="0"/>
+                                    <syncfusion:UpDown MinValue="0" MaxValue="100" Value="{Binding SelectedDiscount,Mode=TwoWay}" NumberDecimalDigits="0"/>
                                 </DataTemplate>
                             </syncfusion:GridTemplateColumn.CellTemplate>
                         </syncfusion:GridTemplateColumn>

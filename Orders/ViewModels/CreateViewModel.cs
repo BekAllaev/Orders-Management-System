@@ -360,8 +360,6 @@ namespace Orders.ViewModels
                 SelectedQuantity = 1;
 
                 QunatityInStoke = product.UnitsInStock;
-                Discount = new List<int>(100);
-                Discount.AddRange(Enumerable.Range(0, 101));
 
                 SourceProductOnStore = product;
             }
@@ -374,8 +372,6 @@ namespace Orders.ViewModels
             public decimal? UnitPrice { set; get; }
 
             public short? QunatityInStoke { set; get; }
-
-            public List<int> Discount { get; }
 
             [Reactive]
             public short SelectedQuantity { set; get; }
