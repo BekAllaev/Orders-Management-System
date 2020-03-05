@@ -224,6 +224,8 @@ namespace Orders.ViewModels
                     newProductInOrder.Sum = sumOff;
                     TotalSum += sumToAdd;
 
+                    TotalSumString = TotalSum.ToString("C2");
+
                     return;
                 }
 
