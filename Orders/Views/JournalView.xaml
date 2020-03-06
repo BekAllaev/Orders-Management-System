@@ -10,7 +10,7 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+
     <GroupBox BorderThickness="0.5"
                   Margin="5">
         <GroupBox.HeaderTemplate>
@@ -31,7 +31,22 @@
             </DataTemplate>
         </GroupBox.HeaderTemplate>
 
-        <syncfusion:SfDataGrid ItemsSource="{Binding Orders}" 
-                                   IsReadOnly="True"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <syncfusion:SfDataGrid ItemsSource="{Binding ElementName=dataPager,Path=PagedSource}" 
+                                   ColumnSizer="Auto"
+                                   ShowBusyIndicator="True"/>
+            <syncfusion:SfDataPager x:Name="dataPager"
+                                    Grid.Row="1"
+                                    PageCount="29"
+                                    NumericButtonCount="10"
+                                    UseOnDemandPaging="True"
+                                    PageSize="28"
+                                    HorizontalAlignment="Center"/>
+        </Grid>
     </GroupBox>
 </UserControl>

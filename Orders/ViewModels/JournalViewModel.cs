@@ -10,6 +10,7 @@ using ReactiveUI;
 using DynamicData;
 using DataAccessLocal;
 using System.Collections.ObjectModel;
+using System.Reactive.Linq;
 
 namespace Orders.ViewModels
 {
@@ -31,6 +32,7 @@ namespace Orders.ViewModels
             ordersList = new SourceList<Order>();
 
             ordersList.Connect().
+                ObserveOnDispatcher().
                 Bind(out _ordersList).
                 Subscribe();
         }
@@ -45,10 +47,7 @@ namespace Orders.ViewModels
         #endregion
 
         #region Implementation of INavigationAware
-        public bool IsNavigationTarget(NavigationContext navigationContext)
-        {
-            return true;
-        }
+        public bool IsNavigationTarget(NavigationContext navigationContext) { return true; }
 
         public void OnNavigatedFrom(NavigationContext navigationContext) { }
 
