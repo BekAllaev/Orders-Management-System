@@ -49,6 +49,7 @@
             <syncfusion:SfDataGrid Margin="4"
                                    ItemsSource="{Binding ProductsInStore}"
                                    AllowGrouping="False"
+                                   CurrentCellBorderBrush="White"
                                    AutoGenerateColumns="False" 
                                    ColumnSizer="AutoWithLastColumnFill"  
                                    ShowBusyIndicator="True"  

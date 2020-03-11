@@ -11,6 +11,7 @@ using DynamicData;
 using DataAccessLocal;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
+using System.Reactive;
 
 namespace Orders.ViewModels
 {
