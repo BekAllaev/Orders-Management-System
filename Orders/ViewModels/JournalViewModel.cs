@@ -53,7 +53,7 @@ namespace Orders.ViewModels
 
         public async void OnNavigatedTo(NavigationContext navigationContext)
         {
-            await Task.Run(() => { ordersList.AddRange(northwindContext.Orders); });
+            if (ordersList.Count == 0) await Task.Run(() => { ordersList.AddRange(northwindContext.Orders); });
         }
         #endregion
 

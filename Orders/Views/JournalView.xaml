@@ -38,8 +38,7 @@
             </Grid.RowDefinitions>
 
             <syncfusion:SfDataGrid ItemsSource="{Binding ElementName=dataPager,Path=PagedSource}" 
-                                   ColumnSizer="Auto"
-                                   ShowBusyIndicator="True"/>
+                                   ColumnSizer="Auto"/>
             <syncfusion:SfDataPager x:Name="dataPager"
                                     Grid.Row="1"
                                     PageCount="29"
