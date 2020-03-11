@@ -7,7 +7,6 @@
              xmlns:local="clr-namespace:Orders.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -48,8 +47,7 @@
                                     Source="{Binding Orders,IsAsync=True}"
                                     UseOnDemandPaging="True"
                                     PageSize="30"
-                                    HorizontalAlignment="Center">
-            </syncfusion:SfDataPager>
+                                    HorizontalAlignment="Center"/>
         </Grid>
     </GroupBox>
 </UserControl>
