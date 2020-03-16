@@ -9,8 +9,9 @@
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
+             x:Name="parentView"
              d:DesignHeight="450" d:DesignWidth="800">
-
+    
     <GroupBox BorderThickness="0.5"
                   Margin="5">
         <GroupBox.HeaderTemplate>
@@ -19,14 +20,55 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
                     <materialDesign:PackIcon Kind="ViewList" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 10 0"/>
 
                     <TextBlock Text="ORDERS JOURNAL" 
-                                   FontSize="18"
-                                   VerticalAlignment="Center"
-                                   Grid.Column="1"/>
+                               FontSize="18"
+                               VerticalAlignment="Center"
+                               Grid.Column="1"/>
+
+                    <StackPanel DataContext="{Binding ElementName=parentView, Path=DataContext}"
+                                materialDesign:RippleAssist.IsCentered="False" 
+                                HorizontalAlignment="Right" 
+                                Orientation="Horizontal"
+                                Grid.Column="2">
+                        <materialDesign:ColorZone
+                            Margin="16,0,0,0"
+                            Padding="8,4,8,4"
+                            Panel.ZIndex="1"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                            CornerRadius="2"
+                            Mode="Standard">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Button Style="{DynamicResource MaterialDesignToolButton}">
+                                    <materialDesign:PackIcon Kind="Magnify" Opacity=".56" />
+                                </Button>
+                                <TextBox
+                                    Grid.Column="1"
+                                    MinWidth="200"
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    materialDesign:HintAssist.Hint="Search by Customer ID"
+                                    Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                    BorderThickness="0" />
+                                <Button Grid.Column="2" Command="{Binding ClearSearchCommand}" Style="{DynamicResource MaterialDesignToolButton}">
+                                    <materialDesign:PackIcon
+                                        Margin="8,0,0,0"
+                                        Kind="Close"
+                                        Opacity=".56" />
+                                </Button>
+                            </Grid>
+                        </materialDesign:ColorZone>
+                    </StackPanel>
                 </Grid>
             </DataTemplate>
         </GroupBox.HeaderTemplate>
@@ -37,14 +79,11 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <syncfusion:SfDataGrid ItemsSource="{Binding ElementName=dataPager,Path=PagedSource}" 
+            <syncfusion:SfDataGrid ItemsSource="{Binding ElementName=dataPager,Path=PagedSource}"
                                    ColumnSizer="Auto"/>
             <syncfusion:SfDataPager x:Name="dataPager"
                                     Grid.Row="1"
-                                    PageCount="29"
-                                    NumericButtonCount="10"
                                     Source="{Binding Orders,IsAsync=True}"
-                                    UseOnDemandPaging="True"
                                     PageSize="30"
                                     HorizontalAlignment="Center"/>
         </Grid>

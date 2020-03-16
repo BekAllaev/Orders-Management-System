@@ -11,6 +11,7 @@ using DynamicData;
 using DataAccessLocal;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
+using Infrastructure.Extensions;
 
 namespace Orders.ViewModels
 {
@@ -22,6 +23,10 @@ namespace Orders.ViewModels
         SourceList<Order> ordersList;
 
         ReadOnlyObservableCollection<Order> _ordersList;
+
+        readonly IEnumerable<Order> cachedCollection;
+
+        string _searchTerm;
         #endregion
 
         #region Construct
@@ -35,11 +40,57 @@ namespace Orders.ViewModels
                 ObserveOnDispatcher().
                 Bind(out _ordersList).
                 Subscribe();
+
+            cachedCollection = northwindContext.Orders;
+
+            this.WhenAnyValue(x => x.SearchTerm).
+                Subscribe(async newSearchTerm =>
+                {
+                    if (newSearchTerm != null)
+                        if (string.IsNullOrEmpty(newSearchTerm)) await FillOrderList(cachedCollection.ToList());
+                        else
+                        {
+                            var filteredList = cachedCollection.Where(o => o.CustomerID.SafeSubstring(0, newSearchTerm.Length).ToLower() == newSearchTerm.ToLower()).OrderBy(o => o.CustomerID).ToList();
+
+                            await FillOrderList(filteredList);
+                        }
+                });
+        }
+        #endregion
+
+        #region Utilities
+        /// <summary>
+        /// First clears collection of orders than fills it with new collection
+        /// </summary>
+        /// <param name="currentOrderList">
+        /// Current orders collection
+        /// </param>
+        /// <param name="listToFill">
+        /// List which must be added into orders collection
+        /// </param>
+        async Task FillOrderList(List<Order> listToFill)
+        {
+            var currentOrdersList = ordersList.Items;
+
+            await Task.Run(() =>
+            {
+                foreach (var order in currentOrdersList)
+                    ordersList.Remove(order);
+
+                foreach (var order in listToFill)
+                    ordersList.Add(order);
+            });
         }
         #endregion
 
         #region Properties
         public ReadOnlyObservableCollection<Order> Orders => _ordersList;
+
+        public string SearchTerm
+        {
+            get { return _searchTerm; }
+            set { this.RaiseAndSetIfChanged(ref _searchTerm, value); }
+        }
         #endregion
 
         #region Implementation of IRegionMemberLifetime
