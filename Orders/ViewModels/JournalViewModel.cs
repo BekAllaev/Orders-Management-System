@@ -12,6 +12,7 @@ using DataAccessLocal;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using Infrastructure.Extensions;
+using System.Reactive;
 
 namespace Orders.ViewModels
 {
@@ -55,6 +56,8 @@ namespace Orders.ViewModels
                             await FillOrderList(filteredList);
                         }
                 });
+
+            ClearSearchBoxCommand = ReactiveCommand.Create(ClearSearchBoxExecute);
         }
         #endregion
 
@@ -109,6 +112,12 @@ namespace Orders.ViewModels
         #endregion
 
         #region Commands
+        public ReactiveCommand<Unit,Unit> ClearSearchBoxCommand { get; }
+
+        private void ClearSearchBoxExecute()
+        {
+            SearchTerm = string.Empty;
+        }
         #endregion
     }
 }

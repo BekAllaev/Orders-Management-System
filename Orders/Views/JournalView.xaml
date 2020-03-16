@@ -60,7 +60,7 @@
                                     Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                     BorderThickness="0" />
-                                <Button Grid.Column="2" Command="{Binding ClearSearchCommand}" Style="{DynamicResource MaterialDesignToolButton}">
+                                <Button Grid.Column="2" Command="{Binding ClearSearchBoxCommand}" Style="{DynamicResource MaterialDesignToolButton}">
                                     <materialDesign:PackIcon
                                         Margin="8,0,0,0"
                                         Kind="Close"
