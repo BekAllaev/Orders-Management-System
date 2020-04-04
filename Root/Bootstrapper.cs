@@ -17,6 +17,8 @@ using Prism.Regions;
 using Syncfusion.Windows.Tools.Controls;
 using Infrastructure;
 using Settings;
+using DataAccessLocal;
+using System.Data.Entity;
 
 namespace Root
 {
@@ -30,6 +32,13 @@ namespace Root
             moduleCatalog.AddModule(typeof(DashboardModule));
             moduleCatalog.AddModule(typeof(BannerModule));
             moduleCatalog.AddModule(typeof(OrdersModule));
+        }
+
+        protected override void ConfigureContainer()
+        {
+            base.ConfigureContainer();
+
+            Container.RegisterInstance(new NorthwindContext(), new TransientLifetimeManager());
         }
 
         protected override DependencyObject CreateShell()

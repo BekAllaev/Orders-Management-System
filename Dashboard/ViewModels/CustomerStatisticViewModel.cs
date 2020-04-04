@@ -57,9 +57,9 @@ namespace Dashboard.ViewModels
         #endregion
 
         #region Implementation of INavigationAware
-        public bool IsNavigationTarget(NavigationContext navigationContext)
+        public bool IsNavigationTarget(NavigationContext navigationContext) 
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
