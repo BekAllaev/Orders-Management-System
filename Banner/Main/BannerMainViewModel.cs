@@ -11,10 +11,11 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Prism.Mvvm;
+using ReactiveUI;
 
 namespace Banner.Main
 {
-    public class BannerMainViewModel : BindableBase
+    public class BannerMainViewModel : ReactiveObject
     {
         #region Declarations
         IRegionManager regionManager;
@@ -41,7 +42,7 @@ namespace Banner.Main
 
         public bool IsChecked 
         { 
-            set { SetProperty(ref _isChecked, value); } 
+            set { this.RaiseAndSetIfChanged(ref _isChecked, value); } 
             get { return _isChecked; } 
         }
         #endregion

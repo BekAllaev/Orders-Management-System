@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Prism.Commands;
 using Prism.Mvvm;
+using ReactiveUI;
 
 namespace Dashboard.Main
 {
-    public class DashboardMainViewModel : BindableBase, IRegionMemberLifetime
+    public class DashboardMainViewModel : ReactiveObject, IRegionMemberLifetime
     {
         #region Declarations
         #endregion
