@@ -82,6 +82,9 @@
     <Compile Include="Main\BannerMainView.xaml.cs">
       <DependentUpon>BannerMainView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\NotificationView.xaml.cs">
+      <DependentUpon>NotificationView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -89,6 +92,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Main\BannerMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NotificationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

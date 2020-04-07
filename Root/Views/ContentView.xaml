@@ -12,12 +12,16 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
 
         <ContentControl prismRegion:RegionManager.RegionName="BannerRegion"/>
 
         <ContentControl prismRegion:RegionManager.RegionName="ContentRegion"
                         Grid.Row="1"/>
+        
+        <ContentControl prismRegion:RegionManager.RegionName="NotificationRegion"
+                        Grid.Row="2"/>
 
         <ContentControl prismRegion:RegionManager.RegionName="SettingRegion"
                         Grid.Row="1" 

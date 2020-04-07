@@ -8,6 +8,7 @@ using Prism.Modularity;
 using Prism.Regions;
 using Prism.Unity;
 using Banner.Main;
+using Banner.Views;
 
 namespace Banner
 {
@@ -25,8 +26,10 @@ namespace Banner
         public void Initialize()
         {
             unityContainer.RegisterTypeForNavigation<BannerMainView>();
+            unityContainer.RegisterTypeForNavigation<NotificationView>();
 
             regionManager.RequestNavigate("BannerRegion", "BannerMainView");
+            regionManager.RequestNavigate("NotificationRegion", "NotificationView");
         }
     }
 }
