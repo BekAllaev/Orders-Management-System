@@ -19,6 +19,7 @@ using Infrastructure;
 using Settings;
 using DataAccessLocal;
 using System.Data.Entity;
+using Infrastructure.Services;
 
 namespace Root
 {
@@ -28,9 +29,9 @@ namespace Root
         {
             var moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
 
+            moduleCatalog.AddModule(typeof(BannerModule));
             moduleCatalog.AddModule(typeof(SettingsModule));
             moduleCatalog.AddModule(typeof(DashboardModule));
-            moduleCatalog.AddModule(typeof(BannerModule));
             moduleCatalog.AddModule(typeof(OrdersModule));
         }
 
@@ -39,6 +40,7 @@ namespace Root
             base.ConfigureContainer();
 
             Container.RegisterInstance(new NorthwindContext(), new TransientLifetimeManager());
+            Container.RegisterInstance(new ChangeDashboardTitle());
         }
 
         protected override DependencyObject CreateShell()

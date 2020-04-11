@@ -7,8 +7,10 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Infrastructure.Services;
 
 namespace Orders.Main
 {
@@ -17,6 +19,7 @@ namespace Orders.Main
         #region Fields
         IRegionManager regionManager;
         IUserSettingsRepository userSettingsRepository;
+        ChangeDashboardTitle changeDashboardTitleService;
 
         OrdersViews ordersCurrentView;
 
@@ -25,10 +28,11 @@ namespace Orders.Main
         #endregion
 
         #region Constructors
-        public OrdersMainViewModel(IRegionManager regionManager, IUserSettingsRepository userSettingsRepository)
+        public OrdersMainViewModel(IRegionManager regionManager, IUserSettingsRepository userSettingsRepository,ChangeDashboardTitle changeDashboardTitleService)
         {
             this.regionManager = regionManager;
             this.userSettingsRepository = userSettingsRepository;
+            this.changeDashboardTitleService = changeDashboardTitleService;
 
             string ordersMainView = (string)userSettingsRepository.ReadSetting("OrdersMainView");
 
@@ -87,7 +91,7 @@ namespace Orders.Main
         }
         #endregion
 
-        #region
+        #region Implementation of INavigationAware
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
             return true;
@@ -95,13 +99,13 @@ namespace Orders.Main
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            //throw new NotImplementedException();
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             string ordersMainView = (string)userSettingsRepository.ReadSetting("OrdersMainView");
             regionManager.RequestNavigate("OrdersCreateJournalRegion", ordersMainView.Replace(" ", ""));
+            changeDashboardTitleService.UpdateDashboardTitle(navigationContext.Uri.ToString());
         }
         #endregion
 

@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Prism.Mvvm;
 using ReactiveUI;
+using Infrastructure.Events;
 
 namespace Banner.Main
 {
@@ -19,7 +20,9 @@ namespace Banner.Main
     {
         #region Declarations
         IRegionManager regionManager;
+
         bool _isChecked;
+        string _currentModuleTitle;
         #endregion
 
         #region Constructors
@@ -32,6 +35,10 @@ namespace Banner.Main
             ChangeIsCheckedCommand = new DelegateCommand(ChangeIsCheckedExecute);
 
             GlobalCommands.ChangeIsCheckedCompositeCommand.RegisterCommand(ChangeIsCheckedCommand);
+
+            MessageBus.Current.Listen<OnNavigatedToEvent>().
+                Subscribe(titleOfModule => 
+                { CurrentModuleTitle = titleOfModule.TitleOfCurrentModule; });
         }
         #endregion
 
@@ -40,10 +47,16 @@ namespace Banner.Main
 
         public DelegateCommand ChangeIsCheckedCommand { get; }
 
-        public bool IsChecked 
-        { 
-            set { this.RaiseAndSetIfChanged(ref _isChecked, value); } 
-            get { return _isChecked; } 
+        public bool IsChecked
+        {
+            set { this.RaiseAndSetIfChanged(ref _isChecked, value); }
+            get { return _isChecked; }
+        }
+
+        public string CurrentModuleTitle
+        {
+            set { this.RaiseAndSetIfChanged(ref _currentModuleTitle, value); }
+            get { return _currentModuleTitle; }
         }
         #endregion
 

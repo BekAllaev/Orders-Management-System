@@ -26,10 +26,12 @@
                     Width="30"/>
         </Button>
         <TextBlock Grid.Column="1"
-                   Text="Orders Management System"
                    FontSize="25" 
                    HorizontalAlignment="Left"
-                   VerticalAlignment="Center"/>
+                   VerticalAlignment="Center">
+            <Run Text="Orders Management System -"/>
+            <Run Text="{Binding CurrentModuleTitle,Mode=TwoWay}"/>
+        </TextBlock>
         <ToggleButton x:Name="SettingsToggleButton"
                           Grid.Column="2"
                           HorizontalAlignment="Right" 

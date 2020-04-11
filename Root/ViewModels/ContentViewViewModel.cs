@@ -11,17 +11,18 @@ using Settings.Main;
 using Infrastructure.SettingsRepository;
 using Prism.Commands;
 using Banner.Main;
+using ReactiveUI;
 
 namespace Root.ViewModels
 {
-    public class ContentViewModel : BindableBase
+    public class ContentViewModel : ReactiveObject
     {
         #region Declarations
         IRegionManager regionManager;
         #endregion
 
         #region Constructor
-        public ContentViewModel(IRegionManager regionManager,IUnityContainer unityContainer)
+        public ContentViewModel(IRegionManager regionManager, IUnityContainer unityContainer)
         {
             this.regionManager = regionManager;
 
