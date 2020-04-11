@@ -20,8 +20,7 @@ namespace Banner.ViewModels
         public NotificationViewModel()
         {
             MessageBus.Current.Listen<DbException>().
-                Subscribe(exception =>
-                NotificationString = "Message: " + exception.Message);
+                Subscribe(exception => NotificationString = "Message: " + exception.Message);
 
             MessageBus.Current.Listen<EntityCommandExecutionException>().
                 Subscribe(exception => NotificationString = "Message: " + exception.Message);
