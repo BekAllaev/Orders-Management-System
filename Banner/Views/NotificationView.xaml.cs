@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,23 @@ namespace Banner.Views
         public NotificationView()
         {
             InitializeComponent();
+        }
+
+        private async void TextBlock_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+            TextBlock textBlock = (TextBlock)sender;
+            if (string.IsNullOrWhiteSpace(textBlock.Text)) return;
+
+            packIcon.Kind = PackIconKind.Error;
+            packIcon.Foreground = new SolidColorBrush(Colors.Red);
+
+            for (int i = 0; i < 5; i++)
+            {
+                await Task.Delay(500);
+                packIcon.Visibility = Visibility.Hidden;
+                await Task.Delay(500);
+                packIcon.Visibility = Visibility.Visible;
+            }
         }
     }
 }

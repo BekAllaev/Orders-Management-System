@@ -37,8 +37,7 @@ namespace Banner.Main
             GlobalCommands.ChangeIsCheckedCompositeCommand.RegisterCommand(ChangeIsCheckedCommand);
 
             MessageBus.Current.Listen<OnNavigatedToEvent>().
-                Subscribe(titleOfModule => 
-                { CurrentModuleTitle = titleOfModule.TitleOfCurrentModule; });
+                Subscribe(titleOfModule => CurrentModuleTitle = titleOfModule.TitleOfCurrentModule);
         }
         #endregion
 

@@ -16,11 +16,11 @@ namespace Dashboard.Main
     public class DashboardMainViewModel : ReactiveObject, IRegionMemberLifetime, INavigationAware
     {
         #region Declarations
-        ChangeDashboardTitle changeDashboardTitleService;
+        TitleUpdater changeDashboardTitleService;
         #endregion
 
         #region Constructors
-        public DashboardMainViewModel(ChangeDashboardTitle changeDashboardTitleService)
+        public DashboardMainViewModel(TitleUpdater changeDashboardTitleService)
         {
             this.changeDashboardTitleService = changeDashboardTitleService;
         }

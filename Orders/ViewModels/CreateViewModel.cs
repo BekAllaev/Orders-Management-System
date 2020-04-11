@@ -14,6 +14,9 @@ using System.Reactive.Linq;
 using System.Reactive;
 using DataAccessLocal;
 using ReactiveUI.Fody.Helpers;
+using System.Data.Common;
+using System.Runtime.InteropServices;
+using System.Data.Entity.Core;
 
 namespace Orders.ViewModels
 {
@@ -268,14 +271,22 @@ namespace Orders.ViewModels
         #region Implementation of INavigationAware
         public async void OnNavigatedTo(NavigationContext navigationContext)
         {
-            if (products.Count == 0) await Task.Run(() =>
+            try
             {
-                var listOfProducts = northwindContext.Products.ToList();
-                var listOfProductsOnStore = listOfProducts.Select(b => new ProductOnStore(b));
-                products.AddOrUpdate(listOfProductsOnStore);
-            });
-            if (employees.Count == 0) await Task.Run(() => employees.AddRange(northwindContext.Employees));
-            if (customers.Count == 0) await Task.Run(() => customers.AddRange(northwindContext.Customers));
+                if (products.Count == 0) await Task.Run(() =>
+                {
+                    var listOfProducts = northwindContext.Products.ToList();
+                    var listOfProductsOnStore = listOfProducts.Select(b => new ProductOnStore(b));
+                    products.AddOrUpdate(listOfProductsOnStore);
+                });
+                if (employees.Count == 0) await Task.Run(() => employees.AddRange(northwindContext.Employees));
+                if (customers.Count == 0) await Task.Run(() => customers.AddRange(northwindContext.Customers));
+            }
+            catch (Exception e)
+            {
+                if (e is EntityCommandCompilationException || e is DbException)
+                    MessageBus.Current.SendMessage(e);
+            }
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext) { return true; }

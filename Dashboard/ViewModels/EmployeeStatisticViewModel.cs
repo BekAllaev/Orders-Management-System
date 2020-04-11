@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using DynamicData;
 using ReactiveUI;
 using DynamicData.Binding;
+using System.Data.Common;
 
 namespace Dashboard.ViewModels
 {
@@ -53,7 +54,14 @@ namespace Dashboard.ViewModels
 
         public async void OnNavigatedTo(NavigationContext navigationContext)
         {
-            if (orderDetailsList.Count == 0) await Task.Run(() => { orderDetailsList.AddRange(northwindContext.Order_Details); });
+            try
+            {
+                if (orderDetailsList.Count == 0) await Task.Run(() => { orderDetailsList.AddRange(northwindContext.Order_Details); });
+            }
+            catch (DbException e)
+            {
+                MessageBus.Current.SendMessage(e);
+            }
         }
         #endregion
 

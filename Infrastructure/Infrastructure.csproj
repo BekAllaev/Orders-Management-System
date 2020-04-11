@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviors\ZeroToOneBehavior.cs" />
+    <Compile Include="Events\ContextException.cs" />
     <Compile Include="Events\OnNavigatedToEvent.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="GlobalCommands.cs" />
@@ -111,7 +112,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Services\ChangeDashboardTitle.cs" />
+    <Compile Include="Services\TitleUpdater.cs" />
     <Compile Include="SettingsRepository\IUserSettingsRepository.cs" />
     <Compile Include="SettingsRepository\UserSettingsRepository.cs" />
   </ItemGroup>

@@ -13,6 +13,8 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using Infrastructure.Extensions;
 using System.Reactive;
+using System.Data.Common;
+using System.Data.Entity.Core;
 
 namespace Orders.ViewModels
 {
@@ -107,12 +109,20 @@ namespace Orders.ViewModels
 
         public async void OnNavigatedTo(NavigationContext navigationContext)
         {
-            if (ordersList.Count == 0) await Task.Run(() => { ordersList.AddRange(northwindContext.Orders); });
+            try
+            {
+                if (ordersList.Count == 0) await Task.Run(() => { ordersList.AddRange(northwindContext.Orders); });
+            }
+            catch (Exception e)
+            {
+                if (e is EntityCommandCompilationException || e is DbException)
+                    MessageBus.Current.SendMessage(e);
+            }
         }
         #endregion
 
         #region Commands
-        public ReactiveCommand<Unit,Unit> ClearSearchBoxCommand { get; }
+        public ReactiveCommand<Unit, Unit> ClearSearchBoxCommand { get; }
 
         private void ClearSearchBoxExecute()
         {

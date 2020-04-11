@@ -19,7 +19,7 @@ namespace Orders.Main
         #region Fields
         IRegionManager regionManager;
         IUserSettingsRepository userSettingsRepository;
-        ChangeDashboardTitle changeDashboardTitleService;
+        TitleUpdater changeDashboardTitleService;
 
         OrdersViews ordersCurrentView;
 
@@ -28,7 +28,7 @@ namespace Orders.Main
         #endregion
 
         #region Constructors
-        public OrdersMainViewModel(IRegionManager regionManager, IUserSettingsRepository userSettingsRepository,ChangeDashboardTitle changeDashboardTitleService)
+        public OrdersMainViewModel(IRegionManager regionManager, IUserSettingsRepository userSettingsRepository,TitleUpdater changeDashboardTitleService)
         {
             this.regionManager = regionManager;
             this.userSettingsRepository = userSettingsRepository;

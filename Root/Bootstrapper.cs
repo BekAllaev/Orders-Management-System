@@ -40,7 +40,7 @@ namespace Root
             base.ConfigureContainer();
 
             Container.RegisterInstance(new NorthwindContext(), new TransientLifetimeManager());
-            Container.RegisterInstance(new ChangeDashboardTitle());
+            Container.RegisterInstance(new TitleUpdater());
         }
 
         protected override DependencyObject CreateShell()

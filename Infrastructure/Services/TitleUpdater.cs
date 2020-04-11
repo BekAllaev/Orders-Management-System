@@ -11,7 +11,7 @@ namespace Infrastructure.Services
     /// <summary>
     /// Changes title of current module on dashboard
     /// </summary>
-    public class ChangeDashboardTitle
+    public class TitleUpdater
     {
         public void UpdateDashboardTitle(string targetView)
         {
