@@ -1,4 +1,11 @@
-﻿using Prism.Unity;
+﻿using Orders;
+using Dashboard;
+using Banner;
+using Settings;
+using DataAccessLocal;
+using Notification;
+using Infrastructure;
+using Prism.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,18 +13,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Prism.Modularity;
-using Orders;
 using Root.Views;
 using Root.ViewModels;
 using Microsoft.Practices.Unity;
 using System.Reflection;
-using Dashboard;
-using Banner;
 using Prism.Regions;
 using Syncfusion.Windows.Tools.Controls;
-using Infrastructure;
-using Settings;
-using DataAccessLocal;
 using System.Data.Entity;
 using Infrastructure.Services;
 
@@ -29,6 +30,7 @@ namespace Root
         {
             var moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
 
+            moduleCatalog.AddModule(typeof(NotificationModule));
             moduleCatalog.AddModule(typeof(BannerModule));
             moduleCatalog.AddModule(typeof(SettingsModule));
             moduleCatalog.AddModule(typeof(DashboardModule));

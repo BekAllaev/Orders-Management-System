@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
 using Prism.Modularity;
+using Microsoft.Practices.Unity;
 using Prism.Regions;
 using Prism.Unity;
-using Banner.Main;
+using Notification.Main;
 
-namespace Banner
+namespace Notification
 {
-    public class BannerModule : IModule
+    public class NotificationModule : IModule
     {
         private IUnityContainer unityContainer;
         private IRegionManager regionManager;
 
-        public BannerModule(IUnityContainer unityContainer, IRegionManager regionManager)
+        public NotificationModule(IUnityContainer unityContainer, IRegionManager regionManager)
         {
             this.unityContainer = unityContainer;
             this.regionManager = regionManager;
@@ -24,9 +24,9 @@ namespace Banner
 
         public void Initialize()
         {
-            unityContainer.RegisterTypeForNavigation<BannerMainView>();
+            unityContainer.RegisterTypeForNavigation<NotificationMainView>();
 
-            regionManager.RequestNavigate("BannerRegion", "BannerMainView");
+            regionManager.RequestNavigate("NotificationRegion", "NotificationMainView");
         }
     }
 }

@@ -213,6 +213,10 @@
       <Project>{4a940f3a-5d08-4456-b2d8-12864f885495}</Project>
       <Name>Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Notification\Notification.csproj">
+      <Project>{c88ad32c-e017-4635-ba4c-a52cdbf7a8c4}</Project>
+      <Name>Notification</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orders\Orders.csproj">
       <Project>{104ccdbd-b903-4514-8d0c-89195b476252}</Project>
       <Name>Orders</Name>

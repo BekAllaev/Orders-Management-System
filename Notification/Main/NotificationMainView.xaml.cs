@@ -14,14 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Banner.Views
+namespace Notification.Main
 {
     /// <summary>
-    /// Interaction logic for MessagesView.xaml
+    /// Interaction logic for NotificationMainView.xaml
     /// </summary>
-    public partial class NotificationView : UserControl
+    public partial class NotificationMainView : UserControl
     {
-        public NotificationView()
+        public NotificationMainView()
         {
             InitializeComponent();
         }

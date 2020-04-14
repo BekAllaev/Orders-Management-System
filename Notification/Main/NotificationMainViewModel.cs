@@ -4,23 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveUI;
-using Infrastructure.Events;
 using System.Data.Common;
 using System.Data.Entity.Core;
 
-namespace Banner.ViewModels
+namespace Notification.Main
 {
-    public class NotificationViewModel : ReactiveObject
+    public class NotificationMainViewModel : ReactiveObject
     {
         #region Declarations
         private string _notificationString;
         #endregion
 
         #region Constructors
-        public NotificationViewModel()
+        public NotificationMainViewModel()
         {
             MessageBus.Current.Listen<DbException>().
-                Subscribe(exception => NotificationString = "Message: " + exception.Message);
+                Subscribe(
+                exception => 
+                NotificationString = "Message: " + exception.Message);
 
             MessageBus.Current.Listen<EntityCommandExecutionException>().
                 Subscribe(exception => NotificationString = "Message: " + exception.Message);
