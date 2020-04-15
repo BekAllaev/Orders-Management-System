@@ -282,10 +282,9 @@ namespace Orders.ViewModels
                 if (employees.Count == 0) await Task.Run(() => employees.AddRange(northwindContext.Employees));
                 if (customers.Count == 0) await Task.Run(() => customers.AddRange(northwindContext.Customers));
             }
-            catch (Exception e)
+            catch (EntityException e)
             {
-                if (e is EntityCommandCompilationException || e is DbException)
-                    MessageBus.Current.SendMessage(e);
+                MessageBus.Current.SendMessage(e);
             }
         }
 

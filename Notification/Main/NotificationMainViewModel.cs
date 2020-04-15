@@ -19,17 +19,17 @@ namespace Notification.Main
         public NotificationMainViewModel()
         {
             MessageBus.Current.Listen<DbException>().
-                Subscribe(exception => NotificationString = "Message: " + exception.Message + $"Error code: {exception.ErrorCode}");
+                Subscribe(exception => NotificationString = exception.Message + $"Error code: {exception.ErrorCode}.");
 
-            MessageBus.Current.Listen<EntityCommandExecutionException>().
-                Subscribe(exception => NotificationString = "Message: " + exception.Message);
+            MessageBus.Current.Listen<EntityException>().
+                Subscribe(exception => NotificationString = exception.Message);
         }
         #endregion
 
         #region Properties
         public string NotificationString
         {
-            set { this.RaiseAndSetIfChanged(ref _notificationString, value); }
+            set { this.RaiseAndSetIfChanged(ref _notificationString, "Message: " + value); }
             get { return _notificationString; }
         }
         #endregion
