@@ -19,9 +19,7 @@ namespace Notification.Main
         public NotificationMainViewModel()
         {
             MessageBus.Current.Listen<DbException>().
-                Subscribe(
-                exception => 
-                NotificationString = "Message: " + exception.Message);
+                Subscribe(exception => NotificationString = "Message: " + exception.Message + $"Error code: {exception.ErrorCode}");
 
             MessageBus.Current.Listen<EntityCommandExecutionException>().
                 Subscribe(exception => NotificationString = "Message: " + exception.Message);
