@@ -29,7 +29,7 @@ namespace Notification.Main
         #region Properties
         public string NotificationString
         {
-            set { this.RaiseAndSetIfChanged(ref _notificationString, value + " Приложение будет автоматический закрыто."); }
+            set { this.RaiseAndSetIfChanged(ref _notificationString, value + " Application will be closed automatically."); }
             get { return _notificationString; }
         }
         #endregion
