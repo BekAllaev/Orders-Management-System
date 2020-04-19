@@ -15,8 +15,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Status of application - " VerticalAlignment="Center" FontSize="25"/>
-            <materialDesign:PackIcon x:Name="packIcon" Kind="CheckCircle" Foreground="Green" Height="33" Width="33" Margin="0 5 0 0"/>
+            <TextBlock Text="Notifications:" VerticalAlignment="Center" FontSize="25"/>
         </StackPanel>
         <TextBlock Grid.Row="1" Text="{Binding NotificationString, Mode=TwoWay,NotifyOnTargetUpdated=True}" TargetUpdated="TextBlock_TargetUpdated" FontSize="16"/>
     </Grid>

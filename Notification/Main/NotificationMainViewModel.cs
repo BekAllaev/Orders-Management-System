@@ -19,7 +19,7 @@ namespace Notification.Main
         public NotificationMainViewModel()
         {
             MessageBus.Current.Listen<DbException>().
-                Subscribe(exception => NotificationString = exception.Message + $"Error code: {exception.ErrorCode}.");
+                Subscribe(exception => NotificationString = exception.Message + $"Код ошибки: {exception.ErrorCode}.");
 
             MessageBus.Current.Listen<EntityException>().
                 Subscribe(exception => NotificationString = exception.Message);
@@ -29,7 +29,7 @@ namespace Notification.Main
         #region Properties
         public string NotificationString
         {
-            set { this.RaiseAndSetIfChanged(ref _notificationString, "Message: " + value); }
+            set { this.RaiseAndSetIfChanged(ref _notificationString, value + " Приложение будет автоматический закрыто."); }
             get { return _notificationString; }
         }
         #endregion

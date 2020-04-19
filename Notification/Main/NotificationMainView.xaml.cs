@@ -31,16 +31,9 @@ namespace Notification.Main
             TextBlock textBlock = (TextBlock)sender;
             if (string.IsNullOrWhiteSpace(textBlock.Text)) return;
 
-            packIcon.Kind = PackIconKind.Error;
-            packIcon.Foreground = new SolidColorBrush(Colors.Red);
+            await Task.Delay(10000);
 
-            for (int i = 0; i < 5; i++)
-            {
-                await Task.Delay(500);
-                packIcon.Visibility = Visibility.Hidden;
-                await Task.Delay(500);
-                packIcon.Visibility = Visibility.Visible;
-            }
+            Application.Current.Shutdown();
         }
     }
 }
