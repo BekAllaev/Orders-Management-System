@@ -9,13 +9,13 @@
              xmlns:local="clr-namespace:Notification.Main"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Notifications:" VerticalAlignment="Center" FontSize="25"/>
+            <TextBlock Text="Notifications:" VerticalAlignment="Center"  FontSize="25"/>
         </StackPanel>
         <TextBlock Grid.Row="1" Text="{Binding NotificationString, Mode=TwoWay,NotifyOnTargetUpdated=True}" TargetUpdated="TextBlock_TargetUpdated" FontSize="16"/>
     </Grid>

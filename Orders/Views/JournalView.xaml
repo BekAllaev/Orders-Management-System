@@ -26,6 +26,7 @@
                     <materialDesign:PackIcon Kind="ViewList" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 10 0"/>
 
                     <TextBlock Text="ORDERS JOURNAL" 
+                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                                FontSize="18"
                                VerticalAlignment="Center"
                                Grid.Column="1"/>

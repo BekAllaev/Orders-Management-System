@@ -9,6 +9,10 @@
         prismRegion:ViewModelLocator.AutoWireViewModel="True"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        SnapsToDevicePixels="True"
         Title="MainWindow">
 
     <ContentControl prismRegion:RegionManager.RegionName="GlobalRegion"/>

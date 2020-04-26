@@ -22,7 +22,9 @@
 
                     <materialDesign:PackIcon Kind="ShoppingCartMinus" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 10 0"/>
 
-                    <TextBlock Text="PRODUCTS" FontSize="20" Grid.Column="1"/>
+                    <TextBlock Text="PRODUCTS" 
+                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}" 
+                               FontSize="20" Grid.Column="1"/>
                 </Grid>
             </DataTemplate>
         </GroupBox.HeaderTemplate>

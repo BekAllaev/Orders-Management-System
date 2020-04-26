@@ -26,9 +26,11 @@ namespace Dashboard.Main
         }
         #endregion
 
-        #region Properties
+        #region Implementation of IRegionMemberLifetime
         public bool KeepAlive => true;
+        #endregion
 
+        #region Implementation of INavigationAware
         public bool IsNavigationTarget(NavigationContext navigationContext) { return true; }
 
         public void OnNavigatedFrom(NavigationContext navigationContext)

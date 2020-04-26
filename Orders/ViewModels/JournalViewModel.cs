@@ -55,9 +55,7 @@ namespace Orders.ViewModels
                         {
                             var filteredList = cachedCollection.Where(o => o.CustomerID.SafeSubstring(0, newSearchTerm.Length).ToLower() == newSearchTerm.ToLower()).OrderBy(o => o.CustomerID).ToList();
 
-                            ordersList.Clear();
-                            ordersList.AddRange(filteredList);
-                            //await FillOrderList(filteredList);
+                            await FillOrderList(filteredList);
                         }
                 });
 

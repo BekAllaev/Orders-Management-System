@@ -9,30 +9,36 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="AliceBlue">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
+    <materialDesign:ColorZone
+        Padding="6"
+        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+        CornerRadius="0"
+        Mode="PrimaryDark">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-        <Button Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+            <Button Style="{StaticResource MaterialDesignFloatingActionLightButton}"
                     Margin="10"
                     Command="{x:Static infrastructure:GlobalCommands.NavigateToCompositeCommand}"
                     CommandParameter="DashboardMainView">
-            <materialDesign:PackIcon
+                <materialDesign:PackIcon
                     Kind="Home"
                     Height="30"
                     Width="30"/>
-        </Button>
-        <TextBlock Grid.Column="1"
+            </Button>
+            <TextBlock Grid.Column="1"
                    FontSize="25" 
                    HorizontalAlignment="Left"
-                   VerticalAlignment="Center">
+                   VerticalAlignment="Center"
+                   Style="{DynamicResource MaterialDesignHeadline3TextBlock}">
             <Run Text="Orders Management System -"/>
             <Run Text="{Binding CurrentModuleTitle,Mode=TwoWay}"/>
-        </TextBlock>
-        <ToggleButton x:Name="SettingsToggleButton"
+            </TextBlock>
+            <ToggleButton x:Name="SettingsToggleButton"
                           Grid.Column="2"
                           HorizontalAlignment="Right" 
                           VerticalAlignment="Center" 
@@ -41,11 +47,12 @@
                           Width="40"
                           IsChecked="{Binding IsChecked,Mode=TwoWay}"
                           Command="{Binding OpenSettingPanelCommand}"
-                          Style="{StaticResource MaterialDesignActionDarkToggleButton}">
-            <materialDesign:PackIcon Kind="Settings"/>
-            <materialDesign:ToggleButtonAssist.OnContent>
-                <materialDesign:PackIcon Kind="WindowClose"/>
-            </materialDesign:ToggleButtonAssist.OnContent>
-        </ToggleButton>
-    </Grid>
+                          Style="{StaticResource MaterialDesignActionLightToggleButton}">
+                <materialDesign:PackIcon Kind="Settings"/>
+                <materialDesign:ToggleButtonAssist.OnContent>
+                    <materialDesign:PackIcon Kind="WindowClose"/>
+                </materialDesign:ToggleButtonAssist.OnContent>
+            </ToggleButton>
+        </Grid>
+    </materialDesign:ColorZone>
 </UserControl>

@@ -17,7 +17,7 @@ namespace Infrastructure.Services
         {
             string parameterView;//view that will be passed as parameter
 
-            parameterView = targetView.Substring(0, targetView.Length - 8);//Since every main view`s name of the module have this patter "name of module + MainView" we delete part "MainView" and get name of module 
+            parameterView = targetView.Substring(0, targetView.Length - 8);//Since every module`s main view name have this patter "name of module + "MainView" " we delete part "MainView" and get name of module 
 
             OnNavigatedToEvent onNavigatedToEvent = new OnNavigatedToEvent(parameterView);
 

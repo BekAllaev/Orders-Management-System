@@ -19,7 +19,7 @@
         </Grid.ColumnDefinitions>
 
         <GroupBox BorderThickness="0.5"
-                  Margin="5">
+                      Margin="5">
             <GroupBox.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -31,7 +31,8 @@
 
                         <materialDesign:PackIcon Kind="Store" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 10 0"/>
 
-                        <TextBlock Text="PRODUCTS ON STORE" 
+                        <TextBlock Text="PRODUCTS ON STORE"
+                                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                                    FontSize="18"
                                    VerticalAlignment="Center"
                                    Grid.Column="1"/>
@@ -81,7 +82,8 @@
 
                         <materialDesign:PackIcon Kind="TimerSandFull" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 10 0"/>
 
-                        <TextBlock Text="PRODUCTS IN ORDER" 
+                        <TextBlock Text="PRODUCTS IN ORDER"
+                                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                                    FontSize="18"
                                    VerticalAlignment="Center"
                                    Grid.Column="1"/>
