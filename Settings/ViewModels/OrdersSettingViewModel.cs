@@ -9,10 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Prism.Mvvm;
 using Prism.Commands;
+using ReactiveUI;
 
 namespace Settings.ViewModels
 {
-    public class OrdersSettingViewModel : BindableBase
+    public class OrdersSettingViewModel : ReactiveObject
     {
         #region Declaration
         IUserSettingsRepository userSettingsRepository;

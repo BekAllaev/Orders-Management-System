@@ -26,7 +26,9 @@ namespace Settings
         public void Initialize()
         {
             unityContainer.RegisterTypeForNavigation<SettingsMainView>();
+            unityContainer.RegisterTypeForNavigation<GeneralSettingView>();
 
+            regionManager.RegisterViewWithRegion("GeneralSettingsRegion", typeof(GeneralSettingView));
             regionManager.RegisterViewWithRegion("OrdersSettingsRegion", typeof(OrdersSettingView));
 
             regionManager.RequestNavigate("SettingRegion", "SettingsMainView");

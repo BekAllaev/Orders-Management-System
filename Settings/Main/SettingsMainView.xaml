@@ -17,12 +17,9 @@
         <Border.Effect>
             <DropShadowEffect BlurRadius="20" Direction="230"/>
         </Border.Effect>
-        <!--<Border.Background>
-            <SolidColorBrush Color="LightGray"/>
-        </Border.Background>-->
         <TabControl>
             <TabItem Header="General">
-                <TextBlock Text="Application settings" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <ContentControl prism:RegionManager.RegionName="GeneralSettingsRegion"/>
             </TabItem>
             <TabItem Header="Orders" Visibility="Visible">
                 <ContentControl prism:RegionManager.RegionName="OrdersSettingsRegion"/>
