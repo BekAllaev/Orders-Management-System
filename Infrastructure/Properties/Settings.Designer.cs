@@ -46,5 +46,17 @@ namespace Infrastructure.Properties {
                 this["AppPrimaryColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Teal")]
+        public string AppSecondaryColor {
+            get {
+                return ((string)(this["AppSecondaryColor"]));
+            }
+            set {
+                this["AppSecondaryColor"] = value;
+            }
+        }
     }
 }

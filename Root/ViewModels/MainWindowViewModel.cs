@@ -43,14 +43,17 @@ namespace Root.ViewModels
 
         private void SetTheme()
         {
-            string color = (string)userSettingsRepository.ReadSetting("AppPrimaryColor");
+            string defaultPrimaryColor = (string)userSettingsRepository.ReadSetting("AppPrimaryColor");
+            string defaultSecondaryColor = (string)userSettingsRepository.ReadSetting("AppSecondaryColor");
 
             PaletteHelper paletteHelper = new PaletteHelper();
             ITheme theme = paletteHelper.GetTheme();
 
-            Color newPrimaryColor = (Color)ColorConverter.ConvertFromString(color);
+            Color primaryColor = (Color)ColorConverter.ConvertFromString(defaultPrimaryColor);
+            Color secondaryColor = (Color)ColorConverter.ConvertFromString(defaultSecondaryColor);
 
-            theme.SetPrimaryColor(newPrimaryColor);
+            theme.SetPrimaryColor(primaryColor);
+            theme.SetSecondaryColor(secondaryColor);
 
             paletteHelper.SetTheme(theme);
         }

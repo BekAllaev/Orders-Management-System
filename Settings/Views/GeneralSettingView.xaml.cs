@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Infrastructure.SettingsRepository;
 
 namespace Settings.Views
 {
@@ -20,18 +21,48 @@ namespace Settings.Views
     /// </summary>
     public partial class GeneralSettingView : UserControl
     {
-        public GeneralSettingView()
+        public GeneralSettingView(IUserSettingsRepository userSettingsRepository)
         {
             InitializeComponent();
+
+            string defualtPrimaryColor = (string)userSettingsRepository.ReadSetting("AppPrimaryColor");
+            string defualtSecondaryColor = (string)userSettingsRepository.ReadSetting("AppSecondaryColor");
+
+            foreach (Button button in PrimaryCollorCB.Items)
+            {
+                if ((string)button.Tag == defualtPrimaryColor)
+                {
+                    PrimaryCollorCB.SelectedItem = button;
+                    break;
+                }
+            }
+
+            foreach (Button button in SecondaryCollorCB.Items)
+            {
+                if ((string)button.Tag == defualtSecondaryColor)
+                {
+                    SecondaryCollorCB.SelectedItem = button;
+                    break;
+                }
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button currentButton = (Button)sender;
 
-            CollorCB.SelectedItem = currentButton;
+            PrimaryCollorCB.SelectedItem = currentButton;
 
-            CollorCB.IsDropDownOpen = false;
+            PrimaryCollorCB.IsDropDownOpen = false;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Button currentButton = (Button)sender;
+
+            SecondaryCollorCB.SelectedItem = currentButton;
+
+            SecondaryCollorCB.IsDropDownOpen = false;
         }
     }
 }

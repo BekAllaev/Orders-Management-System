@@ -21,15 +21,17 @@ namespace Settings.ViewModels
         #region Constructor
         public GeneralSettingViewModel(IUserSettingsRepository userSettingsRepository)
         {
-            ChangePalletCollorCommand = ReactiveCommand.Create<string>(ChangePalletCollorExecute);
             this.userSettingsRepository = userSettingsRepository;
+
+            ChangePrimaryPalletCollorCommand = ReactiveCommand.Create<string>(ChangePrimaryPalletCollorExecute);
+            ChangeSecondaryPalletCollorCommand = ReactiveCommand.Create<string>(ChangeSecondaryPalletCollorExecute);
         }
         #endregion
 
         #region Commands
-        public ReactiveCommand<string,Unit> ChangePalletCollorCommand { get; }
+        public ReactiveCommand<string,Unit> ChangePrimaryPalletCollorCommand { get; }
 
-        private void ChangePalletCollorExecute(string color)
+        private void ChangePrimaryPalletCollorExecute(string color)
         {
             PaletteHelper paletteHelper = new PaletteHelper();
             ITheme theme = paletteHelper.GetTheme();
@@ -43,6 +45,24 @@ namespace Settings.ViewModels
             paletteHelper.SetTheme(theme);
 
             userSettingsRepository.WriteSetting("AppPrimaryColor", color);
+        }
+
+        public ReactiveCommand<string,Unit> ChangeSecondaryPalletCollorCommand { get; }
+
+        private void ChangeSecondaryPalletCollorExecute(string color)
+        {
+            PaletteHelper paletteHelper = new PaletteHelper();
+            ITheme theme = paletteHelper.GetTheme();
+
+            Color newPrimaryColor = (Color)ColorConverter.ConvertFromString(color);
+
+            //Change all of the primary colors
+            theme.SetSecondaryColor(newPrimaryColor);
+
+            //Change the app's current theme
+            paletteHelper.SetTheme(theme);
+
+            userSettingsRepository.WriteSetting("AppSecondaryColor", color);
         }
         #endregion
 

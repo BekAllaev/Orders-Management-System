@@ -13,15 +13,19 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Color of pallet:" FontSize="28" Margin="10 10 0 0"/>
-        <ComboBox Name="CollorCB"
-                  Width="80"
+        <TextBlock Text="Colors of pallet" FontSize="28" Margin="10 10 0 0"/>
+        <TextBlock Text="Primary color:" FontSize="20" Grid.Row="1" Margin="10 10 0 0"/>
+        <ComboBox Name="PrimaryCollorCB"
+                  Width="90"
                   Margin="10 0 0 0"
                   VerticalAlignment="Top" 
                   HorizontalAlignment="Left"
                   Visibility="Visible"
-                  Grid.Row="1">
+                  Grid.Row="2">
             <ComboBox.Resources>
                 <Style TargetType="Ellipse">
                     <Setter Property="Height" Value="8"/>
@@ -34,8 +38,9 @@
                     <Setter Property="Orientation" Value="Horizontal"/>
                 </Style>
             </ComboBox.Resources>
-            <Button Command="{Binding Path=DataContext.ChangePalletCollorCommand,ElementName=GSView}" 
-                    Click="Button_Click" 
+            <Button Command="{Binding Path=DataContext.ChangePrimaryPalletCollorCommand,ElementName=GSView}" 
+                    Click="Button_Click"
+                    Tag="Red"
                     CommandParameter="Red"
                     Style="{StaticResource MaterialDesignToolForegroundButton}">
                 <StackPanel>
@@ -44,7 +49,8 @@
                 </StackPanel>
             </Button>
             <Button Click="Button_Click" 
-                    Command="{Binding Path=DataContext.ChangePalletCollorCommand,ElementName=GSView}" 
+                    Tag="Orange"
+                    Command="{Binding Path=DataContext.ChangePrimaryPalletCollorCommand,ElementName=GSView}" 
                     CommandParameter="Orange"
                     Style="{StaticResource MaterialDesignToolForegroundButton}">
                 <StackPanel>
@@ -53,7 +59,8 @@
                 </StackPanel>
             </Button>
             <Button Click="Button_Click" 
-                    Command="{Binding Path=DataContext.ChangePalletCollorCommand,ElementName=GSView}" 
+                    Tag="Yellow"
+                    Command="{Binding Path=DataContext.ChangePrimaryPalletCollorCommand,ElementName=GSView}" 
                     CommandParameter="Yellow"
                     Style="{StaticResource MaterialDesignToolForegroundButton}">
                 <StackPanel>
@@ -62,7 +69,8 @@
                 </StackPanel>
             </Button>
             <Button Click="Button_Click" 
-                    Command="{Binding Path=DataContext.ChangePalletCollorCommand,ElementName=GSView}" 
+                    Tag="Green"
+                    Command="{Binding Path=DataContext.ChangePrimaryPalletCollorCommand,ElementName=GSView}" 
                     CommandParameter="Green"
                     Style="{StaticResource MaterialDesignToolForegroundButton}">
                 <StackPanel>
@@ -71,7 +79,8 @@
                 </StackPanel>
             </Button>
             <Button Click="Button_Click" 
-                    Command="{Binding Path=DataContext.ChangePalletCollorCommand,ElementName=GSView}" 
+                    Tag="Blue"
+                    Command="{Binding Path=DataContext.ChangePrimaryPalletCollorCommand,ElementName=GSView}" 
                     CommandParameter="Blue"
                     Style="{StaticResource MaterialDesignToolForegroundButton}">
                 <StackPanel>
@@ -80,7 +89,8 @@
                 </StackPanel>
             </Button>
             <Button Click="Button_Click" 
-                    Command="{Binding Path=DataContext.ChangePalletCollorCommand,ElementName=GSView}" 
+                    Tag="Violet"
+                    Command="{Binding Path=DataContext.ChangePrimaryPalletCollorCommand,ElementName=GSView}" 
                     CommandParameter="Violet"
                     Style="{StaticResource MaterialDesignToolForegroundButton}">
                 <StackPanel>
@@ -89,7 +99,99 @@
                 </StackPanel>
             </Button>
             <Button Click="Button_Click" 
-                    Command="{Binding Path=DataContext.ChangePalletCollorCommand,ElementName=GSView}" 
+                    Tag="Purple"
+                    Command="{Binding Path=DataContext.ChangePrimaryPalletCollorCommand,ElementName=GSView}" 
+                    CommandParameter="Purple"
+                    Style="{StaticResource MaterialDesignToolForegroundButton}">
+                <StackPanel>
+                    <Ellipse Fill="Purple"/>
+                    <TextBlock Foreground="Purple" Text="Purple"/>
+                </StackPanel>
+            </Button>
+        </ComboBox>
+        <TextBlock Text="Secondary color:" FontSize="20" Grid.Row="3" Margin="10 10 0 0"/>
+        <ComboBox Name="SecondaryCollorCB"
+                  Width="90"
+                  Margin="10 0 0 0"
+                  VerticalAlignment="Top" 
+                  HorizontalAlignment="Left"
+                  Visibility="Visible"
+                  Grid.Row="4">
+            <ComboBox.Resources>
+                <Style TargetType="Ellipse">
+                    <Setter Property="Height" Value="8"/>
+                    <Setter Property="Width" Value="8"/>
+                </Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Margin" Value="5 0 0 0"/>
+                </Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Orientation" Value="Horizontal"/>
+                </Style>
+            </ComboBox.Resources>
+            <Button Command="{Binding Path=DataContext.ChangeSecondaryPalletCollorCommand,ElementName=GSView}" 
+                    Click="Button_Click_1"
+                    Tag="Red"
+                    CommandParameter="Red"
+                    Style="{StaticResource MaterialDesignToolForegroundButton}">
+                <StackPanel>
+                    <Ellipse Fill="Red"/>
+                    <TextBlock Foreground="Red" Text="Red"/>
+                </StackPanel>
+            </Button>
+            <Button Click="Button_Click_1" 
+                    Tag="Orange"
+                    Command="{Binding Path=DataContext.ChangeSecondaryPalletCollorCommand,ElementName=GSView}" 
+                    CommandParameter="Orange"
+                    Style="{StaticResource MaterialDesignToolForegroundButton}">
+                <StackPanel>
+                    <Ellipse Fill="Orange"/>
+                    <TextBlock Foreground="Orange" Text="Orange"/>
+                </StackPanel>
+            </Button>
+            <Button Click="Button_Click_1" 
+                    Tag="Yellow"
+                    Command="{Binding Path=DataContext.ChangeSecondaryPalletCollorCommand,ElementName=GSView}" 
+                    CommandParameter="Yellow"
+                    Style="{StaticResource MaterialDesignToolForegroundButton}">
+                <StackPanel>
+                    <Ellipse Fill="Yellow"/>
+                    <TextBlock Foreground="Yellow" Text="Yellow"/>
+                </StackPanel>
+            </Button>
+            <Button Click="Button_Click_1" 
+                    Tag="Green"
+                    Command="{Binding Path=DataContext.ChangeSecondaryPalletCollorCommand,ElementName=GSView}" 
+                    CommandParameter="Green"
+                    Style="{StaticResource MaterialDesignToolForegroundButton}">
+                <StackPanel>
+                    <Ellipse Fill="Green"/>
+                    <TextBlock Foreground="Green" Text="Green"/>
+                </StackPanel>
+            </Button>
+            <Button Click="Button_Click_1" 
+                    Tag="Blue"
+                    Command="{Binding Path=DataContext.ChangeSecondaryPalletCollorCommand,ElementName=GSView}" 
+                    CommandParameter="Blue"
+                    Style="{StaticResource MaterialDesignToolForegroundButton}">
+                <StackPanel>
+                    <Ellipse Fill="Blue"/>
+                    <TextBlock Foreground="Blue" Text="Blue"/>
+                </StackPanel>
+            </Button>
+            <Button Click="Button_Click_1" 
+                    Tag="Violet"
+                    Command="{Binding Path=DataContext.ChangeSecondaryPalletCollorCommand,ElementName=GSView}" 
+                    CommandParameter="Violet"
+                    Style="{StaticResource MaterialDesignToolForegroundButton}">
+                <StackPanel>
+                    <Ellipse Fill="Violet"/>
+                    <TextBlock Foreground="Violet" Text="Violet"/>
+                </StackPanel>
+            </Button>
+            <Button Click="Button_Click_1" 
+                    Tag="Purple"
+                    Command="{Binding Path=DataContext.ChangeSecondaryPalletCollorCommand,ElementName=GSView}" 
                     CommandParameter="Purple"
                     Style="{StaticResource MaterialDesignToolForegroundButton}">
                 <StackPanel>
