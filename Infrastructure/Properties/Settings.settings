@@ -5,5 +5,8 @@
     <Setting Name="OrdersMainView" Type="System.String" Scope="User">
       <Value Profile="(Default)">Create View</Value>
     </Setting>
+    <Setting Name="AppPrimaryColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Teal</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

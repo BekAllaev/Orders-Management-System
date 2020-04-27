@@ -19,7 +19,8 @@
         </Grid.ColumnDefinitions>
 
         <GroupBox BorderThickness="0.5"
-                      Margin="5">
+                  Style="{DynamicResource MaterialDesignCardGroupBox}"
+                  Margin="5">
             <GroupBox.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
@@ -70,6 +71,7 @@
 
         <GroupBox BorderThickness="0.5"
                   Grid.Column="1"
+                  Style="{DynamicResource MaterialDesignCardGroupBox}"
                   Margin="5">
             <GroupBox.HeaderTemplate>
                 <DataTemplate>

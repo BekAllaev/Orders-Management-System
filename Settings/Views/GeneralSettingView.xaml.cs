@@ -24,5 +24,14 @@ namespace Settings.Views
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button currentButton = (Button)sender;
+
+            CollorCB.SelectedItem = currentButton;
+
+            CollorCB.IsDropDownOpen = false;
+        }
     }
 }

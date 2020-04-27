@@ -28,8 +28,6 @@ namespace Root.ViewModels
 
             NavigateToCommand = new DelegateCommand<string>(NavigateToExecute);
 
-            unityContainer.RegisterInstance<IUserSettingsRepository>(new UserSettingsRepository());
-
             GlobalCommands.NavigateToCompositeCommand.RegisterCommand(NavigateToCommand);
         }
         #endregion

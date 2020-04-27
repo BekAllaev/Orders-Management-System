@@ -21,6 +21,7 @@ using Prism.Regions;
 using Syncfusion.Windows.Tools.Controls;
 using System.Data.Entity;
 using Infrastructure.Services;
+using Infrastructure.SettingsRepository;
 
 namespace Root
 {
@@ -41,6 +42,7 @@ namespace Root
         {
             base.ConfigureContainer();
 
+            Container.RegisterInstance<IUserSettingsRepository>(new UserSettingsRepository());
             Container.RegisterInstance(new NorthwindContext(), new TransientLifetimeManager());
             Container.RegisterInstance(new TitleUpdater());
         }

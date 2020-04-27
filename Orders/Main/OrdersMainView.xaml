@@ -38,7 +38,7 @@
                         <Button Grid.Column="2" 
                                 FontSize="18" 
                                 Width="130"
-                                Background="{StaticResource SecondaryAccentBrush}"
+                                Background="{DynamicResource SecondaryAccentBrush}"
                                 Content="{Binding Path=DataContext.SwitchButtonContent, ElementName=ordersMainView, Mode=TwoWay}"
                                 Command="{Binding Path=DataContext.SwitchViewCommand, ElementName=ordersMainView}"/>
                     </Grid>
