@@ -16,8 +16,10 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Colors of pallet" FontSize="28" Margin="10 10 0 0"/>
+        <TextBlock Text="Theme" FontSize="28" Margin="10 10 0 0"/>
         <TextBlock Text="Primary color:" FontSize="20" Grid.Row="1" Margin="10 10 0 0"/>
         <ComboBox Name="PrimaryCollorCB"
                   Width="90"
@@ -200,5 +202,11 @@
                 </StackPanel>
             </Button>
         </ComboBox>
+        <TextBlock Text="Dark mode:" FontSize="20" Grid.Row="5" Margin="10 10 0 0"/>
+        <ToggleButton Grid.Row="6"
+                      IsChecked="{Binding IsDarkMode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                      HorizontalAlignment="Left"
+                      Margin="10 10 0 0"
+                      Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
     </Grid>
 </UserControl>

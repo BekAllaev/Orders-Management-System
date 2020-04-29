@@ -16,6 +16,7 @@ namespace Settings.ViewModels
     {
         #region Declarations
         IUserSettingsRepository userSettingsRepository;
+        bool _isDarkMode;
         #endregion
 
         #region Constructor
@@ -25,11 +26,29 @@ namespace Settings.ViewModels
 
             ChangePrimaryPalletCollorCommand = ReactiveCommand.Create<string>(ChangePrimaryPalletCollorExecute);
             ChangeSecondaryPalletCollorCommand = ReactiveCommand.Create<string>(ChangeSecondaryPalletCollorExecute);
+
+            this.WhenAnyValue(x => x.IsDarkMode)
+                .Subscribe(isDark =>
+                {
+                    PaletteHelper paletteHelper = new PaletteHelper();
+                    ITheme theme = paletteHelper.GetTheme();
+
+                    if (isDark)
+                        theme.SetBaseTheme(Theme.Dark);
+                    else
+                        theme.SetBaseTheme(Theme.Light);
+
+                    paletteHelper.SetTheme(theme);
+
+                    userSettingsRepository.WriteSetting("IsDarkTheme", isDark);
+                });
+
+            IsDarkMode = (bool)userSettingsRepository.ReadSetting("IsDarkTheme");
         }
         #endregion
 
         #region Commands
-        public ReactiveCommand<string,Unit> ChangePrimaryPalletCollorCommand { get; }
+        public ReactiveCommand<string, Unit> ChangePrimaryPalletCollorCommand { get; }
 
         private void ChangePrimaryPalletCollorExecute(string color)
         {
@@ -47,7 +66,7 @@ namespace Settings.ViewModels
             userSettingsRepository.WriteSetting("AppPrimaryColor", color);
         }
 
-        public ReactiveCommand<string,Unit> ChangeSecondaryPalletCollorCommand { get; }
+        public ReactiveCommand<string, Unit> ChangeSecondaryPalletCollorCommand { get; }
 
         private void ChangeSecondaryPalletCollorExecute(string color)
         {
@@ -67,6 +86,11 @@ namespace Settings.ViewModels
         #endregion
 
         #region Properties
+        public bool IsDarkMode
+        {
+            set { this.RaiseAndSetIfChanged(ref _isDarkMode, value); }
+            get { return _isDarkMode; }
+        }
         #endregion
     }
 }
