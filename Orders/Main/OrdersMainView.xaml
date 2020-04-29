@@ -16,7 +16,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <GroupBox Margin="10" Background="White" BorderThickness="0">
+        <GroupBox Margin="10" Style="{DynamicResource MaterialDesignCardGroupBox}">
             <GroupBox.HeaderTemplate>
                 <DataTemplate>
                     <Grid>

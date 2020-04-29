@@ -11,7 +11,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <GroupBox Background="White">
+    <GroupBox Style="{DynamicResource MaterialDesignCardGroupBox}">
         <GroupBox.HeaderTemplate>
             <DataTemplate>
                 <Grid>
@@ -35,8 +35,8 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <Border CornerRadius="5" BorderThickness="0.3">
-                <syncfusion:SfChart Margin="5" Header="Customers by countries" FontSize="15" AreaBorderBrush="White">
+            <Border CornerRadius="5" BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueLightBrush}">
+                <syncfusion:SfChart Margin="5" Header="Customers by countries" FontSize="15" AreaBorderBrush="{x:Null}">
                     <syncfusion:SfChart.Resources>
                         <ItemsPanelTemplate x:Key="itemsPanelTemplate">
                             <WrapPanel ItemWidth="120" Margin="0"/>
@@ -64,7 +64,7 @@
                 </syncfusion:SfChart>
             </Border>
 
-            <Border CornerRadius="5" BorderThickness="0.3" Grid.Row="1">
+            <Border CornerRadius="5" BorderThickness="1" Grid.Row="1" BorderBrush="{DynamicResource PrimaryHueLightBrush}">
                 <syncfusion:SfChart Header="Purchases by customers(Top 10)" Margin="5" FontSize="15" >
                     <syncfusion:SfChart.PrimaryAxis>
                         <syncfusion:CategoryAxis FontSize="15"/>

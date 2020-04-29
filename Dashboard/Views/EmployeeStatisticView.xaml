@@ -11,7 +11,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <GroupBox Background="White">
+    <GroupBox Style="{DynamicResource MaterialDesignCardGroupBox}">
         <GroupBox.HeaderTemplate>
             <DataTemplate>
                 <Grid>
@@ -29,7 +29,7 @@
             </DataTemplate>
         </GroupBox.HeaderTemplate>
 
-        <syncfusion:SfChart Header="Sales by employees" Margin="5" FontSize="15" >
+        <syncfusion:SfChart Header="Sales by employees" Margin="5" FontSize="15" AreaBorderBrush="{x:Null}">
             <syncfusion:SfChart.PrimaryAxis>
                 <syncfusion:CategoryAxis FontSize="15"/>
             </syncfusion:SfChart.PrimaryAxis>

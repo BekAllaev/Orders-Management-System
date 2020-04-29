@@ -10,8 +10,8 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
-    <GroupBox Background="White">
+
+    <GroupBox Style="{DynamicResource MaterialDesignCardGroupBox}">
         <GroupBox.HeaderTemplate>
             <DataTemplate>
                 <Grid>
@@ -29,7 +29,7 @@
             </DataTemplate>
         </GroupBox.HeaderTemplate>
 
-        <syncfusion:SfChart Margin="5" Header="Products by categories" FontSize="15" AreaBorderBrush="White">
+        <syncfusion:SfChart Margin="5" Header="Products by categories" FontSize="15" AreaBorderBrush="{x:Null}">
             <syncfusion:SfChart.Resources>
                 <ItemsPanelTemplate x:Key="itemsPanelTemplate">
                     <WrapPanel ItemWidth="130" Margin="0"/>
