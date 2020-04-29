@@ -17,22 +17,25 @@ namespace Settings.ViewModels
         #region Declarations
         IUserSettingsRepository userSettingsRepository;
         bool _isDarkMode;
+        PaletteHelper paletteHelper;
+        ITheme theme;
         #endregion
 
         #region Constructor
         public GeneralSettingViewModel(IUserSettingsRepository userSettingsRepository)
         {
             this.userSettingsRepository = userSettingsRepository;
+            paletteHelper = new PaletteHelper();
+            theme = paletteHelper.GetTheme();
 
             ChangePrimaryPalletCollorCommand = ReactiveCommand.Create<string>(ChangePrimaryPalletCollorExecute);
             ChangeSecondaryPalletCollorCommand = ReactiveCommand.Create<string>(ChangeSecondaryPalletCollorExecute);
 
+            IsDarkMode = (bool)userSettingsRepository.ReadSetting("IsDarkTheme");
+
             this.WhenAnyValue(x => x.IsDarkMode)
                 .Subscribe(isDark =>
                 {
-                    PaletteHelper paletteHelper = new PaletteHelper();
-                    ITheme theme = paletteHelper.GetTheme();
-
                     if (isDark)
                         theme.SetBaseTheme(Theme.Dark);
                     else
@@ -42,8 +45,6 @@ namespace Settings.ViewModels
 
                     userSettingsRepository.WriteSetting("IsDarkTheme", isDark);
                 });
-
-            IsDarkMode = (bool)userSettingsRepository.ReadSetting("IsDarkTheme");
         }
         #endregion
 
@@ -52,9 +53,6 @@ namespace Settings.ViewModels
 
         private void ChangePrimaryPalletCollorExecute(string color)
         {
-            PaletteHelper paletteHelper = new PaletteHelper();
-            ITheme theme = paletteHelper.GetTheme();
-
             Color newPrimaryColor = (Color)ColorConverter.ConvertFromString(color);
 
             //Change all of the primary colors
@@ -70,13 +68,10 @@ namespace Settings.ViewModels
 
         private void ChangeSecondaryPalletCollorExecute(string color)
         {
-            PaletteHelper paletteHelper = new PaletteHelper();
-            ITheme theme = paletteHelper.GetTheme();
+            Color newSecondaryColor = (Color)ColorConverter.ConvertFromString(color);
 
-            Color newPrimaryColor = (Color)ColorConverter.ConvertFromString(color);
-
-            //Change all of the primary colors
-            theme.SetSecondaryColor(newPrimaryColor);
+            //Change all of the secondary colors
+            theme.SetSecondaryColor(newSecondaryColor);
 
             //Change the app's current theme
             paletteHelper.SetTheme(theme);

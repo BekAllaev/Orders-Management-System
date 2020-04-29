@@ -91,13 +91,13 @@
                 </StackPanel>
             </Button>
             <Button Click="Button_Click" 
-                    Tag="Violet"
+                    Tag="Gray"
                     Command="{Binding Path=DataContext.ChangePrimaryPalletCollorCommand,ElementName=GSView}" 
-                    CommandParameter="Violet"
+                    CommandParameter="Gray"
                     Style="{StaticResource MaterialDesignToolForegroundButton}">
                 <StackPanel>
-                    <Ellipse Fill="Violet"/>
-                    <TextBlock Foreground="Violet" Text="Violet"/>
+                    <Ellipse Fill="Gray"/>
+                    <TextBlock Foreground="Gray" Text="Gray"/>
                 </StackPanel>
             </Button>
             <Button Click="Button_Click" 

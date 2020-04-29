@@ -45,6 +45,7 @@ namespace Root.ViewModels
         {
             string defaultPrimaryColor = (string)userSettingsRepository.ReadSetting("AppPrimaryColor");
             string defaultSecondaryColor = (string)userSettingsRepository.ReadSetting("AppSecondaryColor");
+            bool isDefaultDarkTheme = (bool)userSettingsRepository.ReadSetting("IsDarkTheme");
 
             PaletteHelper paletteHelper = new PaletteHelper();
             ITheme theme = paletteHelper.GetTheme();
@@ -54,6 +55,7 @@ namespace Root.ViewModels
 
             theme.SetPrimaryColor(primaryColor);
             theme.SetSecondaryColor(secondaryColor);
+            if (isDefaultDarkTheme) theme.SetBaseTheme(Theme.Dark);
 
             paletteHelper.SetTheme(theme);
         }

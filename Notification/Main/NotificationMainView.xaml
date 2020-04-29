@@ -9,7 +9,7 @@
              xmlns:local="clr-namespace:Notification.Main"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
+    <Grid Background="{DynamicResource MaterialDesignCardBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
