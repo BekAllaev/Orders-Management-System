@@ -48,15 +48,27 @@
             <ContentControl prism:RegionManager.RegionName="OrdersCreateJournalRegion"/>
         </GroupBox>
 
-        <Border Grid.Column="1"
-                Margin="10"
-                BorderBrush="Black"
-                BorderThickness="1">
-            <TextBlock VerticalAlignment="Top" 
-                       HorizontalAlignment="Left"
-                       FontSize="30"
-                       Margin="10 10 0 0"
-                       Text="Invoice"/>
-        </Border>
+        <GroupBox Grid.Column="1"
+                  Margin="10"
+                  Style="{DynamicResource MaterialDesignCardGroupBox}">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <materialDesign:PackIcon Kind="Invoice" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 2 10 0"/>
+
+                        <TextBlock Text="Invoice" 
+                                   VerticalAlignment="Center"
+                                   FontSize="20"
+                                   Grid.Column="1"/>
+                    </Grid>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+            <ContentControl prism:RegionManager.RegionName="InvoiceRegion"/>
+        </GroupBox>
     </Grid>
 </UserControl>

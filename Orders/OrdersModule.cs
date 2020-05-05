@@ -32,6 +32,9 @@ namespace Orders
             unityContainer.RegisterTypeForNavigation<CreateView>();
             unityContainer.RegisterTypeForNavigation<JournalView>();
             unityContainer.RegisterTypeForNavigation<OrdersMainView>();
+            unityContainer.RegisterTypeForNavigation<InvoiceView>();
+
+            regionManager.RegisterViewWithRegion("InvoiceRegion", typeof(InvoiceView));
         }
     }
 }
