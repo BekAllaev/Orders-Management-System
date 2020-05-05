@@ -9,7 +9,7 @@
       <Value Profile="(Default)">Teal</Value>
     </Setting>
     <Setting Name="AppSecondaryColor" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Teal</Value>
+      <Value Profile="(Default)">Green</Value>
     </Setting>
     <Setting Name="IsDarkTheme" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

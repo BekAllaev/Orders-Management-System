@@ -49,7 +49,7 @@ namespace Infrastructure.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Teal")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Green")]
         public string AppSecondaryColor {
             get {
                 return ((string)(this["AppSecondaryColor"]));

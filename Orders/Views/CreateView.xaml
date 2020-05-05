@@ -92,7 +92,7 @@
                                    Grid.Column="1"/>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2">
-                            <Button Background="{DynamicResource SecondaryAccentBrush}"
+                            <Button Background="Green"
                                     Content="Create"
                                     FontSize="18"
                                     Width="120"

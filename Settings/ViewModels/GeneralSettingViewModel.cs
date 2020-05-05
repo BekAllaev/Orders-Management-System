@@ -16,9 +16,10 @@ namespace Settings.ViewModels
     {
         #region Declarations
         IUserSettingsRepository userSettingsRepository;
+        ITheme theme;
+
         bool _isDarkMode;
         PaletteHelper paletteHelper;
-        ITheme theme;
         #endregion
 
         #region Constructor
@@ -29,7 +30,6 @@ namespace Settings.ViewModels
             theme = paletteHelper.GetTheme();
 
             ChangePrimaryPalletCollorCommand = ReactiveCommand.Create<string>(ChangePrimaryPalletCollorExecute);
-            ChangeSecondaryPalletCollorCommand = ReactiveCommand.Create<string>(ChangeSecondaryPalletCollorExecute);
 
             IsDarkMode = (bool)userSettingsRepository.ReadSetting("IsDarkTheme");
 
@@ -62,21 +62,6 @@ namespace Settings.ViewModels
             paletteHelper.SetTheme(theme);
 
             userSettingsRepository.WriteSetting("AppPrimaryColor", color);
-        }
-
-        public ReactiveCommand<string, Unit> ChangeSecondaryPalletCollorCommand { get; }
-
-        private void ChangeSecondaryPalletCollorExecute(string color)
-        {
-            Color newSecondaryColor = (Color)ColorConverter.ConvertFromString(color);
-
-            //Change all of the secondary colors
-            theme.SetSecondaryColor(newSecondaryColor);
-
-            //Change the app's current theme
-            paletteHelper.SetTheme(theme);
-
-            userSettingsRepository.WriteSetting("AppSecondaryColor", color);
         }
         #endregion
 

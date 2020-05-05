@@ -36,15 +36,6 @@ namespace Settings.Views
                     break;
                 }
             }
-
-            foreach (Button button in SecondaryCollorCB.Items)
-            {
-                if ((string)button.Tag == defualtSecondaryColor)
-                {
-                    SecondaryCollorCB.SelectedItem = button;
-                    break;
-                }
-            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -54,15 +45,6 @@ namespace Settings.Views
             PrimaryCollorCB.SelectedItem = currentButton;
 
             PrimaryCollorCB.IsDropDownOpen = false;
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            Button currentButton = (Button)sender;
-
-            SecondaryCollorCB.SelectedItem = currentButton;
-
-            SecondaryCollorCB.IsDropDownOpen = false;
         }
     }
 }
