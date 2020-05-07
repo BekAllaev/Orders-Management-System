@@ -185,7 +185,7 @@
     <Compile Include="OrdersModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CreateViewModel.cs" />
-    <Compile Include="ViewModels\InvoiceViewModels.cs" />
+    <Compile Include="ViewModels\InvoiceViewModel.cs" />
     <Compile Include="ViewModels\JournalViewModel.cs" />
     <Compile Include="Views\CreateView.xaml.cs">
       <DependentUpon>CreateView.xaml</DependentUpon>
