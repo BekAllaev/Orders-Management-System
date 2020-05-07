@@ -7,5 +7,6 @@
              xmlns:local="clr-namespace:Orders.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <syncfusion:ReportViewer Margin="10"/>
+    <syncfusion:ReportViewer x:Name="InvoiceReport"
+                             Margin="10"/>
 </UserControl>
