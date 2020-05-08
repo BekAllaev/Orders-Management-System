@@ -560,7 +560,7 @@ Tel: 21616017</Value>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Discount</Value>
+                              <Value>Discount(%)</Value>
                               <Style>
                                 <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>11pt</FontSize>

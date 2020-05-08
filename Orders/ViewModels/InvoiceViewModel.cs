@@ -56,7 +56,7 @@ namespace Orders.ViewModels
                     ProductName = o.Product.ProductName,
                     UnitPrice = o.UnitPrice,
                     Quantity = o.Quantity,
-                    Discount = o.Discount,
+                    Discount = o.Discount * 100,
                     SubTotal = (decimal)((float)o.UnitPrice * o.Quantity * (1 - o.Discount))
                 }
                 ));
