@@ -42,7 +42,8 @@
                                 FontSize="18"
                                 Grid.Column="2"
                                 HorizontalAlignment="Right"
-                                Background="{DynamicResource SecondaryAccentBrush}"
+                                Foreground="White"
+                                Background="{StaticResource SecondaryAccentBrush}"
                                 Command="{Binding Path=DataContext.RemoveAllCommand,ElementName=ParentView}"/>
                     </Grid>
                 </DataTemplate>
@@ -96,6 +97,7 @@
                                     Content="Create"
                                     FontSize="18"
                                     Width="120"
+                                    Foreground="White"
                                     Command="{Binding Path=DataContext.CreateOrderCommand,ElementName=ParentView}"/>
                         </StackPanel>
                     </Grid>
