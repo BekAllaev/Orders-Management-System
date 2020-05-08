@@ -82,6 +82,7 @@
             </Grid.RowDefinitions>
 
             <syncfusion:SfDataGrid ItemsSource="{Binding ElementName=dataPager,Path=PagedSource}"
+                                   SelectedItem="{Binding SelectedOrder,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                    ColumnSizer="Auto"/>
             <syncfusion:SfDataPager x:Name="dataPager"
                                     Grid.Row="1"

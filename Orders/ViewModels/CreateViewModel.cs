@@ -17,6 +17,7 @@ using ReactiveUI.Fody.Helpers;
 using System.Data.Common;
 using System.Runtime.InteropServices;
 using System.Data.Entity.Core;
+using Orders.Events;
 
 namespace Orders.ViewModels
 {
@@ -144,7 +145,7 @@ namespace Orders.ViewModels
                                 ProductID = p.ProductID,
                                 UnitPrice = (decimal)p.UnitPrice,
                                 Quantity = (short)p.SelectedQuantity,
-                                Discount = p.SelectedQuantity
+                                Discount = p.SelectedDiscount
                             })));
 
                     northwindContext.SaveChanges();
@@ -157,10 +158,14 @@ namespace Orders.ViewModels
                 }
             }
 
+            RemoveAllCommand.Execute().Subscribe();
+
             productsInOrder.Clear();
             OrderDate = String.Empty;
             SelectedCustomer = null;
             SelectedEmployee = null;
+
+            MessageBus.Current.SendMessage<NewOrderCreated>(new NewOrderCreated() { OrderId = newOrder.OrderID });
         }
         #endregion
 
@@ -361,7 +366,7 @@ namespace Orders.ViewModels
             #endregion
         }
 
-        public class ProductInOrder : ReactiveObject
+        public class ProductInOrder : AbstractNotifyPropertyChanged
         {
             public ProductInOrder(ProductOnStore product)
             {
@@ -385,11 +390,19 @@ namespace Orders.ViewModels
 
             public short? QunatityInStoke { set; get; }
 
-            [Reactive]
-            public short SelectedQuantity { set; get; }
+            short _selectedQuantity;
+            public short SelectedQuantity
+            {
+                set { SetAndRaise(ref _selectedQuantity, value); }
+                get { return _selectedQuantity; }
+            }
 
-            [Reactive]
-            public int SelectedDiscount { set; get; }
+            int _selectedDiscount;
+            public int SelectedDiscount 
+            {
+                set { SetAndRaise(ref _selectedDiscount, value); }
+                get { return _selectedDiscount; }
+            }
 
             public decimal Sum { set; get; }
 

@@ -30,8 +30,20 @@ namespace Orders.Views
         {
             InitializeComponent();
 
+            Observable.FromEventPattern<RoutedEventArgs>(InvoiceReport, "Loaded")
+                .Subscribe(OnReportLoaded);
+
             MessageBus.Current.Listen<OrerDataCreated>()
                 .Subscribe(orderCreatedEvent => SetDataSources());
+        }
+
+        private void OnReportLoaded(EventPattern<RoutedEventArgs> obj)
+        {
+            string currentDir = Path.Combine(Environment.CurrentDirectory, @"Reports\InvoiceReport.rdlc");
+
+            this.InvoiceReport.ProcessingMode = Syncfusion.Windows.Reports.Viewer.ProcessingMode.Local;
+
+            this.InvoiceReport.ReportPath = currentDir;
         }
 
         private void SetDataSources()

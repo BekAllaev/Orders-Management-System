@@ -15,6 +15,7 @@ using Infrastructure.Extensions;
 using System.Reactive;
 using System.Data.Common;
 using System.Data.Entity.Core;
+using Orders.Events;
 
 namespace Orders.ViewModels
 {
@@ -30,6 +31,7 @@ namespace Orders.ViewModels
         readonly IEnumerable<Order> cachedCollection;
 
         string _searchTerm;
+        Order _order;
         #endregion
 
         #region Construct
@@ -95,6 +97,12 @@ namespace Orders.ViewModels
         {
             get { return _searchTerm; }
             set { this.RaiseAndSetIfChanged(ref _searchTerm, value); }
+        }
+
+        public Order SelectedOrder
+        {
+            get { return _order; }
+            set { MessageBus.Current.SendMessage<NewOrderCreated>(new NewOrderCreated() { OrderId = value.OrderID }); }
         }
         #endregion
 
