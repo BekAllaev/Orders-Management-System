@@ -145,7 +145,7 @@ namespace Orders.ViewModels
                                 ProductID = p.ProductID,
                                 UnitPrice = (decimal)p.UnitPrice,
                                 Quantity = (short)p.SelectedQuantity,
-                                Discount = p.SelectedDiscount
+                                Discount = p.SelectedDiscount / 100
                             })));
 
                     northwindContext.SaveChanges();
@@ -208,7 +208,7 @@ namespace Orders.ViewModels
             newProductInOrder.WhenAnyValue(x => x.SelectedDiscount, x => x.SelectedQuantity)
             .Subscribe(a =>
             {
-                int newSelectedDiscount = a.Item1;
+                float newSelectedDiscount = a.Item1;
                 int newSelectedQuantity = a.Item2;
 
                 //Value(price) that will be added(or removed) to(from) TotalPrice
@@ -397,8 +397,8 @@ namespace Orders.ViewModels
                 get { return _selectedQuantity; }
             }
 
-            int _selectedDiscount;
-            public int SelectedDiscount 
+            float _selectedDiscount;
+            public float SelectedDiscount
             {
                 set { SetAndRaise(ref _selectedDiscount, value); }
                 get { return _selectedDiscount; }
@@ -408,7 +408,7 @@ namespace Orders.ViewModels
 
             public ProductOnStore SourceProductOnStore { private set; get; }
 
-            public int PreviousSelectedDiscount { set; get; }
+            public float PreviousSelectedDiscount { set; get; }
             #endregion
         }
         #endregion
