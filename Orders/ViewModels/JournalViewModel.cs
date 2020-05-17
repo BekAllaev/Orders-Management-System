@@ -52,12 +52,12 @@ namespace Orders.ViewModels
                 Subscribe(async newSearchTerm =>
                 {
                     if (newSearchTerm != null)
-                        if (string.IsNullOrEmpty(newSearchTerm)) await FillOrderList(cachedCollection.ToList());
+                        if (string.IsNullOrEmpty(newSearchTerm)) await FillOrderListAsync(cachedCollection.ToList());
                         else
                         {
                             var filteredList = cachedCollection.Where(o => o.CustomerID.SafeSubstring(0, newSearchTerm.Length).ToLower() == newSearchTerm.ToLower()).OrderBy(o => o.CustomerID).ToList();
 
-                            await FillOrderList(filteredList);
+                            await FillOrderListAsync(filteredList);
                         }
                 });
 
@@ -75,7 +75,7 @@ namespace Orders.ViewModels
         /// <param name="listToFill">
         /// List which must be added into orders collection
         /// </param>
-        async Task FillOrderList(List<Order> listToFill)
+        private async Task FillOrderListAsync(List<Order> listToFill)
         {
             var currentOrdersList = ordersList.Items;
 
@@ -102,7 +102,11 @@ namespace Orders.ViewModels
         public Order SelectedOrder
         {
             get { return _order; }
-            set { MessageBus.Current.SendMessage<NewOrderCreated>(new NewOrderCreated() { OrderId = value.OrderID }); }
+            set
+            {
+                if (value != null)
+                    MessageBus.Current.SendMessage<NewOrderCreated>(new NewOrderCreated() { OrderId = value.OrderID });
+            }
         }
         #endregion
 
