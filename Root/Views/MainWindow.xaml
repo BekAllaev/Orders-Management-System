@@ -13,7 +13,7 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         SnapsToDevicePixels="True"
-        Title="MainWindow">
+        Title="Orders Management System">
 
     <ContentControl prismRegion:RegionManager.RegionName="GlobalRegion"/>
 </Window>

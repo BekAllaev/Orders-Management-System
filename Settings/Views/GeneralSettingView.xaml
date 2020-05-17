@@ -61,13 +61,13 @@
                 </StackPanel>
             </Button>
             <Button Click="Button_Click" 
-                    Tag="Yellow"
+                    Tag="Teal"
                     Command="{Binding Path=DataContext.ChangePrimaryPalletCollorCommand,ElementName=GSView}" 
-                    CommandParameter="Yellow"
+                    CommandParameter="Teal"
                     Style="{StaticResource MaterialDesignToolForegroundButton}">
                 <StackPanel>
-                    <Ellipse Fill="Yellow"/>
-                    <TextBlock Foreground="Yellow" Text="Yellow"/>
+                    <Ellipse Fill="Teal"/>
+                    <TextBlock Foreground="Teal" Text="Teal"/>
                 </StackPanel>
             </Button>
             <Button Click="Button_Click" 
