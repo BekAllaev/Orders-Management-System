@@ -6,6 +6,7 @@ In this application you can see
 Programming language: `C#`  
 Frameworks: `Prism` , `ReactiveUI` , `DynamicData`  
 Patterns: MVVM, Dependency Injection  
+Containers: `IOC container Unity`
 Data Storage: `Microsoft SQL Server 2017 `  
 UI Markup: `XAML`  
 UI Controls: `Syncfusion WPF Contorls 2019`  
@@ -29,7 +30,3 @@ This framework provided base class for all viewmodels and opportunity to send me
 ### DynamicData 
 Fast UI would not be possible, if there were not `Dynamic Data` , which fills, edits, filters and do a lot of other operations
 above collections in asynchronous style.
-
-
-## Gallery 
-
