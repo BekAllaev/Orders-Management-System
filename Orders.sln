@@ -30,7 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{8A30436A-E239-41C2-919B-D26A8413393F}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\Desktop\DashboardBlackMode.jpg = ..\..\..\Desktop\DashboardBlackMode.jpg
+		..\..\..\Desktop\DashboardBlackMode.png = ..\..\..\Desktop\DashboardBlackMode.png
 		..\..\..\Desktop\DashboardWhiteMode.jpg = ..\..\..\Desktop\DashboardWhiteMode.jpg
 	EndProjectSection
 EndProject
