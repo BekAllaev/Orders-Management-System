@@ -6,7 +6,7 @@ In this application you can see
 Programming language: `C#`  
 Frameworks: `Prism` , `ReactiveUI` , `DynamicData`  
 Patterns: MVVM, Dependency Injection  
-Containers: `IOC container Unity`
+Containers: `IOC container Unity`  
 Data Storage: `Microsoft SQL Server 2017 `  
 UI Markup: `XAML`  
 UI Controls: `Syncfusion WPF Contorls 2019`  
