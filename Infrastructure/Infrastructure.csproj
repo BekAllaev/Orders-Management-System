@@ -104,6 +104,7 @@
   <ItemGroup>
     <Compile Include="Behaviors\ZeroToOneBehavior.cs" />
     <Compile Include="Events\ContextException.cs" />
+    <Compile Include="Events\DarkModeChanged.cs" />
     <Compile Include="Events\OnNavigatedToEvent.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="GlobalCommands.cs" />

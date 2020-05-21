@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Infrastructure.Events;
 using Infrastructure.SettingsRepository;
+using ReactiveUI;
 
 namespace Settings.Views
 {
@@ -36,6 +38,13 @@ namespace Settings.Views
                     break;
                 }
             }
+
+            Brush defaultBorderBrush = PrimaryCollorCB.BorderBrush;
+
+            MessageBus.Current.Listen<DarkModeChanged>().Subscribe(a =>
+            {
+                PrimaryCollorCB.BorderBrush = defaultBorderBrush;
+            });
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

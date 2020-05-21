@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using Infrastructure.SettingsRepository;
+using Infrastructure.Events;
 
 namespace Settings.ViewModels
 {
@@ -42,6 +43,8 @@ namespace Settings.ViewModels
                         theme.SetBaseTheme(Theme.Light);
 
                     paletteHelper.SetTheme(theme);
+
+                    MessageBus.Current.SendMessage(new DarkModeChanged());
 
                     userSettingsRepository.WriteSetting("IsDarkTheme", isDark);
                 });
