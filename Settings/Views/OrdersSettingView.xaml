@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              prism:ViewModelLocator.AutoWireViewModel="True"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -20,13 +21,13 @@
         <StackPanel Grid.Row="1" HorizontalAlignment="Left">
             <RadioButton Content="Create"
                          Margin="5"
-                         Style="{StaticResource MaterialDesignTabRadioButton}"
+                         Style="{StaticResource MaterialDesignUserForegroundRadioButton}"
                          IsChecked="{Binding IsCreateViewDefaultView}" 
                          Command="{Binding ChangeDefaultViewCommand}" 
                          CommandParameter="Create View"/>
             <RadioButton Content="Journal"
                          Margin="5" 
-                         Style="{StaticResource MaterialDesignTabRadioButton}"
+                         Style="{StaticResource MaterialDesignUserForegroundRadioButton}"
                          IsChecked="{Binding IsJournalViewDefaultView}" 
                          Command="{Binding ChangeDefaultViewCommand}" 
                          CommandParameter="Journal View"/>
