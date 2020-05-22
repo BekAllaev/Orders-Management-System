@@ -18,8 +18,18 @@
                    FontSize="28"/>
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Left">
-            <RadioButton Content="Create" Background="Gray" Margin="5" IsChecked="{Binding IsCreateViewDefaultView}" Command="{Binding ChangeDefaultViewCommand}" CommandParameter="Create View"/>
-            <RadioButton Content="Journal" Background="Gray" Margin="5" IsChecked="{Binding IsJournalViewDefaultView}" Command="{Binding ChangeDefaultViewCommand}" CommandParameter="Journal View"/>
+            <RadioButton Content="Create"
+                         Margin="5"
+                         Style="{StaticResource MaterialDesignTabRadioButton}"
+                         IsChecked="{Binding IsCreateViewDefaultView}" 
+                         Command="{Binding ChangeDefaultViewCommand}" 
+                         CommandParameter="Create View"/>
+            <RadioButton Content="Journal"
+                         Margin="5" 
+                         Style="{StaticResource MaterialDesignTabRadioButton}"
+                         IsChecked="{Binding IsJournalViewDefaultView}" 
+                         Command="{Binding ChangeDefaultViewCommand}" 
+                         CommandParameter="Journal View"/>
         </StackPanel>
     </Grid>
 </UserControl>
