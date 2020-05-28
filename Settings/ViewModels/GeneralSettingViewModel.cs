@@ -44,8 +44,6 @@ namespace Settings.ViewModels
 
                     paletteHelper.SetTheme(theme);
 
-                    MessageBus.Current.SendMessage(new DarkModeChanged());
-
                     userSettingsRepository.WriteSetting("IsDarkTheme", isDark);
                 });
         }

@@ -38,13 +38,6 @@ namespace Settings.Views
                     break;
                 }
             }
-
-            Brush defaultBorderBrush = PrimaryCollorCB.BorderBrush;
-
-            MessageBus.Current.Listen<DarkModeChanged>().Subscribe(a =>
-            {
-                PrimaryCollorCB.BorderBrush = defaultBorderBrush;
-            });
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
