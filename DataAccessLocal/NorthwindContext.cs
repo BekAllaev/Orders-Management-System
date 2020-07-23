@@ -11,7 +11,7 @@ namespace DataAccessLocal
             : base("name=NorthwindContext")
         {
         }
-
+         
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<CustomerDemographic> CustomerDemographics { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
