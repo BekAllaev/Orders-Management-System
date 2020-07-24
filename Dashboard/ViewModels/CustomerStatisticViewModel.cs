@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using DynamicData;
 using ReactiveUI;
 using DynamicData.Binding;
+using OMS.Data.Models;
 using System.Data.Common;
 
 namespace Dashboard.ViewModels

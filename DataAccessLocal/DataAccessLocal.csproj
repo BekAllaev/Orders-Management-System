@@ -50,25 +50,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\CustomerDemographic.cs" />
-    <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\Invoice.cs" />
     <Compile Include="NorthwindContext.cs" />
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\Order_Detail.cs" />
-    <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\Region.cs" />
-    <Compile Include="Models\Shipper.cs" />
-    <Compile Include="Models\Supplier.cs" />
-    <Compile Include="Models\sysdiagram.cs" />
-    <Compile Include="Models\Territory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OMS.Data\OMS.Data.csproj">
+      <Project>{55219052-b923-4b0e-93da-d4c627922e99}</Project>
+      <Name>OMS.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

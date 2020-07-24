@@ -4,6 +4,7 @@ namespace DataAccessLocal
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using OMS.Data.Models;
 
     public partial class NorthwindContext : DbContext
     {

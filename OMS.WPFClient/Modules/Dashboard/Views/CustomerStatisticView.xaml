@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="OMS.WPFClient.Modules.Dashboard.Views.CustomerStatisticView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <GroupBox Style="{DynamicResource MaterialDesignCardGroupBox}">
+        <GroupBox.HeaderTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <materialDesign:PackIcon Kind="AccountSupervisor" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 10 0"/>
+
+                    <TextBlock Text="CUSTOMERS"
+                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}" 
+                               FontSize="20" Grid.Column="1"/>
+                </Grid>
+            </DataTemplate>
+        </GroupBox.HeaderTemplate>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Border CornerRadius="5" BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueLightBrush}">
+                <syncfusion:SfChart Margin="5" Header="Customers by countries" FontSize="15" AreaBorderBrush="{x:Null}">
+                    <syncfusion:SfChart.Resources>
+                        <ItemsPanelTemplate x:Key="itemsPanelTemplate">
+                            <WrapPanel ItemWidth="120" Margin="0"/>
+                        </ItemsPanelTemplate>
+                    </syncfusion:SfChart.Resources>
+                    <syncfusion:SfChart.PrimaryAxis>
+                        <syncfusion:CategoryAxis/>
+                    </syncfusion:SfChart.PrimaryAxis>
+                    <syncfusion:SfChart.SecondaryAxis>
+                        <syncfusion:NumericalAxis/>
+                    </syncfusion:SfChart.SecondaryAxis>
+                    <syncfusion:PieSeries ItemsSource="{Binding Customers}" EnableAnimation="True" EnableSmartLabels="True" Palette="Elite" YBindingPath="NumberOfCustomers" XBindingPath="CountryName">
+                        <syncfusion:PieSeries.AdornmentsInfo>
+                            <syncfusion:ChartAdornmentInfo ShowLabel="True" UseSeriesPalette="True" ShowConnectorLine="True"/>
+                        </syncfusion:PieSeries.AdornmentsInfo>
+                    </syncfusion:PieSeries>
+
+                    <syncfusion:SfChart.Legend>
+                        <syncfusion:ChartLegend DockPosition="Bottom"
+                                        ItemsPanel="{StaticResource itemsPanelTemplate}"
+                                        CheckBoxVisibility="Visible"
+                                        IconVisibility="Visible">
+                        </syncfusion:ChartLegend>
+                    </syncfusion:SfChart.Legend>
+                </syncfusion:SfChart>
+            </Border>
+
+            <Border CornerRadius="5" BorderThickness="1" Grid.Row="1" BorderBrush="{DynamicResource PrimaryHueLightBrush}">
+                <syncfusion:SfChart Header="Purchases by customers(Top 10)" Margin="5" FontSize="15" >
+                    <syncfusion:SfChart.PrimaryAxis>
+                        <syncfusion:CategoryAxis FontSize="15"/>
+                    </syncfusion:SfChart.PrimaryAxis>
+                    <syncfusion:SfChart.SecondaryAxis>
+                        <syncfusion:NumericalAxis FontSize="15"/>
+                    </syncfusion:SfChart.SecondaryAxis>
+                    <syncfusion:ColumnSeries EnableAnimation="False" ItemsSource="{Binding Purchases}" Palette="Elite" XBindingPath="CompanyName" YBindingPath="Purchases"/>
+                </syncfusion:SfChart>
+            </Border>
+        </Grid>
+    </GroupBox>
+</UserControl>

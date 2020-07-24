@@ -1,4 +1,4 @@
-namespace DataAccessLocal
+namespace OMS.Data.Models
 {
     using System;
     using System.Collections.Generic;
