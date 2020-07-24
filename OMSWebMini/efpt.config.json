@@ -1,0 +1,56 @@
+﻿{
+   "ContextClassName": "NorthwindContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "DoNotCombineNamespace": false,
+   "IdReplace": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": null,
+   "OutputContextPath": "Data",
+   "OutputPath": "Model",
+   "ProjectRootNamespace": "AllaevOMSWebMini",
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Categories]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Customers]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Employees]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Order Details]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Orders]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Products]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Shippers]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Suppliers]"
+      }
+   ],
+   "UseDatabaseNames": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseNodaTime": false,
+   "UseSpatial": false
+}
