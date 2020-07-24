@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS.Data", "OMS.Data\OMS.Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS.WPFClient", "OMS.WPFClient\OMS.WPFClient.csproj", "{1CEAC5A6-FEE1-4220-B157-D66F926F7629}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OMSWebMini", "OMSWebMini\OMSWebMini\OMSWebMini.csproj", "{A35C58CD-2286-4EF8-A4C0-3B53805F0196}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{1CEAC5A6-FEE1-4220-B157-D66F926F7629}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CEAC5A6-FEE1-4220-B157-D66F926F7629}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CEAC5A6-FEE1-4220-B157-D66F926F7629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A35C58CD-2286-4EF8-A4C0-3B53805F0196}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A35C58CD-2286-4EF8-A4C0-3B53805F0196}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A35C58CD-2286-4EF8-A4C0-3B53805F0196}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A35C58CD-2286-4EF8-A4C0-3B53805F0196}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
