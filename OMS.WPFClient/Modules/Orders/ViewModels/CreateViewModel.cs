@@ -124,11 +124,8 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
         private void CreateOrderExecute()
         {
             Order newOrder = new Order();
-            Order lastOrder = northwindContext.Orders.ToList().Last();
-            int idOfLastOrder = lastOrder.OrderID;
             string shipCountry = "USA";
 
-            newOrder.OrderID = ++idOfLastOrder;
             newOrder.CustomerID = SelectedCustomer.CustomerID;
             newOrder.EmployeeID = SelectedEmployee.EmployeeID;
             newOrder.OrderDate = DateTime.Parse(OrderDate);
@@ -163,7 +160,6 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
 
             RemoveAllCommand.Execute().Subscribe();
 
-            productsInOrder.Items.ForEach(a => a.SourceProductOnStore.UnitsOnOrder = 0);
             productsInOrder.Clear();
             OrderDate = String.Empty;
             SelectedCustomer = null;
