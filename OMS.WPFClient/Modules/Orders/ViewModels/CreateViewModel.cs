@@ -38,6 +38,8 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
         SourceCache<ProductInOrder, int> productsInOrder;
         SourceList<Employee> employees;
         SourceList<Customer> customers;
+
+        bool isOrderCreated = false;
         #endregion
 
         public CreateViewModel(NorthwindContext northwindContext)
@@ -151,6 +153,8 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
                     northwindContext.SaveChanges();
 
                     contextTransaction.Commit();
+
+                    isOrderCreated = true;
                 }
                 catch (Exception)
                 {
@@ -195,7 +199,8 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
         private void SetInitialValues(ProductInOrder productToRemove)
         {
             productToRemove.SelectedQuantity = 0;
-            productToRemove.SourceProductOnStore.UnitsInStock += productToRemove.SourceProductOnStore.UnitsOnOrder;
+            if (!isOrderCreated) productToRemove.SourceProductOnStore.UnitsInStock += productToRemove.SourceProductOnStore.UnitsOnOrder;
+            else isOrderCreated = false;
             productToRemove.SourceProductOnStore.UnitsOnOrder = 0;
 
             TotalSum -= productToRemove.Sum;
@@ -248,6 +253,7 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
             newProductInOrder.WhenAnyValue(x => x.SelectedQuantity)
                 .Select(newSelectedQuantity =>
                 {
+                    if (newSelectedQuantity == 0) return 0;
                     int deltaQuantity = newSelectedQuantity - previousSelectedQuantity; //Quantity of products that will be added or removed(in case of negative value) from the stock of the current product
 
                     previousSelectedQuantity = newSelectedQuantity;
