@@ -136,6 +136,16 @@ namespace OMS.DataAccessWeb
             throw new NotImplementedException();
         }
 
+        public Task DeleteOrderDetail(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteOrderDetails(int[] IdRange)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteOrders(int[] IdRange)
         {
             throw new NotImplementedException();
