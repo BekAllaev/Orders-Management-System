@@ -373,9 +373,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccessLocal\DataAccessLocal.csproj">
+    <ProjectReference Include="..\DataAccessLocal\OMS.DataAccessLocal.csproj">
       <Project>{b5802c88-529e-4d85-98fa-8c1537c27f12}</Project>
-      <Name>DataAccessLocal</Name>
+      <Name>OMS.DataAccessLocal</Name>
     </ProjectReference>
     <ProjectReference Include="..\OMS.Data\OMS.Data.csproj">
       <Project>{55219052-b923-4b0e-93da-d4c627922e99}</Project>

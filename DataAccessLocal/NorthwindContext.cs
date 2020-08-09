@@ -1,4 +1,4 @@
-namespace DataAccessLocal
+namespace OMS.DataAccessLocal
 {
     using System;
     using System.Data.Entity;
