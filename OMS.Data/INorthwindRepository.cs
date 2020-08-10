@@ -38,7 +38,7 @@ namespace OMS.Data
         Task AddCustomer(Customer customer);
         Task AddCustomers(IEnumerable<Customer> customers);
         Task DeleteCustomer(int id);
-        Task DeleteCustomers(int[] IdRange);
+        Task DeleteCustomers(string[] IdRange);
         Task UpdateCustomer(Customer customer);
         #endregion
 
@@ -64,11 +64,25 @@ namespace OMS.Data
 
         #region Access to Order Details
         Task<IEnumerable<Order_Detail>> GetOrderDetails();
-        //Task<Order_Detail> GetOrderDetailById(int id);
+        /// <summary>
+        /// Get order details of one order
+        /// </summary>
+        /// <param name="orderId">
+        /// Id of order whose order details you want to see
+        /// </param>
+        /// <returns>
+        /// Collection of order details
+        /// </returns>
+        Task<IEnumerable<Order_Detail>> GetOrderDetailsByOrder(int orderId);
         Task AddOrderDetail(Order_Detail orderDetail);
         Task AddOrderDetails(IEnumerable<Order_Detail> orderDetails);
-        Task DeleteOrderDetail(int id);
-        Task DeleteOrderDetails(int[] IdRange);
+
+        //If you want to delete specific record of order detail you need to pass two values of argument since order detail table have compound primary key
+        Task DeleteOrderDetail(int orderId, int productId);
+        Task DeleteOrderDetails(int[] orderIds, int[] productIds = null);
+
+        //Delete order details of one order
+        Task DeleteOrderDetailsByOrder(int orderId);
         Task UpdateOrderDetail(Order_Detail orderDetail);
         #endregion
 

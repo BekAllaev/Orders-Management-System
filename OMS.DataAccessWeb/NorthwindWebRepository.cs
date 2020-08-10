@@ -12,91 +12,91 @@ namespace OMS.DataAccessWeb
 {
     public class NorthwindWebRepository : INorthwindRepository
     {
-        static readonly HttpClient httpClient = new HttpClient();
-        HttpClient _httpClient;
+        readonly HttpClient httpClient;
 
         public NorthwindWebRepository(HttpClient httpClient)
         {
-            _httpClient = httpClient;
-            httpClient.BaseAddress = new Uri("http://localhost:6859/api/");
+            this.httpClient = httpClient;
         }
 
-        public Task AddCategories(IEnumerable<Category> newCategories)
+        #region Access
+        #endregion
+        public Task AddCategories(IEnumerable<Category> categories)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddCategory(Category newCategory)
+        public Task AddCategory(Category category)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddCustomer(Customer newCustomer)
+        public Task AddCustomer(Customer customer)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddCustomers(IEnumerable<Customer> newCustomers)
+        public Task AddCustomers(IEnumerable<Customer> customers)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddEmployee(Employee newEmployee)
+        public Task AddEmployee(Employee employee)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddEmployees(IEnumerable<Employee> newEmployees)
+        public Task AddEmployees(IEnumerable<Employee> employees)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddOrder(Order newOrder)
+        public Task AddOrder(Order order)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddOrderDetail(Order_Detail newOrderDetail)
+        public Task AddOrderDetail(Order_Detail orderDetail)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddOrderDetails(IEnumerable<Order_Detail> newOrderDetails)
+        public Task AddOrderDetails(IEnumerable<Order_Detail> orderDetails)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddOrders(IEnumerable<Order> newOrders)
+        public Task AddOrders(IEnumerable<Order> orders)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddProduct(Product newProduct)
+        public Task AddProduct(Product product)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddProducts(IEnumerable<Product> newProducts)
+        public Task AddProducts(IEnumerable<Product> products)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddShipper(Shipper newShipper)
+        public Task AddShipper(Shipper shipper)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddShippers(IEnumerable<Shipper> newShippers)
+        public Task AddShippers(IEnumerable<Shipper> shippers)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddSupplier(Supplier newSupplier)
+        public Task AddSupplier(Supplier supplier)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddSuppliers(IEnumerable<Supplier> newSuppliers)
+        public Task AddSuppliers(IEnumerable<Supplier> suppliers)
         {
             throw new NotImplementedException();
         }
@@ -116,7 +116,7 @@ namespace OMS.DataAccessWeb
             throw new NotImplementedException();
         }
 
-        public Task DeleteCustomers(int[] IdRange)
+        public Task DeleteCustomers(string[] IdRange)
         {
             throw new NotImplementedException();
         }
@@ -136,12 +136,17 @@ namespace OMS.DataAccessWeb
             throw new NotImplementedException();
         }
 
-        public Task DeleteOrderDetail(int id)
+        public Task DeleteOrderDetail(int orderId, int productId)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteOrderDetails(int[] IdRange)
+        public Task DeleteOrderDetails(int[] orderIds, int[] productIds = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteOrderDetailsByOrder(int orderId)
         {
             throw new NotImplementedException();
         }
@@ -181,13 +186,9 @@ namespace OMS.DataAccessWeb
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Category>> GetCategories()
+        public Task<IEnumerable<Category>> GetCategories()
         {
-            var a = await httpClient.GetStringAsync("Categories?showPicture=false");
-
-            var b = JsonConverter.DeserializeObject();
-
-            return await Task.CompletedTask;
+            throw new NotImplementedException();
         }
 
         public Task<Category> GetCategoryById(int id)
@@ -221,6 +222,11 @@ namespace OMS.DataAccessWeb
         }
 
         public Task<IEnumerable<Order_Detail>> GetOrderDetails()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Order_Detail>> GetOrderDetailsByOrder(int orderId)
         {
             throw new NotImplementedException();
         }
@@ -260,42 +266,42 @@ namespace OMS.DataAccessWeb
             throw new NotImplementedException();
         }
 
-        public Task UpdateCategory(Category updatedCategory)
+        public Task UpdateCategory(Category category)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateCustomer(Customer updatedCustomer)
+        public Task UpdateCustomer(Customer customer)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateEmployee(Employee updatedEmployee)
+        public Task UpdateEmployee(Employee employee)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateOrder(Order updatedOrder)
+        public Task UpdateOrder(Order order)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateOrderDetail(Order_Detail updatedOrderDetail)
+        public Task UpdateOrderDetail(Order_Detail orderDetail)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateProduct(Product updatedProduct)
+        public Task UpdateProduct(Product product)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateShipper(Shipper updatedShipper)
+        public Task UpdateShipper(Shipper shipper)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateSupplier(Supplier updatedSupplier)
+        public Task UpdateSupplier(Supplier supplier)
         {
             throw new NotImplementedException();
         }
