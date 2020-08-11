@@ -2,7 +2,7 @@
 using OMS.WPFClient.Modules.Dashboard;
 using OMS.WPFClient.Modules.Banner;
 using OMS.WPFClient.Modules.Settings;
-using DataAccessLocal;
+using OMS.DataAccessLocal;
 using OMS.WPFClient.Modules.Notification;
 using OMS.WPFClient.Infrastructure;
 using Prism.Unity;

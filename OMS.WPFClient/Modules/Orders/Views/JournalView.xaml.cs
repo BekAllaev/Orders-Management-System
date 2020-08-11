@@ -1,4 +1,4 @@
-﻿using DataAccessLocal;
+﻿using OMS.DataAccessLocal;
 using Syncfusion.UI.Xaml.Controls.DataPager;
 using System;
 using System.Collections.Generic;

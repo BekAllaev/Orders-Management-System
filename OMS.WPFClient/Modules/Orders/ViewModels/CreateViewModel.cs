@@ -12,7 +12,7 @@ using DynamicData;
 using DynamicData.Binding;
 using System.Reactive.Linq;
 using System.Reactive;
-using DataAccessLocal;
+using OMS.DataAccessLocal;
 using ReactiveUI.Fody.Helpers;
 using System.Data.Common;
 using System.Runtime.InteropServices;

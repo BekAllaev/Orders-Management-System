@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ReactiveUI;
 using DynamicData;
-using DataAccessLocal;
+using OMS.DataAccessLocal;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using OMS.WPFClient.Infrastructure.Extensions;

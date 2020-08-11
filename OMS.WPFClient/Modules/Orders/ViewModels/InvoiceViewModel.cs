@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataAccessLocal;
+using OMS.DataAccessLocal;
 using OMS.WPFClient.Modules.Orders.Events;
 using Prism.Regions;
 using ReactiveUI;

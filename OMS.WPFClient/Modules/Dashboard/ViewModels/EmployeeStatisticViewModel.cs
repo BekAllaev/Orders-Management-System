@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Reactive.Linq;
 using Prism.Regions;
-using DataAccessLocal;
+using OMS.DataAccessLocal;
 using System.Collections.ObjectModel;
 using DynamicData;
 using ReactiveUI;
