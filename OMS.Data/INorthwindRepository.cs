@@ -55,7 +55,7 @@ namespace OMS.Data
         #region Access to Orders
         Task<IEnumerable<Order>> GetOrders();
         Task<Order> GetOrderById(int id);
-        Task AddOrder(Order order);
+        Task AddOrder(Order order, IEnumerable<Order_Detail> orderDetails);
         Task AddOrders(IEnumerable<Order> orders);
         Task DeleteOrder(int id);
         Task DeleteOrders(int[] IdRange);

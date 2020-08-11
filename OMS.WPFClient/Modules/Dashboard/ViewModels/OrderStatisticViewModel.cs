@@ -12,13 +12,14 @@ using ReactiveUI;
 using DynamicData.Binding;
 using System.Data.Common;
 using OMS.Data.Models;
+using OMS.Data;
 
 namespace OMS.WPFClient.Modules.Dashboard.ViewModels
 {
     public class OrderStatisticViewModel : ReactiveObject, INavigationAware, IRegionMemberLifetime
     {
         #region Declarations
-        NorthwindContext northwindContext;
+        INorthwindRepository northwindRepository;
 
         SourceList<Order_Detail> orderDetailsList;
         SourceList<Order> ordersList;
@@ -33,9 +34,9 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
         //Little sample: http://rxwiki.wikidot.com/101samples#toc48
         //Definition of Publish operator:http://reactivex.io/documentation/operators/publish.html
         //In case when we have more than one subscriber to IObservable we use Publish
-        public OrderStatisticViewModel(NorthwindContext northwindContext)
+        public OrderStatisticViewModel(INorthwindRepository northwindRepository)
         {
-            this.northwindContext = northwindContext;
+            this.northwindRepository = northwindRepository;
 
             orderDetailsList = new SourceList<Order_Detail>();
             ordersList = new SourceList<Order>();
@@ -103,8 +104,16 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
         {
             try
             {
-                if (orderDetailsList.Count == 0) await Task.Run(() => orderDetailsList.AddRange(northwindContext.Order_Details));
-                if (ordersList.Count == 0) await Task.Run(() => ordersList.AddRange(northwindContext.Orders));
+                if (orderDetailsList.Count == 0) 
+                {
+                    var orderDetails = await northwindRepository.GetOrderDetails();
+                    orderDetailsList.AddRange(orderDetails);
+                }
+                if (ordersList.Count == 0) 
+                {
+                    var orders = await northwindRepository.GetOrders();
+                    ordersList.AddRange(orders); 
+                }
             }
             catch (DbException e)
             {

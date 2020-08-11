@@ -21,13 +21,14 @@ using System.Data.Entity.Core;
 using OMS.WPFClient.Modules.Orders.Events;
 using DynamicData.Kernel;
 using Syncfusion.Linq;
+using OMS.Data;
 
 namespace OMS.WPFClient.Modules.Orders.ViewModels
 {
     public class CreateViewModel : ReactiveObject, INavigationAware, IRegionMemberLifetime
     {
         #region Declarations
-        NorthwindContext northwindContext;
+        INorthwindRepository northwindRepository;
 
         ReadOnlyObservableCollection<ProductInOrder> _productsInOrder;
         ReadOnlyObservableCollection<ProductOnStore> _productsInStore;
@@ -39,12 +40,12 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
         SourceList<Employee> employees;
         SourceList<Customer> customers;
 
-        bool isOrderCreated = false;
+        List<Product> productsList;
         #endregion
 
-        public CreateViewModel(NorthwindContext northwindContext)
+        public CreateViewModel(INorthwindRepository northwindRepository)
         {
-            this.northwindContext = northwindContext;
+            this.northwindRepository = northwindRepository;
 
             products = new SourceCache<ProductOnStore, int>(p => p.ProductID);
             productsInOrder = new SourceCache<ProductInOrder, int>(p => p.ProductID);
@@ -123,7 +124,7 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
         #region Create
         public ReactiveCommand<Unit, Unit> CreateOrderCommand { get; }
 
-        private void CreateOrderExecute()
+        private async void CreateOrderExecute()
         {
             Order newOrder = new Order();
             string shipCountry = "USA";
@@ -133,34 +134,16 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
             newOrder.OrderDate = DateTime.Parse(OrderDate);
             newOrder.ShipCountry = shipCountry;
 
-            using (var contextTransaction = northwindContext.Database.BeginTransaction())
+            var orderDetails = ProductsInOrder.Select(p => new Order_Detail
             {
-                try
-                {
-                    northwindContext.Orders.Add(newOrder);
-                    northwindContext.SaveChanges();
+                OrderID = newOrder.OrderID,
+                ProductID = p.ProductID,
+                UnitPrice = (decimal)p.UnitPrice,
+                Quantity = (short)p.SelectedQuantity,
+                Discount = p.SelectedDiscount / 100
+            });
 
-                    northwindContext.Order_Details.AddRange(new List<Order_Detail>(
-                            ProductsInOrder.Select(p => new Order_Detail
-                            {
-                                OrderID = newOrder.OrderID,
-                                ProductID = p.ProductID,
-                                UnitPrice = (decimal)p.UnitPrice,
-                                Quantity = (short)p.SelectedQuantity,
-                                Discount = p.SelectedDiscount / 100
-                            })));
-
-                    northwindContext.SaveChanges();
-
-                    contextTransaction.Commit();
-
-                    isOrderCreated = true;
-                }
-                catch (Exception)
-                {
-                    contextTransaction.Rollback();
-                }
-            }
+            await northwindRepository.AddOrder(newOrder, orderDetails);
 
             RemoveAllCommand.Execute().Subscribe();
 
@@ -199,8 +182,7 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
         private void SetInitialValues(ProductInOrder productToRemove)
         {
             productToRemove.SelectedQuantity = 0;
-            if (!isOrderCreated) productToRemove.SourceProductOnStore.UnitsInStock += productToRemove.SourceProductOnStore.UnitsOnOrder;
-            else isOrderCreated = false;
+            productToRemove.SourceProductOnStore.UnitsInStock += productToRemove.SelectedQuantity;
             productToRemove.SourceProductOnStore.UnitsOnOrder = 0;
 
             TotalSum -= productToRemove.Sum;
@@ -265,7 +247,7 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
                     newProductInOrder.SourceProductOnStore.UnitsInStock -= (short)newValue;
                     newProductInOrder.SourceProductOnStore.UnitsOnOrder += (short)newValue;
 
-                    Product productToReplace = northwindContext.Products.First(x => x.ProductID == newProductInOrder.ProductID);
+                    Product productToReplace = productsList.First(x => x.ProductID == newProductInOrder.ProductID);
 
                     productToReplace.UnitsInStock -= (short)newValue;
                 });
@@ -277,14 +259,22 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
         {
             try
             {
-                if (products.Count == 0) await Task.Run(() =>
+                if (products.Count == 0) 
                 {
-                    var listOfProducts = northwindContext.Products.ToList();
-                    var listOfProductsOnStore = listOfProducts.Select(b => new ProductOnStore(b));
+                    productsList = new List<Product>(await northwindRepository.GetProducts());
+                    var listOfProductsOnStore = productsList.Select(b => new ProductOnStore(b));
                     products.AddOrUpdate(listOfProductsOnStore);
-                });
-                if (employees.Count == 0) await Task.Run(() => employees.AddRange(northwindContext.Employees));
-                if (customers.Count == 0) await Task.Run(() => customers.AddRange(northwindContext.Customers));
+                }
+                if (employees.Count == 0) 
+                {
+                    var employeesList = await northwindRepository.GetEmployees();
+                    employees.AddRange(employeesList);
+                }
+                if (customers.Count == 0) 
+                {
+                    var customerList = await northwindRepository.GetCustomers();
+                    customers.AddRange(customerList); 
+                }
             }
             catch (EntityException e)
             {

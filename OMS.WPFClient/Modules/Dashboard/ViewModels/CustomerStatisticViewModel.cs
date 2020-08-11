@@ -12,13 +12,14 @@ using ReactiveUI;
 using OMS.Data.Models;
 using DynamicData.Binding;
 using System.Data.Common;
+using OMS.Data;
 
 namespace OMS.WPFClient.Modules.Dashboard.ViewModels
 {
     public class CustomerStatisticViewModel : ReactiveObject, INavigationAware, IRegionMemberLifetime
     {
         #region Declarations
-        NorthwindContext northwindContext;
+        INorthwindRepository northwindRepository;
 
         SourceList<Customer> customersList;
         SourceList<Order_Detail> orderDetailsList;
@@ -28,9 +29,9 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
         #endregion
 
         #region Constructor
-        public CustomerStatisticViewModel(NorthwindContext northwindContext)
+        public CustomerStatisticViewModel(INorthwindRepository northwindRepository)
         {
-            this.northwindContext = northwindContext;
+            this.northwindRepository = northwindRepository;
 
             customersList = new SourceList<Customer>();
             orderDetailsList = new SourceList<Order_Detail>();
@@ -73,10 +74,18 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
         {
             try
             {
-                if (customersList.Count == 0) await Task.Run(() => customersList.AddRange(northwindContext.Customers));
-                if (orderDetailsList.Count == 0) await Task.Run(() => orderDetailsList.AddRange(northwindContext.Order_Details));
+                if (customersList.Count == 0)
+                {
+                    var customers = await northwindRepository.GetCustomers();
+                    customersList.AddRange(customers);
+                }
+                if (orderDetailsList.Count == 0) 
+                {
+                    var orderDetails = await northwindRepository.GetOrderDetails();
+                    orderDetailsList.AddRange(orderDetails);
+                }
             }
-            catch(DbException e)
+            catch (DbException e)
             {
                 MessageBus.Current.SendMessage(e);
             }

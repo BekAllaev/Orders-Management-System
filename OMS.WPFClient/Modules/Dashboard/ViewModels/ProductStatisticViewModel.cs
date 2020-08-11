@@ -12,13 +12,14 @@ using ReactiveUI;
 using DynamicData.Binding;
 using OMS.Data.Models;
 using System.Data.Common;
+using OMS.Data;
 
 namespace OMS.WPFClient.Modules.Dashboard.ViewModels
 {
     public class ProductStatisticViewModel : ReactiveObject, INavigationAware, IRegionMemberLifetime
     {
         #region Declaration
-        NorthwindContext northwindContext;
+        INorthwindRepository northwindRepository;
 
         SourceList<Product> productsList;
 
@@ -26,9 +27,9 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
         #endregion
 
         #region Constructor
-        public ProductStatisticViewModel(NorthwindContext northwindContext)
+        public ProductStatisticViewModel(INorthwindRepository northwindRepository)
         {
-            this.northwindContext = northwindContext;
+            this.northwindRepository = northwindRepository;
 
             productsList = new SourceList<Product>();
 
@@ -56,7 +57,11 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
         {
             try
             {
-                if (productsList.Count == 0) await Task.Run(() => productsList.AddRange(northwindContext.Products));
+                if (productsList.Count == 0) 
+                {
+                    var products = await northwindRepository.GetProducts();
+                    productsList.AddRange(products);
+                }
             }
             catch(DbException e)
             {

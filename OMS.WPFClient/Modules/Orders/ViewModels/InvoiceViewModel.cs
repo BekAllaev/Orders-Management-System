@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OMS.Data;
 using OMS.DataAccessLocal;
 using OMS.WPFClient.Modules.Orders.Events;
 using Prism.Regions;
@@ -13,11 +14,11 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
 {
     public class InvoiceViewModel : ReactiveObject, INavigationAware
     {
-        NorthwindContext northwindContext;
+        INorthwindRepository northwindRepository;
 
-        public InvoiceViewModel(NorthwindContext northwindContext)
+        public InvoiceViewModel(INorthwindRepository northwindRepository)
         {
-            this.northwindContext = northwindContext;
+            this.northwindRepository = northwindRepository;
 
             MessageBus.Current.Listen<NewOrderCreated>().
                 Subscribe(orderCreatedEvent => OnNewOrderCreated(orderCreatedEvent.OrderId));
@@ -34,10 +35,10 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
         public void OnNavigatedTo(NavigationContext navigationContext) { }
         #endregion
 
-        private void OnNewOrderCreated(int id)
+        private async void OnNewOrderCreated(int id)
         {
-            var orders = northwindContext.Orders.Where(o => o.OrderID == id).ToList();
-            var orderDetails = northwindContext.Order_Details.Where(o => o.OrderID == id).ToList();
+            var orders = (await northwindRepository.GetOrders()).Where(o => o.OrderID == id).ToList();
+            var orderDetails = (await northwindRepository.GetOrderDetails()).Where(o => o.OrderID == id).ToList();
 
             Orders = new ObservableCollection<OrderObject>
                 (orders.Select(o => new OrderObject()

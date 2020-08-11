@@ -22,6 +22,11 @@ using Syncfusion.Windows.Tools.Controls;
 using System.Data.Entity;
 using OMS.WPFClient.Infrastructure.Services;
 using OMS.WPFClient.Infrastructure.SettingsRepository;
+using OMS.Data;
+using OMS.DataAccessWeb;
+using System.Configuration;
+using ReactiveUI;
+using System.Net.Http;
 
 namespace OMS.WPFClient.Bootsrapper
 {
@@ -45,6 +50,19 @@ namespace OMS.WPFClient.Bootsrapper
             Container.RegisterInstance<IUserSettingsRepository>(new UserSettingsRepository());
             Container.RegisterInstance(new NorthwindContext(), new TransientLifetimeManager());
             Container.RegisterInstance(new TitleUpdater());
+
+            bool accessLocalRepository = bool.Parse(ConfigurationManager.AppSettings["AccessLocalRepository"]);
+
+            if (accessLocalRepository) 
+            {
+                Container.RegisterType<INorthwindRepository, NorthwindLocalRepository>();
+            }
+            else
+            {
+                string serverBaseAddress = ConfigurationManager.AppSettings["ServerBaseAddress"];
+                Container.RegisterInstance(new HttpClient() { BaseAddress = new Uri(serverBaseAddress) });
+                Container.RegisterType<INorthwindRepository, NorthwindWebRepository>();
+            }
         }
 
         protected override DependencyObject CreateShell()

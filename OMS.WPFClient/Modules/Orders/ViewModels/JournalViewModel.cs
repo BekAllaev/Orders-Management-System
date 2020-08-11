@@ -17,28 +17,29 @@ using System.Data.Common;
 using System.Data.Entity.Core;
 using OMS.Data.Models;
 using OMS.WPFClient.Modules.Orders.Events;
+using OMS.Data;
 
 namespace OMS.WPFClient.Modules.Orders.ViewModels
 {
     public class JournalViewModel : ReactiveObject, INavigationAware, IRegionMemberLifetime
     {
         #region Declarations
-        NorthwindContext northwindContext;
+        INorthwindRepository northwindRepository;
 
         SourceList<Order> ordersList;
 
         ReadOnlyObservableCollection<Order> _ordersList;
 
-        readonly IEnumerable<Order> cachedCollection;
+        IEnumerable<Order> cachedCollection;
 
         string _searchTerm;
         Order _order;
         #endregion
 
         #region Construct
-        public JournalViewModel(NorthwindContext northwindContext)
+        public JournalViewModel(INorthwindRepository northwindRepository)
         {
-            this.northwindContext = northwindContext;
+            this.northwindRepository = northwindRepository;
 
             ordersList = new SourceList<Order>();
 
@@ -46,8 +47,6 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
                 ObserveOnDispatcher().
                 Bind(out _ordersList).
                 Subscribe();
-
-            cachedCollection = northwindContext.Orders;
 
             this.WhenAnyValue(x => x.SearchTerm).
                 Subscribe(async newSearchTerm =>
@@ -124,7 +123,11 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
         {
             try
             {
-                if (ordersList.Count == 0) await Task.Run(() => { ordersList.AddRange(northwindContext.Orders); });
+                if (ordersList.Count == 0)
+                {
+                    cachedCollection = await northwindRepository.GetOrders();
+                    ordersList.AddRange(cachedCollection); 
+                }
             }
             catch (Exception e)
             {

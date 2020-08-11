@@ -161,11 +161,26 @@ namespace OMS.DataAccessLocal
         #endregion
 
         #region Access to Orders
-        public Task AddOrder(Order order)
+        public async Task AddOrder(Order order, IEnumerable<Order_Detail> orderDetails)
         {
-            northwindContext.Orders.Add(order);
+            using (var contextTransaction = northwindContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    northwindContext.Orders.Add(order);
+                    await northwindContext.SaveChangesAsync();
 
-            return Task.CompletedTask;
+                    northwindContext.Order_Details.AddRange(new List<Order_Detail>(orderDetails));
+
+                    await northwindContext.SaveChangesAsync();
+
+                    contextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    contextTransaction.Rollback();
+                }
+            }
         }
 
         public Task AddOrders(IEnumerable<Order> orders)

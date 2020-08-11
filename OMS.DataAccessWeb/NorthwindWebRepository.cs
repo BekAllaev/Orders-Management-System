@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -192,7 +191,7 @@ namespace OMS.DataAccessWeb
             }
             catch(Exception e)
             {
-
+                throw e;
             }
         }
         #endregion
@@ -286,7 +285,7 @@ namespace OMS.DataAccessWeb
         #endregion
 
         #region Access to Orders
-        public async Task AddOrder(Order order)
+        public async Task AddOrder(Order order,IEnumerable<Order_Detail> orderDetails)
         {
             try
             {

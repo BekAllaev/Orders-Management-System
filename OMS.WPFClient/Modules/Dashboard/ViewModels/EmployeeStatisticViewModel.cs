@@ -10,13 +10,14 @@ using ReactiveUI;
 using DynamicData.Binding;
 using OMS.Data.Models;
 using System.Data.Common;
+using OMS.Data;
 
 namespace OMS.WPFClient.Modules.Dashboard.ViewModels
 {
     public class EmployeeStatisticViewModel : ReactiveObject, INavigationAware, IRegionMemberLifetime
     {
         #region Declarations
-        NorthwindContext northwindContext;
+        INorthwindRepository northwindRepository;
 
         ReadOnlyObservableCollection<EmployeeSales> _employees;
 
@@ -24,9 +25,9 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
         #endregion
 
         #region Constructor
-        public EmployeeStatisticViewModel(NorthwindContext northwindContext)
+        public EmployeeStatisticViewModel(INorthwindRepository northwindRepository)
         {
-            this.northwindContext = northwindContext;
+            this.northwindRepository = northwindRepository;
 
             orderDetailsList = new SourceList<Order_Detail>();
 
@@ -57,7 +58,11 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
         {
             try
             {
-                if (orderDetailsList.Count == 0) await Task.Run(() => { orderDetailsList.AddRange(northwindContext.Order_Details); });
+                if (orderDetailsList.Count == 0)
+                {
+                    var orderDetails = await northwindRepository.GetOrderDetails();
+                    orderDetailsList.AddRange(orderDetails);
+                }
             }
             catch (DbException e)
             {
