@@ -28,7 +28,7 @@ namespace OMSWebMini.Controllers
             var productsByCategories = await northwindContext.Categories.Select(category => new ProductsByCategory
             {
                 CategoryName = category.CategoryName,
-                ProductCount = category.Products.Count
+                NumberOfProducts = category.Products.Count
             }
             ).ToListAsync();
 
@@ -49,7 +49,7 @@ namespace OMSWebMini.Controllers
                 {
                     LastName = employee.LastName,
                     Sales = employee.Orders.Sum(order => order.OrderDetails.Sum(orderDetail => orderDetail.Quantity * orderDetail.UnitPrice))
-                }).ToList();
+                }).OrderBy(salesByEmployee => salesByEmployee.Sales).ToList();
 
                 return salesByEmployees;
             });
@@ -96,8 +96,8 @@ namespace OMSWebMini.Controllers
         {
             var groupedOrders = northwindContext.Orders.GroupBy(order => order.Customer.Country);
 
-            var ordersByCountries = await groupedOrders.Select(orderGroup => new OrdersByCountry { CountryName = orderGroup.Key, OrdersCount = orderGroup.Count() }).
-                OrderByDescending(ordersByCountry => ordersByCountry.OrdersCount).
+            var ordersByCountries = await groupedOrders.Select(orderGroup => new OrdersByCountry { Country = orderGroup.Key, NumberOfOrders = orderGroup.Count() }).
+                OrderByDescending(ordersByCountry => ordersByCountry.NumberOfOrders).
                 Take(10).
                 ToListAsync();
 
@@ -112,7 +112,7 @@ namespace OMSWebMini.Controllers
 
             var salesByCategories = await groupedOrderDetail.Select(orderDetailGroup => new SalesByCategory
             {
-                CategoryName = orderDetailGroup.Key,
+                Category = orderDetailGroup.Key,
                 Sales = orderDetailGroup.Sum(orderDetail => orderDetail.Quantity * orderDetail.UnitPrice)
             }).OrderByDescending(salesByCategory => salesByCategory.Sales).ToListAsync();
 
@@ -127,32 +127,34 @@ namespace OMSWebMini.Controllers
 
             var salesByCountries = await groupedOrderDetails.Select(orderDetailGroup => new SalesByCountry
             {
-                CountryName = orderDetailGroup.Key,
+                Country = orderDetailGroup.Key,
                 Sales = orderDetailGroup.Sum(orderDetail => orderDetail.Quantity * orderDetail.UnitPrice)
-            }).OrderByDescending(salesByCountry => salesByCountry.Sales).ToListAsync();
+            }).OrderBy(salesByCountry=>salesByCountry.Sales).ToListAsync();
 
             return salesByCountries;
         }
 
         [Route("[action]")]
         [HttpGet]
-        public async Task<ActionResult<decimal>> GetSummary(string summaryType)
+        public async Task<ActionResult<string>> GetSummary(string summaryType)
         {
+            string format = "$ ###,###.###";
+
             switch (summaryType)
             {
-                case "OverallSales":
-                    return await northwindContext.OrderDetails.SumAsync(a => a.Quantity * a.UnitPrice);
+                case "OverallSalesSum":
+                    return (await northwindContext.OrderDetails.SumAsync(a => a.Quantity * a.UnitPrice)).ToString(format);
                 case "OrdersQuantity":
-                    return await northwindContext.Orders.CountAsync();
+                    return (await northwindContext.Orders.CountAsync()).ToString();
                 case "AverageCheck":
                 case "MaxCheck":
                 case "MinCheck":
                     var groupedOrderDetails = northwindContext.OrderDetails.GroupBy(od => od.OrderId);
                     var ordersChecks = await groupedOrderDetails.Select(god => new { Sales = god.Sum(a => a.Quantity * a.UnitPrice) }).ToListAsync();
 
-                    if (summaryType == "MaxCheck") return ordersChecks.Max(a => a.Sales);
-                    else if (summaryType == "AverageCheck") return ordersChecks.Average(a => a.Sales);
-                    else return ordersChecks.Min(a => a.Sales);
+                    if (summaryType == "MaxCheck") return ordersChecks.Max(a => a.Sales).ToString(format);
+                    else if (summaryType == "AverageCheck") return ordersChecks.Average(a => a.Sales).ToString(format);
+                    else return ordersChecks.Min(a => a.Sales).ToString(format);
                 default:
                     return BadRequest();
             }
@@ -163,7 +165,7 @@ namespace OMSWebMini.Controllers
     public class ProductsByCategory
     {
         public string CategoryName { set; get; }
-        public int ProductCount { set; get; }
+        public int NumberOfProducts { set; get; }
     }
 
     public class SalesByEmployee
@@ -188,19 +190,19 @@ namespace OMSWebMini.Controllers
 
     public class OrdersByCountry
     {
-        public string CountryName { set; get; }
-        public int OrdersCount { set; get; }
+        public string Country { set; get; }
+        public int NumberOfOrders { set; get; }
     }
 
     public class SalesByCategory
     {
-        public string CategoryName { set; get; }
+        public string Category { set; get; }
         public decimal Sales { set; get; }
     }
 
     public class SalesByCountry
     {
-        public string CountryName { set; get; }
+        public string Country { set; get; }
         public decimal Sales { set; get; }
     }
     #endregion 

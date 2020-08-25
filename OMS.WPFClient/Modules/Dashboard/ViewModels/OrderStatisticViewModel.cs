@@ -13,6 +13,7 @@ using DynamicData.Binding;
 using System.Data.Common;
 using OMS.Data.Models;
 using OMS.Data;
+using OMS.WPFClient.Infrastructure.Services.StatisticService;
 
 namespace OMS.WPFClient.Modules.Dashboard.ViewModels
 {
@@ -20,76 +21,14 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
     {
         #region Declarations
         INorthwindRepository northwindRepository;
-
-        SourceList<Order_Detail> orderDetailsList;
-        SourceList<Order> ordersList;
-
-        ReadOnlyObservableCollection<SalesByCountry> _salesByCountries;
-        ReadOnlyObservableCollection<OrdersByCountry> _ordersByCountries;
-        ReadOnlyObservableCollection<SalesByCategory> _salesByCategories;
+        IStatisticService statisticService;
         #endregion
 
         #region Constructor
-        //In case if you have some question on how to work with IConnectableObservables there are several references:
-        //Little sample: http://rxwiki.wikidot.com/101samples#toc48
-        //Definition of Publish operator:http://reactivex.io/documentation/operators/publish.html
-        //In case when we have more than one subscriber to IObservable we use Publish
-        public OrderStatisticViewModel(INorthwindRepository northwindRepository)
+        public OrderStatisticViewModel(INorthwindRepository northwindRepository, IStatisticService statisticService)
         {
             this.northwindRepository = northwindRepository;
-
-            orderDetailsList = new SourceList<Order_Detail>();
-            ordersList = new SourceList<Order>();
-
-            ordersList.Connect().
-                GroupOn(order => order.Customer.Country).
-                Transform(groupOfOrders => new OrdersByCountry() { Country = groupOfOrders.GroupKey, NumberOfOrders = groupOfOrders.List.Count }).
-                ObserveOnDispatcher().
-                Top(10).
-                Bind(out _ordersByCountries).
-                Subscribe();
-
-            var connectableOrderDetails = orderDetailsList.Connect().Publish(); //Because of we have several subscribers we use Publish operator 
-
-            connectableOrderDetails.Transform(orderDetail => new { Country = orderDetail.Order.Customer.Country, SaleByOrderDetail = orderDetail.UnitPrice * orderDetail.Quantity }).
-                GroupOn(orderDetail => orderDetail.Country).
-                Transform(groupOfOrderDetails => new SalesByCountry() { Country = groupOfOrderDetails.GroupKey, Sales = groupOfOrderDetails.List.Items.Sum(a => a.SaleByOrderDetail) }).
-                Sort(SortExpressionComparer<SalesByCountry>.Ascending(a => a.Sales)).
-                ObserveOnDispatcher().
-                Bind(out _salesByCountries).
-                Subscribe();
-
-            connectableOrderDetails.
-                Transform(orderDetail => new { Category = orderDetail.Product.Category.CategoryName, SaleByOrderDetail = orderDetail.UnitPrice * orderDetail.Quantity }).
-                GroupOn(orderDetail => orderDetail.Category).
-                Transform(groupOfOrderDeatils => new SalesByCategory() { Category = groupOfOrderDeatils.GroupKey, Sales = groupOfOrderDeatils.List.Items.Sum(a => a.SaleByOrderDetail) }).
-                ObserveOnDispatcher().
-                Bind(out _salesByCategories).
-                Subscribe();
-
-            connectableOrderDetails.Select(a => orderDetailsList.Items.Select(orderDetail => orderDetail.Quantity * orderDetail.UnitPrice).Sum().ToString(format)).
-                ToProperty(this, vm => vm.OverallSalesSum, out _overallSalesSum);
-
-            var orderDetails = connectableOrderDetails.
-                Transform(orderDetail => new { OrderID = orderDetail.OrderID, SaleByOrderDetail = orderDetail.UnitPrice * orderDetail.Quantity }).
-                GroupOn(orderDetail => orderDetail.OrderID).
-                Transform(groupOfOrderDetails => new { OrderID = groupOfOrderDetails.GroupKey, SaleByOrder = groupOfOrderDetails.List.Items.Sum(a => a.SaleByOrderDetail) }).
-                Publish();
-
-            orderDetails.Select(a => a.Last().Range.Min(b => b.SaleByOrder).ToString(format)).
-                ToProperty(this, vm => vm.MinCheck, out _minCheck);
-
-            orderDetails.Select(a => a.Last().Range.Max(b => b.SaleByOrder).ToString(format)).
-                ToProperty(this, vm => vm.MaxCheck, out _maxCheck);
-
-            orderDetails.Select(a => a.Last().Range.Average(b => b.SaleByOrder).ToString(format)).
-                ToProperty(this, vm => vm.AverageCheck, out _averageCheck);
-
-            orderDetails.Select(a => a.Last().Range.Count.ToString()).
-                ToProperty(this, vm => vm.OrdersQuantity, out _ordersQuantity);
-
-            connectableOrderDetails.Connect();
-            orderDetails.Connect();
+            this.statisticService = statisticService;
         }
         #endregion
 
@@ -104,16 +43,15 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
         {
             try
             {
-                if (orderDetailsList.Count == 0) 
-                {
-                    var orderDetails = await northwindRepository.GetOrderDetails();
-                    orderDetailsList.AddRange(orderDetails);
-                }
-                if (ordersList.Count == 0) 
-                {
-                    var orders = await northwindRepository.GetOrders();
-                    ordersList.AddRange(orders); 
-                }
+                SalesByCategories = await statisticService.GetSalesByCategories();
+                SalesByCountries = await statisticService.GetSalesByCountries();
+                OrdersByCountries = await statisticService.GetOrdersByCountries();
+
+                OverallSalesSum = await statisticService.GetSummary("OverallSalesSum");
+                MinCheck = await statisticService.GetSummary("MinCheck");
+                MaxCheck = await statisticService.GetSummary("MaxCheck");
+                AverageCheck = await statisticService.GetSummary("AverageCheck");
+                OrdersQuantity = await statisticService.GetSummary("OrdersQuantity");
             }
             catch (DbException e)
             {
@@ -127,29 +65,62 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
         #endregion
 
         #region Properties
-        public ReadOnlyObservableCollection<SalesByCountry> SalesByCountries => _salesByCountries;
+        IEnumerable<SalesByCountry> _salesByCountries;
+        public IEnumerable<SalesByCountry> SalesByCountries
+        {
+            get { return _salesByCountries; }
+            set { this.RaiseAndSetIfChanged(ref _salesByCountries, value); }
+        }
 
-        public ReadOnlyObservableCollection<OrdersByCountry> OrdersByCountries => _ordersByCountries;
+        IEnumerable<OrdersByCountry> _ordersByCountries;
+        public IEnumerable<OrdersByCountry> OrdersByCountries
+        {
+            get { return _ordersByCountries; }
+            set { this.RaiseAndSetIfChanged(ref _ordersByCountries, value); }
+        }
 
-        public ReadOnlyObservableCollection<SalesByCategory> SalesByCategories => _salesByCategories;
+        IEnumerable<SalesByCategory> _salesByCategories;
+        public IEnumerable<SalesByCategory> SalesByCategories
+        {
+            get { return _salesByCategories; }
+            set { this.RaiseAndSetIfChanged(ref _salesByCategories, value); }
+        }
 
         #region Summaries
-        string format = "$ ###,###.###";
+        string _overallSalesSum;
+        public string OverallSalesSum
+        {
+            get { return _overallSalesSum; }
+            set { this.RaiseAndSetIfChanged(ref _overallSalesSum, value); }
+        }
 
-        readonly ObservableAsPropertyHelper<string> _overallSalesSum;
-        public string OverallSalesSum => _overallSalesSum.Value;
+        string _minCheck;
+        public string MinCheck 
+        { 
+            get { return _minCheck; } 
+            set { this.RaiseAndSetIfChanged(ref _minCheck, value); } 
+        }
 
-        readonly ObservableAsPropertyHelper<string> _minCheck;
-        public string MinCheck => _minCheck.Value;
+        string _maxCheck;
+        public string MaxCheck 
+        {
+            get { return _maxCheck; }
+            set { this.RaiseAndSetIfChanged(ref _maxCheck, value); }
+        }
 
-        readonly ObservableAsPropertyHelper<string> _maxCheck;
-        public string MaxCheck => _maxCheck.Value;
+        string _averageCheck;
+        public string AverageCheck 
+        {
+            get { return _averageCheck; }
+            set { this.RaiseAndSetIfChanged(ref _averageCheck, value); }
+        }
 
-        readonly ObservableAsPropertyHelper<string> _averageCheck;
-        public string AverageCheck => _averageCheck.Value;
-
-        readonly ObservableAsPropertyHelper<string> _ordersQuantity;
-        public string OrdersQuantity => _ordersQuantity.Value;
+        string _ordersQuantity;
+        public string OrdersQuantity 
+        {
+            get { return _ordersQuantity; }
+            set { this.RaiseAndSetIfChanged(ref _ordersQuantity, value); }
+        }
         #endregion
 
         #endregion

@@ -47,7 +47,7 @@
                     <syncfusion:SfChart.SecondaryAxis>
                         <syncfusion:NumericalAxis/>
                     </syncfusion:SfChart.SecondaryAxis>
-                    <syncfusion:PieSeries ItemsSource="{Binding Customers}" EnableAnimation="True" EnableSmartLabels="True" Palette="Elite" YBindingPath="NumberOfCustomers" XBindingPath="CountryName">
+                    <syncfusion:PieSeries ItemsSource="{Binding Customers}" EnableAnimation="True" EnableSmartLabels="True" Palette="Elite" YBindingPath="CustomersCount" XBindingPath="CountryName">
                         <syncfusion:PieSeries.AdornmentsInfo>
                             <syncfusion:ChartAdornmentInfo ShowLabel="True" UseSeriesPalette="True" ShowConnectorLine="True"/>
                         </syncfusion:PieSeries.AdornmentsInfo>

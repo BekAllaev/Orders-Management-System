@@ -13,6 +13,7 @@ using OMS.Data.Models;
 using DynamicData.Binding;
 using System.Data.Common;
 using OMS.Data;
+using OMS.WPFClient.Infrastructure.Services.StatisticService;
 
 namespace OMS.WPFClient.Modules.Dashboard.ViewModels
 {
@@ -20,38 +21,14 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
     {
         #region Declarations
         INorthwindRepository northwindRepository;
-
-        SourceList<Customer> customersList;
-        SourceList<Order_Detail> orderDetailsList;
-
-        ReadOnlyObservableCollection<CustomersByCountry> _customers;
-        ReadOnlyObservableCollection<PurchasesByCustomers> _purchases;
+        IStatisticService statisticService;
         #endregion
 
         #region Constructor
-        public CustomerStatisticViewModel(INorthwindRepository northwindRepository)
+        public CustomerStatisticViewModel(INorthwindRepository northwindRepository, IStatisticService statisticService)
         {
             this.northwindRepository = northwindRepository;
-
-            customersList = new SourceList<Customer>();
-            orderDetailsList = new SourceList<Order_Detail>();
-
-            customersList.Connect().
-                GroupOn(customer => customer.Country).
-                Transform(customersGroup => new CustomersByCountry() { CountryName = customersGroup.GroupKey, NumberOfCustomers = customersGroup.List.Count }).
-                ObserveOnDispatcher().
-                Bind(out _customers).
-                Subscribe();
-
-            orderDetailsList.Connect().
-                Transform(orderDetails => new { CompanyName = orderDetails.Order.Customer.CompanyName, PurchaseByOrderDetail = orderDetails.UnitPrice * orderDetails.Quantity }).
-                GroupOn(orderDetails => orderDetails.CompanyName).
-                Transform(groupOfOrderDetails => new PurchasesByCustomers() { CompanyName = groupOfOrderDetails.GroupKey, Purchases = groupOfOrderDetails.List.Items.Sum(a => a.PurchaseByOrderDetail) }).
-                Sort(SortExpressionComparer<PurchasesByCustomers>.Descending(a => a.Purchases)).
-                Top(10).
-                ObserveOnDispatcher().
-                Bind(out _purchases).
-                Subscribe();
+            this.statisticService = statisticService;
         }
         #endregion
 
@@ -74,16 +51,8 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
         {
             try
             {
-                if (customersList.Count == 0)
-                {
-                    var customers = await northwindRepository.GetCustomers();
-                    customersList.AddRange(customers);
-                }
-                if (orderDetailsList.Count == 0) 
-                {
-                    var orderDetails = await northwindRepository.GetOrderDetails();
-                    orderDetailsList.AddRange(orderDetails);
-                }
+                Customers = await statisticService.GetCustomersByCountries();
+                Purchases = await statisticService.GetPurchasesByCustomers();
             }
             catch (DbException e)
             {
@@ -93,9 +62,19 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
         #endregion
 
         #region Properties
-        public ReadOnlyObservableCollection<CustomersByCountry> Customers => _customers;
+        IEnumerable<CustomersByCountry> _customersByCountry; 
+        public IEnumerable<CustomersByCountry> Customers 
+        { 
+            get { return _customersByCountry; }
+            set { this.RaiseAndSetIfChanged(ref _customersByCountry, value); }
+        }
 
-        public ReadOnlyObservableCollection<PurchasesByCustomers> Purchases => _purchases;
+        IEnumerable<PurchasesByCustomers> _purchasesByCustomers;
+        public IEnumerable<PurchasesByCustomers> Purchases 
+        { 
+            get { return _purchasesByCustomers; }
+            set { this.RaiseAndSetIfChanged(ref _purchasesByCustomers, value); }
+        }
         #endregion
     }
 
@@ -107,7 +86,7 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
     {
         public string CountryName { set; get; }
 
-        public int NumberOfCustomers { set; get; }
+        public int CustomersCount { set; get; }
     }
 
     /// <summary>

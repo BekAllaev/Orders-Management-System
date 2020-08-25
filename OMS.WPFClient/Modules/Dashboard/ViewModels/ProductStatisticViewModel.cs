@@ -13,6 +13,7 @@ using DynamicData.Binding;
 using OMS.Data.Models;
 using System.Data.Common;
 using OMS.Data;
+using OMS.WPFClient.Infrastructure.Services.StatisticService;
 
 namespace OMS.WPFClient.Modules.Dashboard.ViewModels
 {
@@ -20,25 +21,14 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
     {
         #region Declaration
         INorthwindRepository northwindRepository;
-
-        SourceList<Product> productsList;
-
-        ReadOnlyObservableCollection<ProductsByCateogries> _categorySummaries;
+        IStatisticService statisticService;
         #endregion
 
         #region Constructor
-        public ProductStatisticViewModel(INorthwindRepository northwindRepository)
+        public ProductStatisticViewModel(INorthwindRepository northwindRepository, IStatisticService statisticService)
         {
             this.northwindRepository = northwindRepository;
-
-            productsList = new SourceList<Product>();
-
-            productsList.Connect().
-                GroupOn(product => product.Category.CategoryName).
-                Transform(groupOfProducts => new ProductsByCateogries() { CategoryName = groupOfProducts.GroupKey, NumberOfProducts = groupOfProducts.List.Count }).
-                ObserveOnDispatcher().
-                Bind(out _categorySummaries).
-                Subscribe();
+            this.statisticService = statisticService;
         }
         #endregion
 
@@ -57,13 +47,9 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
         {
             try
             {
-                if (productsList.Count == 0) 
-                {
-                    var products = await northwindRepository.GetProducts();
-                    productsList.AddRange(products);
-                }
+                CateogrySummaries = await statisticService.GetProductsByCategories();
             }
-            catch(DbException e)
+            catch (DbException e)
             {
                 MessageBus.Current.SendMessage(e);
             }
@@ -71,7 +57,12 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
         #endregion
 
         #region Properties
-        public ReadOnlyObservableCollection<ProductsByCateogries> CateogrySummaries => _categorySummaries;
+        IEnumerable<ProductsByCateogries> _categorySummaries;
+        public IEnumerable<ProductsByCateogries> CateogrySummaries 
+        { 
+            get { return _categorySummaries; }
+            set { this.RaiseAndSetIfChanged(ref _categorySummaries, value); }
+        }
         #endregion
     }
 

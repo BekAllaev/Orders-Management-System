@@ -27,6 +27,7 @@ using OMS.DataAccessWeb;
 using System.Configuration;
 using ReactiveUI;
 using System.Net.Http;
+using OMS.WPFClient.Infrastructure.Services.StatisticService;
 
 namespace OMS.WPFClient.Bootsrapper
 {
@@ -51,17 +52,23 @@ namespace OMS.WPFClient.Bootsrapper
             Container.RegisterInstance(new NorthwindContext(), new TransientLifetimeManager());
             Container.RegisterInstance(new TitleUpdater());
 
-            bool accessLocalRepository = bool.Parse(ConfigurationManager.AppSettings["AccessLocalRepository"]);
+            string accessRepository = ConfigurationManager.AppSettings["AccessRepository"];
 
-            if (accessLocalRepository) 
+            if (accessRepository == "Local")
             {
+                Container.RegisterType<IStatisticService, StatisticLocalService>();
                 Container.RegisterType<INorthwindRepository, NorthwindLocalRepository>();
             }
-            else
+            else if(accessRepository == "Remote")
             {
                 string serverBaseAddress = ConfigurationManager.AppSettings["ServerBaseAddress"];
                 Container.RegisterInstance(new HttpClient() { BaseAddress = new Uri(serverBaseAddress) });
+                Container.RegisterType<IStatisticService, StatisticWebService>();
                 Container.RegisterType<INorthwindRepository, NorthwindWebRepository>();
+            }
+            else
+            {
+                MessageBox.Show("Wrong repository. Please check which repository to access and restart the app.", "Wrong repository", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

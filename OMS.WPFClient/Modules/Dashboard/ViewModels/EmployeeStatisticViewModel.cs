@@ -11,6 +11,9 @@ using DynamicData.Binding;
 using OMS.Data.Models;
 using System.Data.Common;
 using OMS.Data;
+using OMS.WPFClient.Infrastructure.Services.StatisticService;
+using System.Collections.Generic;
+using Syncfusion.Data.Extensions;
 
 namespace OMS.WPFClient.Modules.Dashboard.ViewModels
 {
@@ -18,27 +21,14 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
     {
         #region Declarations
         INorthwindRepository northwindRepository;
-
-        ReadOnlyObservableCollection<EmployeeSales> _employees;
-
-        SourceList<Order_Detail> orderDetailsList;
+        IStatisticService statisticService;
         #endregion
 
         #region Constructor
-        public EmployeeStatisticViewModel(INorthwindRepository northwindRepository)
+        public EmployeeStatisticViewModel(INorthwindRepository northwindRepository, IStatisticService statisticService)
         {
             this.northwindRepository = northwindRepository;
-
-            orderDetailsList = new SourceList<Order_Detail>();
-
-            orderDetailsList.Connect().
-                Transform(orderDetail => new { LastName = orderDetail.Order.Employee.LastName, SaleByOrderDetail = orderDetail.UnitPrice * orderDetail.Quantity }).
-                GroupOn(orderDetail => orderDetail.LastName).
-                Transform(groupOfOrderDetail => new EmployeeSales() { LastName = groupOfOrderDetail.GroupKey, Sales = groupOfOrderDetail.List.Items.Sum(a => a.SaleByOrderDetail) }).
-                ObserveOnDispatcher().
-                Sort(SortExpressionComparer<EmployeeSales>.Ascending(a => a.Sales)).
-                Bind(out _employees).
-                Subscribe();
+            this.statisticService = statisticService;
         }
         #endregion
 
@@ -58,11 +48,7 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
         {
             try
             {
-                if (orderDetailsList.Count == 0)
-                {
-                    var orderDetails = await northwindRepository.GetOrderDetails();
-                    orderDetailsList.AddRange(orderDetails);
-                }
+                Employees = await statisticService.GetSalesByEmployees();
             }
             catch (DbException e)
             {
@@ -72,7 +58,12 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
         #endregion
 
         #region Properties
-        public ReadOnlyObservableCollection<EmployeeSales> Employees => _employees;
+        IEnumerable<EmployeeSales> _employeeSales;
+        public IEnumerable<EmployeeSales> Employees
+        { 
+            get { return _employeeSales; }
+            set { this.RaiseAndSetIfChanged(ref _employeeSales, value); }
+        }
         #endregion
     }
 
