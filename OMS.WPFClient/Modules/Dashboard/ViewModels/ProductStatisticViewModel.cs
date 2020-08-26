@@ -14,6 +14,7 @@ using OMS.Data.Models;
 using System.Data.Common;
 using OMS.Data;
 using OMS.WPFClient.Infrastructure.Services.StatisticService;
+using System.Net.Http;
 
 namespace OMS.WPFClient.Modules.Dashboard.ViewModels
 {
@@ -49,17 +50,20 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
             {
                 CateogrySummaries = await statisticService.GetProductsByCategories();
             }
-            catch (DbException e)
+            catch (Exception e)
             {
-                MessageBus.Current.SendMessage(e);
+                if (e is DbException)
+                    MessageBus.Current.SendMessage(e);
+                else if (e is HttpRequestException)
+                    MessageBus.Current.SendMessage<HttpRequestException>(new HttpRequestException(e.Message, e.InnerException));
             }
         }
         #endregion
 
         #region Properties
         IEnumerable<ProductsByCateogries> _categorySummaries;
-        public IEnumerable<ProductsByCateogries> CateogrySummaries 
-        { 
+        public IEnumerable<ProductsByCateogries> CateogrySummaries
+        {
             get { return _categorySummaries; }
             set { this.RaiseAndSetIfChanged(ref _categorySummaries, value); }
         }

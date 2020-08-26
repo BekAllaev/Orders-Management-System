@@ -14,6 +14,7 @@ using System.Data.Common;
 using OMS.Data.Models;
 using OMS.Data;
 using OMS.WPFClient.Infrastructure.Services.StatisticService;
+using System.Net.Http;
 
 namespace OMS.WPFClient.Modules.Dashboard.ViewModels
 {
@@ -53,9 +54,12 @@ namespace OMS.WPFClient.Modules.Dashboard.ViewModels
                 AverageCheck = await statisticService.GetSummary("AverageCheck");
                 OrdersQuantity = await statisticService.GetSummary("OrdersQuantity");
             }
-            catch (DbException e)
+            catch (Exception e)
             {
-                MessageBus.Current.SendMessage(e);
+                if (e is DbException)
+                    MessageBus.Current.SendMessage(e);
+                else if (e is HttpRequestException)
+                    MessageBus.Current.SendMessage<HttpRequestException>(new HttpRequestException(e.Message, e.InnerException));
             }
         }
         #endregion

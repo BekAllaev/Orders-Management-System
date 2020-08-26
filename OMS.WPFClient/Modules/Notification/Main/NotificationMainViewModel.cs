@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ReactiveUI;
 using System.Data.Common;
 using System.Data.Entity.Core;
+using System.Net.Http;
 
 namespace OMS.WPFClient.Modules.Notification.Main
 {
@@ -20,6 +21,10 @@ namespace OMS.WPFClient.Modules.Notification.Main
         {
             MessageBus.Current.Listen<DbException>().
                 Subscribe(exception => NotificationString = exception.Message + $"Код ошибки: {exception.ErrorCode}.");
+
+            MessageBus.Current.Listen<HttpRequestException>().
+                Subscribe(exception => 
+                NotificationString = exception.Message + exception.InnerException.Message + ". Проверьте работает ли сервер и перезагрузите приложения. ");
 
             MessageBus.Current.Listen<EntityException>().
                 Subscribe(exception => NotificationString = exception.Message);
