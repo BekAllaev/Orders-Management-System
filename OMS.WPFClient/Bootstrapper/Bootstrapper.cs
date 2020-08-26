@@ -28,6 +28,7 @@ using System.Configuration;
 using ReactiveUI;
 using System.Net.Http;
 using OMS.WPFClient.Infrastructure.Services.StatisticService;
+using OMS.WPFClient.Infrastructure.Services.InvoiceInfoService;
 
 namespace OMS.WPFClient.Bootsrapper
 {
@@ -58,6 +59,7 @@ namespace OMS.WPFClient.Bootsrapper
             {
                 Container.RegisterType<IStatisticService, StatisticLocalService>();
                 Container.RegisterType<INorthwindRepository, NorthwindLocalRepository>();
+                Container.RegisterType<IInvoiceInfoService, InvoiceInfoLocal>();
             }
             else if(accessRepository == "Remote")
             {
@@ -65,6 +67,7 @@ namespace OMS.WPFClient.Bootsrapper
                 Container.RegisterInstance(new HttpClient() { BaseAddress = new Uri(serverBaseAddress) });
                 Container.RegisterType<IStatisticService, StatisticWebService>();
                 Container.RegisterType<INorthwindRepository, NorthwindWebRepository>();
+                Container.RegisterType<IInvoiceInfoService, InvoiceInfoWeb>();
             }
             else
             {
