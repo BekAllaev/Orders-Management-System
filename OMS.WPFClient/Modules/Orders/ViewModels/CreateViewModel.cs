@@ -259,21 +259,21 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
         {
             try
             {
-                if (products.Count == 0) 
+                if (products.Count == 0)
                 {
                     productsList = new List<Product>(await northwindRepository.GetProducts());
                     var listOfProductsOnStore = productsList.Select(b => new ProductOnStore(b));
                     products.AddOrUpdate(listOfProductsOnStore);
                 }
-                if (employees.Count == 0) 
+                if (employees.Count == 0)
                 {
                     var employeesList = await northwindRepository.GetEmployees();
                     employees.AddRange(employeesList);
                 }
-                if (customers.Count == 0) 
+                if (customers.Count == 0)
                 {
                     var customerList = await northwindRepository.GetCustomers();
-                    customers.AddRange(customerList); 
+                    customers.AddRange(customerList);
                 }
             }
             catch (EntityException e)

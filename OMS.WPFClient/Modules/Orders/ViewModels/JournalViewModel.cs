@@ -26,10 +26,6 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
         #region Declarations
         INorthwindRepository northwindRepository;
 
-        SourceList<Order> ordersList;
-
-        ReadOnlyObservableCollection<Order> _ordersList;
-
         IEnumerable<Order> cachedCollection;
 
         string _searchTerm;
@@ -41,23 +37,16 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
         {
             this.northwindRepository = northwindRepository;
 
-            ordersList = new SourceList<Order>();
-
-            ordersList.Connect().
-                ObserveOnDispatcher().
-                Bind(out _ordersList).
-                Subscribe();
-
             this.WhenAnyValue(x => x.SearchTerm).
-                Subscribe(async newSearchTerm =>
+                Subscribe(newSearchTerm =>
                 {
                     if (newSearchTerm != null)
-                        if (string.IsNullOrEmpty(newSearchTerm)) await FillOrderListAsync(cachedCollection.ToList());
+                        if (string.IsNullOrEmpty(newSearchTerm)) Orders = cachedCollection;
                         else
                         {
                             var filteredList = cachedCollection.Where(o => o.CustomerID.SafeSubstring(0, newSearchTerm.Length).ToLower() == newSearchTerm.ToLower()).OrderBy(o => o.CustomerID).ToList();
 
-                            await FillOrderListAsync(filteredList);
+                            Orders = filteredList;
                         }
                 });
 
@@ -65,33 +54,13 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
         }
         #endregion
 
-        #region Utilities
-        /// <summary>
-        /// First clears collection of orders than fills it with new collection
-        /// </summary>
-        /// <param name="currentOrderList">
-        /// Current orders collection
-        /// </param>
-        /// <param name="listToFill">
-        /// List which must be added into orders collection
-        /// </param>
-        private async Task FillOrderListAsync(List<Order> listToFill)
-        {
-            var currentOrdersList = ordersList.Items;
-
-            await Task.Run(() =>
-            {
-                foreach (var order in currentOrdersList)
-                    ordersList.Remove(order);
-
-                foreach (var order in listToFill)
-                    ordersList.Add(order);
-            });
-        }
-        #endregion
-
         #region Properties
-        public ReadOnlyObservableCollection<Order> Orders => _ordersList;
+        IEnumerable<Order> _orders;
+        public IEnumerable<Order> Orders 
+        { 
+            get { return _orders; }
+            set { this.RaiseAndSetIfChanged(ref _orders, value); } 
+        }
 
         public string SearchTerm
         {
@@ -123,11 +92,8 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
         {
             try
             {
-                if (ordersList.Count == 0)
-                {
-                    cachedCollection = await northwindRepository.GetOrders();
-                    ordersList.AddRange(cachedCollection); 
-                }
+                cachedCollection = await northwindRepository.GetOrders();
+                Orders = cachedCollection;
             }
             catch (Exception e)
             {
