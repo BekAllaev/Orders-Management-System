@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -127,9 +129,66 @@ namespace OMSWebMini.Controllers
             }
         }
 
+        [Route("[action]")]
+        [HttpGet()]
+        public async Task<ActionResult<IEnumerable<OrderObject>>> GetOrdersInfo(int id)
+        {
+            var orders = _context.Orders.Include(order => order.Employee).Include(order => order.Customer).Where(order => order.OrderId == id);
+
+            var orderObject = await orders.Select(o => new OrderObject
+            {
+                OrderId = o.OrderId,
+                OrderDate = o.OrderDate.Value,
+                EmployeeName = o.Employee.FirstName + " " + o.Employee.LastName,
+                CustomerName = o.Customer.CompanyName
+            }).ToListAsync();
+
+            return orderObject;
+        }
+
+        [Route("[action]")]
+        [HttpGet()]
+        public async Task<ActionResult<IEnumerable<OrderDetailObject>>> GetOrderDetailsInfo(int id)
+        {
+            var orderDetails = _context.OrderDetails.Include(orderDetail => orderDetail.Product).Where(orderDetail => orderDetail.OrderId == id);
+
+            var orderDetailObjects = await orderDetails.Select(o => new OrderDetailObject()
+            {
+                OrderId = o.OrderId,
+                ProductName = o.Product.ProductName,
+                UnitPrice = o.UnitPrice,
+                Quantity = o.Quantity,
+                Discount = o.Discount * 100,
+                SubTotal = (decimal)((float)o.UnitPrice * o.Quantity * (1 - o.Discount))
+            }).ToListAsync();
+
+            return orderDetailObjects;
+        }
+
         private bool OrderExists(int id)
         {
             return _context.Orders.Any(e => e.OrderId == id);
         }
     }
+
+    #region Screen objects
+    public class OrderObject
+    {
+        public int OrderId { get; set; }
+        public string CustomerName { get; set; }
+        public string EmployeeName { get; set; }
+        public DateTime OrderDate { get; set; }
+    }
+
+    public class OrderDetailObject
+    {
+        public int OrderId { get; set; }
+        public string ProductName { get; set; }
+        public decimal UnitPrice { get; set; }
+        public short Quantity { get; set; }
+        public float Discount { get; set; }
+        public decimal SubTotal { get; set; }
+    }
+    #endregion
+
 }
