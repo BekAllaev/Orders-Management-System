@@ -298,6 +298,9 @@
     <Compile Include="Infrastructure\Events\OnNavigatedToEvent.cs" />
     <Compile Include="Infrastructure\Extensions\StringExtension.cs" />
     <Compile Include="Infrastructure\GlobalCommands.cs" />
+    <Compile Include="Infrastructure\Services\InvoiceInfoService\IInvoiceInfoService.cs" />
+    <Compile Include="Infrastructure\Services\InvoiceInfoService\InvoiceInfoLocal.cs" />
+    <Compile Include="Infrastructure\Services\InvoiceInfoService\InvoiceInfoWeb.cs" />
     <Compile Include="Infrastructure\Services\StatisticService\IStatisticService.cs" />
     <Compile Include="Infrastructure\Services\StatisticService\StatisticLocalService.cs" />
     <Compile Include="Infrastructure\Services\StatisticService\StatisticWebService.cs" />

@@ -87,7 +87,7 @@ namespace OMS.DataAccessWeb
 
                 return category;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -101,7 +101,7 @@ namespace OMS.DataAccessWeb
 
                 await httpClient.PutAsync($"Categories/{category.CategoryID}", httpContent);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -117,7 +117,7 @@ namespace OMS.DataAccessWeb
 
                 await httpClient.PostAsync("Customers", httpContent);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -134,7 +134,7 @@ namespace OMS.DataAccessWeb
             {
                 await httpClient.DeleteAsync($"Customers/{id}");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -157,7 +157,7 @@ namespace OMS.DataAccessWeb
 
                 return customer;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -175,7 +175,7 @@ namespace OMS.DataAccessWeb
 
                 return customers;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -189,7 +189,7 @@ namespace OMS.DataAccessWeb
 
                 await httpClient.PutAsync($"Customers/{customer.CustomerID}", httpContent);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -205,7 +205,7 @@ namespace OMS.DataAccessWeb
 
                 await httpClient.PostAsync("Employes", httpContent);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -222,7 +222,7 @@ namespace OMS.DataAccessWeb
             {
                 await httpClient.DeleteAsync($"Employes/{id}");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -245,7 +245,7 @@ namespace OMS.DataAccessWeb
 
                 return employee;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -263,7 +263,7 @@ namespace OMS.DataAccessWeb
 
                 return employees;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -277,7 +277,7 @@ namespace OMS.DataAccessWeb
 
                 await httpClient.PutAsync($"Employes/{employee.EmployeeID}", httpContent);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -285,17 +285,17 @@ namespace OMS.DataAccessWeb
         #endregion
 
         #region Access to Orders
-        public async Task AddOrder(Order order,IEnumerable<Order_Detail> orderDetails)
+        public async Task AddOrder(Order order, IEnumerable<Order_Detail> orderDetails)
         {
             try
             {
-                HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(order),Encoding.UTF8);
+                HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(order), Encoding.UTF8);
 
                 await httpClient.PostAsync("Orders", httpContent);
             }
-            catch (Exception e) 
-            { 
-                throw e; 
+            catch (Exception e)
+            {
+                throw e;
             }
 
         }
@@ -311,7 +311,7 @@ namespace OMS.DataAccessWeb
             {
                 await httpClient.DeleteAsync($"Orders/{id}");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -334,7 +334,7 @@ namespace OMS.DataAccessWeb
 
                 return order;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -352,7 +352,7 @@ namespace OMS.DataAccessWeb
 
                 return orders;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -366,7 +366,7 @@ namespace OMS.DataAccessWeb
 
                 await httpClient.PutAsync($"Orders/{order.OrderID}", httpContent);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -382,7 +382,7 @@ namespace OMS.DataAccessWeb
 
                 await httpClient.PostAsync("OrderDetails", httpContent);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -396,7 +396,7 @@ namespace OMS.DataAccessWeb
 
                 await httpClient.PostAsync("OrderDetails/PostOrderDetails", httpContent);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -408,7 +408,7 @@ namespace OMS.DataAccessWeb
             {
                 await httpClient.DeleteAsync($"OrderDetails/{orderId}/{productId}");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -425,7 +425,7 @@ namespace OMS.DataAccessWeb
             {
                 await httpClient.DeleteAsync($"OrderDetails/{orderId}");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -443,7 +443,7 @@ namespace OMS.DataAccessWeb
 
                 return orderDetails;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -475,7 +475,7 @@ namespace OMS.DataAccessWeb
 
                 await httpClient.PutAsync($"OrderDetails/{orderDetail.OrderID}/{orderDetail.ProductID}", httpContent);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -491,7 +491,7 @@ namespace OMS.DataAccessWeb
 
                 await httpClient.PostAsync("Products", httpContent);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -508,7 +508,7 @@ namespace OMS.DataAccessWeb
             {
                 await httpClient.DeleteAsync($"Products/{id}");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -531,7 +531,7 @@ namespace OMS.DataAccessWeb
 
                 return product;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -549,7 +549,7 @@ namespace OMS.DataAccessWeb
 
                 return products;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -563,7 +563,7 @@ namespace OMS.DataAccessWeb
 
                 await httpClient.PutAsync($"Products/{product.ProductID}", httpContent);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -580,7 +580,7 @@ namespace OMS.DataAccessWeb
 
                 await httpClient.PostAsync("Shippers", httpContent);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -597,7 +597,7 @@ namespace OMS.DataAccessWeb
             {
                 await httpClient.DeleteAsync($"Shippers/{id}");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -620,7 +620,7 @@ namespace OMS.DataAccessWeb
 
                 return shipper;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -652,7 +652,7 @@ namespace OMS.DataAccessWeb
 
                 await httpClient.PutAsync($"Shippers/{shipper.ShipperID}", httpContent);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -669,7 +669,7 @@ namespace OMS.DataAccessWeb
 
                 await httpClient.PostAsync("Suppliers", httpContent);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -686,7 +686,7 @@ namespace OMS.DataAccessWeb
             {
                 await httpClient.DeleteAsync($"Suppliers/{id}");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
