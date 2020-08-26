@@ -136,14 +136,15 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
 
             var orderDetails = ProductsInOrder.Select(p => new Order_Detail
             {
-                OrderID = newOrder.OrderID,
                 ProductID = p.ProductID,
                 UnitPrice = (decimal)p.UnitPrice,
                 Quantity = (short)p.SelectedQuantity,
                 Discount = p.SelectedDiscount / 100
-            });
+            }).ToList();
 
             await northwindRepository.AddOrder(newOrder, orderDetails);
+
+            int id = (await northwindRepository.GetOrders()).Last().OrderID;
 
             RemoveAllCommand.Execute().Subscribe();
 
@@ -152,7 +153,7 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
             SelectedCustomer = null;
             SelectedEmployee = null;
 
-            MessageBus.Current.SendMessage<NewOrderCreated>(new NewOrderCreated() { OrderId = newOrder.OrderID });
+            MessageBus.Current.SendMessage<NewOrderCreated>(new NewOrderCreated() { OrderId = id });
         }
         #endregion
 

@@ -40,7 +40,7 @@ namespace OMSWebMini.Controllers
         public async Task<ActionResult<IEnumerable<SalesByEmployee>>> GetSalesByEmployees()
         {
             var employees = await northwindContext.Employees.Include(employee=>employee.Orders).
-                ThenInclude(employeeOrder=>employeeOrder.OrderDetails).
+                ThenInclude(employeeOrder=>employeeOrder.Order_Details).
                 ToListAsync();
 
             return await Task.Run(() =>
@@ -48,7 +48,7 @@ namespace OMSWebMini.Controllers
                 var salesByEmployees = employees.Select(employee => new SalesByEmployee
                 {
                     LastName = employee.LastName,
-                    Sales = employee.Orders.Sum(order => order.OrderDetails.Sum(orderDetail => orderDetail.Quantity * orderDetail.UnitPrice))
+                    Sales = employee.Orders.Sum(order => order.Order_Details.Sum(orderDetail => orderDetail.Quantity * orderDetail.UnitPrice))
                 }).OrderBy(salesByEmployee => salesByEmployee.Sales).ToList();
 
                 return salesByEmployees;
@@ -75,7 +75,7 @@ namespace OMSWebMini.Controllers
         public async Task<ActionResult<IEnumerable<PurchasesByCustomer>>> GetPurchasesByCustomers()
         {
             var customers = await northwindContext.Customers.Include(customer => customer.Orders).
-                ThenInclude(customerOrder => customerOrder.OrderDetails).
+                ThenInclude(customerOrder => customerOrder.Order_Details).
                 ToListAsync();
 
             return await Task.Run(() =>
@@ -83,7 +83,7 @@ namespace OMSWebMini.Controllers
                 var purchasesByCustomers = customers.Select(customer => new PurchasesByCustomer
                 {
                     CompanyName = customer.CompanyName,
-                    Purchases = customer.Orders.Sum(order => order.OrderDetails.Sum(orderDetail => orderDetail.Quantity * orderDetail.UnitPrice))
+                    Purchases = customer.Orders.Sum(order => order.Order_Details.Sum(orderDetail => orderDetail.Quantity * orderDetail.UnitPrice))
                 }).OrderByDescending(purchasesByCustomer => purchasesByCustomer.Purchases).Take(10).ToList();
 
                 return purchasesByCustomers;

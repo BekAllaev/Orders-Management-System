@@ -43,9 +43,9 @@ namespace OMSWebMini.Controllers
                 return NotFound();
             }
 
-            var detailedOrder = await _context.Orders.Where(o => o.OrderId == id).Include(o => o.OrderDetails).FirstOrDefaultAsync();
+            var detailedOrder = await _context.Orders.Where(o => o.OrderId == id).Include(o => o.Order_Details).FirstOrDefaultAsync();
 
-            order.OrderDetails = detailedOrder.OrderDetails;
+            order.Order_Details = detailedOrder.Order_Details;
 
             return order;
         }
@@ -86,9 +86,10 @@ namespace OMSWebMini.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
+        public async Task<ActionResult<Order>> PostOrder([FromBody]Order order)
         {
             _context.Orders.Add(order);
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetOrder), new { id = order.OrderId }, order);
@@ -108,7 +109,7 @@ namespace OMSWebMini.Controllers
             {
                 try
                 {
-                    var orderDetailsToDelete = (await _context.Orders.Include(o => o.OrderDetails).Where(o => o.OrderId == id).FirstOrDefaultAsync()).OrderDetails;
+                    var orderDetailsToDelete = (await _context.Orders.Include(o => o.Order_Details).Where(o => o.OrderId == id).FirstOrDefaultAsync()).Order_Details;
 
                     _context.OrderDetails.RemoveRange(orderDetailsToDelete);
                     await _context.SaveChangesAsync();

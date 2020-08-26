@@ -163,24 +163,10 @@ namespace OMS.DataAccessLocal
         #region Access to Orders
         public async Task AddOrder(Order order, IEnumerable<Order_Detail> orderDetails)
         {
-            using (var contextTransaction = northwindContext.Database.BeginTransaction())
-            {
-                try
-                {
-                    northwindContext.Orders.Add(order);
-                    await northwindContext.SaveChangesAsync();
+            order.Order_Details = new HashSet<Order_Detail>(orderDetails);
 
-                    northwindContext.Order_Details.AddRange(new List<Order_Detail>(orderDetails));
-
-                    await northwindContext.SaveChangesAsync();
-
-                    contextTransaction.Commit();
-                }
-                catch (Exception)
-                {
-                    contextTransaction.Rollback();
-                }
-            }
+            northwindContext.Orders.Add(order);
+            await northwindContext.SaveChangesAsync();
         }
 
         public Task AddOrders(IEnumerable<Order> orders)

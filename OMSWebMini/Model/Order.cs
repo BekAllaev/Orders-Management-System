@@ -8,7 +8,7 @@ namespace OMSWebMini.Model
     {
         public Order()
         {
-            OrderDetails = new HashSet<OrderDetail>();
+            Order_Details = new HashSet<OrderDetail>();
         }
 
         public int OrderId { get; set; }
@@ -29,6 +29,6 @@ namespace OMSWebMini.Model
         public virtual Customer Customer { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual Shipper ShipViaNavigation { get; set; }
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual ICollection<OrderDetail> Order_Details { get; set; }
     }
 }

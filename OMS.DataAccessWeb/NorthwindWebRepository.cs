@@ -289,7 +289,9 @@ namespace OMS.DataAccessWeb
         {
             try
             {
-                HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(order), Encoding.UTF8);
+                order.Order_Details = new HashSet<Order_Detail>(orderDetails);
+
+                HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(order), Encoding.UTF8, "application/json");
 
                 await httpClient.PostAsync("Orders", httpContent);
             }
