@@ -14,8 +14,11 @@ Reporting: `Mirosoft RDLC + Syncfusion Report Viewer`
 Styling: `Material Design Themes`  
 Animations: `WPF animations` 
 
-### IMPORTANT
+### IMPORTANT #1
 You need to have Northwind database on your `Microsoft SQL Server`    
+
+### IMPORTANT #2
+Don`t forget to turn on backend in order if you will access remote database 
   
 ## Prism + ReactiveUI + DynamicData
 Responsibilities of Prism: Navigation + Modularity  
