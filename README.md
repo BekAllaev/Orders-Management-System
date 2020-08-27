@@ -14,6 +14,9 @@ Reporting: `Mirosoft RDLC + Syncfusion Report Viewer`
 Styling: `Material Design Themes`  
 Animations: `WPF animations` 
 
+### IMPORTANT
+You need to have Northwind database on your `Microsoft SQL Server`    
+  
 ## Prism + ReactiveUI + DynamicData
 Responsibilities of Prism: Navigation + Modularity  
 Responsibilities of ReactiveUI: ViewModels + Messaging + Other useful functions(Like event to command)
@@ -30,3 +33,9 @@ This framework provided base class for all viewmodels and opportunity to send me
 ### DynamicData 
 Fast UI would not be possible, if there were not `Dynamic Data` , which fills, edits, filters and do a lot of other operations
 above collections in asynchronous style.
+
+### Change between Local and Remote repository
+This application consume data from Local and Remote repositories. If you want to change repository you can find   
+`OMSWPFClien.exe.config` file in bin->Debug and change app setting `AccessRepository`'s value to Remote or Local.
+
+
