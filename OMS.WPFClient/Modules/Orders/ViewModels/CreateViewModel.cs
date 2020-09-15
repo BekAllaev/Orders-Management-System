@@ -88,7 +88,7 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
                 ObserveOnDispatcher().
                 Bind(out _productsInOrder).
                 OnItemAdded(x => SubscribeToChanges(x)).
-                OnItemRemoved(y => SetInitialValues(y)).
+                OnItemRemoved(y => RemoveProduct(y)).
                 Subscribe();
 
             employees.Connect().
@@ -133,6 +133,8 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
             newOrder.EmployeeID = SelectedEmployee.EmployeeID;
             newOrder.OrderDate = DateTime.Parse(OrderDate);
             newOrder.ShipCountry = shipCountry;
+
+            ProductsInOrder.ForEach(productInOrder => productInOrder.IsSaled = true);
 
             var orderDetails = ProductsInOrder.Select(p => new Order_Detail
             {
@@ -180,11 +182,10 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
             });
         }
 
-        private void SetInitialValues(ProductInOrder productToRemove)
+        private void RemoveProduct(ProductInOrder productToRemove)
         {
-            productToRemove.SelectedQuantity = 0;
-            productToRemove.SourceProductOnStore.UnitsInStock += productToRemove.SelectedQuantity;
-            productToRemove.SourceProductOnStore.UnitsOnOrder = 0;
+            if (!productToRemove.IsSaled)
+                productToRemove.SourceProductOnStore.UnitsInStock += productToRemove.SelectedQuantity;
 
             TotalSum -= productToRemove.Sum;
         }
@@ -246,7 +247,6 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
                 .Subscribe(newValue =>
                 {
                     newProductInOrder.SourceProductOnStore.UnitsInStock -= (short)newValue;
-                    newProductInOrder.SourceProductOnStore.UnitsOnOrder += (short)newValue;
 
                     Product productToReplace = productsList.First(x => x.ProductID == newProductInOrder.ProductID);
 
@@ -393,6 +393,8 @@ namespace OMS.WPFClient.Modules.Orders.ViewModels
                 set { SetAndRaise(ref _selectedDiscount, value); }
                 get { return _selectedDiscount; }
             }
+
+            public bool IsSaled { set; get; }
 
             public decimal Sum { set; get; }
 
