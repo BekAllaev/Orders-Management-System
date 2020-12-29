@@ -1,37 +1,42 @@
-## Welcome to GitHub Pages
+# Orders Manaegment System
 
-You can use the [editor on GitHub](https://github.com/Allaev1/Orders-Management-System/edit/gh-pages/docs/index.md) to maintain and preview the content for your website in Markdown files.
+Order Management System WPF application which works with orders, based on database Northwind. 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+In this application you can see  
+Programming language: `C#`  
+Frameworks: `Prism` , `ReactiveUI` , `DynamicData`  
+Patterns: MVVM, Dependency Injection  
+Containers: `IOC container Unity`  
+Data Storage: `Microsoft SQL Server 2017 `  
+UI Markup: `XAML`  
+UI Controls: `Syncfusion WPF Contorls 2019`  
+Reporting: `Mirosoft RDLC + Syncfusion Report Viewer`  
+Styling: `Material Design Themes`  
+Animations: `WPF animations` 
 
-### Markdown
+### IMPORTANT #1
+You need to have Northwind database on your `Microsoft SQL Server`    
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### IMPORTANT #2
+Don`t forget to turn on backend in order if you will access remote database 
+  
+## Prism + ReactiveUI + DynamicData
+Responsibilities of Prism: Navigation + Modularity  
+Responsibilities of ReactiveUI: ViewModels + Messaging + Other useful functions(Like event to command)
+Responsibilities of DynamicData: Read, write, and edit of collections
 
-```markdown
-Syntax highlighted code block
+### Prism
+Prism gave an opportunity to build composite application. App was divide into several modules
+where each view of module was divided into regions. Also PRISM make possible to 
+handle navigation events.
 
-# Header 1
-## Header 2
-### Header 3
+### ReactiveUI
+This framework provided base class for all viewmodels and opportunity to send messages between viewmodels.
 
-- Bulleted
-- List
+### DynamicData 
+Fast UI would not be possible, if there were not `Dynamic Data` , which fills, edits, filters and do a lot of other operations
+above collections in asynchronous style.
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Allaev1/Orders-Management-System/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### Change between Local and Remote repository
+This application consume data from Local and Remote repositories. If you want to change repository you can find   
+`OMSWPFClien.exe.config` file in bin->Debug and change app setting `AccessRepository`'s value to Remote or Local.
