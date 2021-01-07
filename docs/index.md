@@ -1,6 +1,8 @@
 # Orders Manaegment System
 
-Order Management System WPF application which works with orders, based on database Northwind. 
+If you are a business client then Order Management System is application which works with orders, based on database Northwind. It has dashboard where you can see statistics and graphics which shows you information of your buisness at the moment. Also you can create orders with great UX/UI views.
+
+But if you are a developer then you will be interested in how this project solve one treacky problem. This application works with huge amount of data and must stay UI-friendly and responsive at the same time. This problem solved using reactive programming and exactly ReactiveUI framework.
 
 In this application you can see  
 Programming language: `C#`  
