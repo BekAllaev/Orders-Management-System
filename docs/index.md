@@ -4,6 +4,8 @@ If you are a business client then Order Management System is application which w
 
 But if you are a developer then you will be interested in how this project solve one treacky problem. This application works with huge amount of data and must stay UI-friendly and responsive at the same time. This problem solved using reactive programming and exactly ReactiveUI framework.
 
+Another interesting aspect is that WPF client can receive data from WebAPI.
+
 In this application you can see  
 Programming language: `C#`  
 Frameworks: `Prism` , `ReactiveUI` , `DynamicData`  
