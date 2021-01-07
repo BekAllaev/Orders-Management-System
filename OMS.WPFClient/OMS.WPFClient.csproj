@@ -386,6 +386,9 @@
     <Content Include="Modules\Orders\Reports\InvoiceReport.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Screenshoots\Create View.jpg" />
+    <Resource Include="Screenshoots\Dashboard.jpg" />
+    <Resource Include="Screenshoots\Notification.jpg" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
