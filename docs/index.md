@@ -54,7 +54,7 @@ Dashboard
 
 Creation view
 
-![](https://github.com/Allaev1/Orders-Management-System/blob/master/OMS.WPFClient/Screenshoots/Create%20View.jpg)
+![](https://github.com/Allaev1/Orders-Management-System/blob/master/OMS.WPFClient/Screenshoots/Create%20View.jpg?raw=true)
 
 Here you will see notification pane in action. Database server was stopped and application caught exception and shows the error to the user. Otherwise application would collapsed.  
 
