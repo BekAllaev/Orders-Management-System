@@ -49,3 +49,11 @@ This application consume data from Local and Remote repositories. If you want to
 Dashboard 
 
 ![](https://github.com/Allaev1/Orders-Management-System/blob/master/OMS.WPFClient/Screenshoots/Dashboard.jpg?raw=true)
+
+Creation view
+
+![](https://github.com/Allaev1/Orders-Management-System/blob/master/OMS.WPFClient/Screenshoots/Create%20View.jpg)
+
+Here you will see notification pane in action. Database server was stoped intially and application catched exception and shows the errot to the user. Otherwise application would collapsed. 
+
+![](https://github.com/Allaev1/Orders-Management-System/blob/master/OMS.WPFClient/Screenshoots/Notification.jpg?raw=true)
