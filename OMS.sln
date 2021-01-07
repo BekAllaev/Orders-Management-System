@@ -7,9 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS.DataAccessLocal", "Data
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D7A7A633-C2EF-4BB6-9D93-361AB66AA484}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\Desktop\Create View.jpg = ..\..\..\Desktop\Create View.jpg
-		..\..\..\Desktop\Dashboard.jpg = ..\..\..\Desktop\Dashboard.jpg
-		..\..\..\Desktop\Notification.jpg = ..\..\..\Desktop\Notification.jpg
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -20,6 +17,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OMSWebMini", "OMSWebMini\OMSWebMini.csproj", "{1CBFB6D2-257D-4E7C-BD65-0ACA58D0C77C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS.DataAccessWeb", "OMS.DataAccessWeb\OMS.DataAccessWeb.csproj", "{5702C448-F15C-47DB-B9F6-D5501B25BDC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Screenshoots", "Screenshoots", "{3FF64E05-C03B-47DD-A78F-F3B552FC1C3B}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Desktop\Create View.jpg = ..\..\..\Desktop\Create View.jpg
+		..\..\..\Desktop\Dashboard.jpg = ..\..\..\Desktop\Dashboard.jpg
+		..\..\..\Desktop\Notification.jpg = ..\..\..\Desktop\Notification.jpg
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +54,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3FF64E05-C03B-47DD-A78F-F3B552FC1C3B} = {D7A7A633-C2EF-4BB6-9D93-361AB66AA484}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {07EC521E-CA3D-4170-B1B0-6A55C148C141}
