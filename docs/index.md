@@ -42,3 +42,10 @@ above collections in asynchronous style.
 ### Change between Local and Remote repository
 This application consume data from Local and Remote repositories. If you want to change repository you can find   
 `OMSWPFClien.exe.config` file in bin->Debug and change app setting `AccessRepository`'s value to Remote or Local.
+
+
+## Screenshoots
+
+Dashboard 
+
+![](https://github.com/Allaev1/Orders-Management-System/blob/master/OMS.WPFClient/Screenshoots/Dashboard.jpg?raw=true)
