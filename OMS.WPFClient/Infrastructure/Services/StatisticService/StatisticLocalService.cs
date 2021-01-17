@@ -38,8 +38,6 @@ namespace OMS.WPFClient.Infrastructure.Services.StatisticService
         ReadOnlyObservableCollection<SalesByCountry> _salesByCountries;
         ReadOnlyObservableCollection<OrdersByCountry> _ordersByCountries;
         ReadOnlyObservableCollection<SalesByCategory> _salesByCategories;
-
-        List<Order_Detail> orderDetails;
         #endregion
 
         public StatisticLocalService(NorthwindContext northwindContext)
@@ -50,7 +48,6 @@ namespace OMS.WPFClient.Infrastructure.Services.StatisticService
             customersList = new SourceList<Customer>();
             orderDetailsList = new SourceList<Order_Detail>();
             ordersList = new SourceList<Order>();
-            orderDetails = northwindContext.Order_Details.ToList();
 
             #region Customers statistics
             customersList.Connect().
@@ -115,47 +112,6 @@ namespace OMS.WPFClient.Infrastructure.Services.StatisticService
                 ObserveOnDispatcher().
                 Bind(out _salesByCategories).
                 Subscribe();
-
-            OverallSalesSum = orderDetails.Sum(orderDetail => orderDetail.UnitPrice * orderDetail.Quantity).ToString(format);
-
-            var ordersChecks = orderDetails.GroupBy(orderDetail => orderDetail.OrderID).
-                Select(groupOfOrderDetails => new { SalesByOrder = groupOfOrderDetails.Sum(orderDetail => orderDetail.Quantity * orderDetail.UnitPrice) });
-
-            MaxCheck = ordersChecks.Max(a => a.SalesByOrder).ToString(format);
-
-            MinCheck = ordersChecks.Min(a => a.SalesByOrder).ToString(format);
-
-            AverageCheck = ordersChecks.Average(a => a.SalesByOrder).ToString(format);
-
-            OrdersQuantity = northwindContext.Orders.Count().ToString();
-
-            #region This part of code uses ObservabelAsPropertyHelper class. 
-
-            //TODO: Find out how to return value of ObservabelAsPropertyHelper to the view models
-
-            //orderDetailsList.Connect().Select(a => orderDetailsList.Items.Select(orderDetail => orderDetail.Quantity * orderDetail.UnitPrice).Sum().ToString(format)).
-            //    ToProperty(this, vm => vm.OverallSalesSum, out _overallSalesSum);
-
-            //var orderDetails = orderDetailsList.Connect().
-            //    Transform(orderDetail => new { OrderID = orderDetail.OrderID, SaleByOrderDetail = orderDetail.UnitPrice * orderDetail.Quantity }).
-            //    GroupOn(orderDetail => orderDetail.OrderID).
-            //    Transform(groupOfOrderDetails => new { OrderID = groupOfOrderDetails.GroupKey, SaleByOrder = groupOfOrderDetails.List.Items.Sum(a => a.SaleByOrderDetail) }).
-            //    Publish();
-
-            //orderDetails.Select(a => a.Last().Range.Min(b => b.SaleByOrder).ToString(format)).
-            //    ToProperty(this, vm => vm.MinCheck, out _minCheck);
-
-            //orderDetails.Select(a => a.Last().Range.Max(b => b.SaleByOrder).ToString(format)).
-            //    ToProperty(this, vm => vm.MaxCheck, out _maxCheck);
-
-            //orderDetails.Select(a => a.Last().Range.Average(b => b.SaleByOrder).ToString(format)).
-            //    ToProperty(this, vm => vm.AverageCheck, out _averageCheck);
-
-            //orderDetails.Select(a => a.Last().Range.Count.ToString()).
-            //    ToProperty(this, vm => vm.OrdersQuantity, out _ordersQuantity);
-
-            //orderDetails.Connect();
-            #endregion
             #endregion
 
             FillCollections();
@@ -165,8 +121,8 @@ namespace OMS.WPFClient.Infrastructure.Services.StatisticService
         {
             await Task.Run(() =>
             {
-                customersList.AddRange(northwindContext.Customers.ToList());
                 orderDetailsList.AddRange(northwindContext.Order_Details.ToList());
+                customersList.AddRange(northwindContext.Customers.ToList());
                 productsList.AddRange(northwindContext.Products.ToList());
                 ordersList.AddRange(northwindContext.Orders.ToList());
             });
@@ -216,51 +172,63 @@ namespace OMS.WPFClient.Infrastructure.Services.StatisticService
 
         public async Task<string> GetSummary(string summary)
         {
+            string result = null;
+
+            await Task.Run(() =>
+            {
+                while (orderDetailsList.Count == 0) { }
+            });
+
             switch (summary)
             {
                 case "OverallSalesSum":
-                    return await Task.FromResult(OverallSalesSum);
+                    await Task.Run(() =>
+                    {
+                        result = orderDetailsList.Items.Sum(orderDetail => orderDetail.UnitPrice * orderDetail.Quantity).ToString(format);
+                    });
+                    break;
                 case "MaxCheck":
-                    return await Task.FromResult(MaxCheck);
+                    await Task.Run(() =>
+                    {
+                        result = orderDetailsList.Items.GroupBy(orderDetail => orderDetail.OrderID).
+                                                        Select(groupOfOrderDetails => new { SalesByOrder = groupOfOrderDetails.Sum(orderDetail => orderDetail.Quantity * orderDetail.UnitPrice) }).
+                                                        Max(a => a.SalesByOrder).
+                                                        ToString(format);
+                    });
+                    break;
                 case "MinCheck":
-                    return await Task.FromResult(MinCheck);
+                    await Task.Run(() =>
+                    {
+                        result = orderDetailsList.Items.GroupBy(orderDetail => orderDetail.OrderID).
+                                Select(groupOfOrderDetails => new { SalesByOrder = groupOfOrderDetails.Sum(orderDetail => orderDetail.Quantity * orderDetail.UnitPrice) }).
+                                Min(a => a.SalesByOrder).
+                                ToString(format);
+                    });
+                    break;
                 case "AverageCheck":
-                    return await Task.FromResult(AverageCheck);
+                    await Task.Run(() =>
+                    {
+                        result = orderDetailsList.Items.GroupBy(orderDetail => orderDetail.OrderID).
+                                Select(groupOfOrderDetails => new { SalesByOrder = groupOfOrderDetails.Sum(orderDetail => orderDetail.Quantity * orderDetail.UnitPrice) }).
+                                Average(a => a.SalesByOrder).
+                                ToString(format);
+                    });
+                    break;
                 case "OrdersQuantity":
-                    return await Task.FromResult(OrdersQuantity);
+                    await Task.Run(() =>
+                    {
+                        result = ordersList.Count.ToString();
+                    });
+                    break;
                 default:
-                    throw new Exception();
+                    result = null;
+                    break;
             }
+
+            return result;
         }
 
         string format = "$ ###,###.###";
-
-        #region This part of code uses ObservableAsPropertyHelper
-        //readonly ObservableAsPropertyHelper<string> _overallSalesSum;
-        //public string OverallSalesSum => _overallSalesSum.Value;
-
-        //readonly ObservableAsPropertyHelper<string> _minCheck;
-        //public string MinCheck => _minCheck.Value;
-
-        //readonly ObservableAsPropertyHelper<string> _maxCheck;
-        //public string MaxCheck => _maxCheck.Value;
-
-        //readonly ObservableAsPropertyHelper<string> _averageCheck;
-        //public string AverageCheck => _averageCheck.Value;
-
-        //readonly ObservableAsPropertyHelper<string> _ordersQuantity;
-        //public string OrdersQuantity => _ordersQuantity.Value;
-        #endregion
-
-        public string OverallSalesSum { get; }
-
-        public string MaxCheck { get; }
-
-        public string MinCheck { get; }
-
-        public string AverageCheck { get; }
-
-        public string OrdersQuantity { get; }
         #endregion
     }
 }
