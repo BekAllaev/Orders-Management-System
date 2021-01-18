@@ -11,6 +11,7 @@ namespace OMS.DataAccessLocal
         public NorthwindContext()
             : base("name=NorthwindContext")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
          
         public virtual DbSet<Category> Categories { get; set; }

@@ -6,7 +6,6 @@ using OMS.DataAccessLocal;
 using OMS.WPFClient.Modules.Dashboard.ViewModels;
 using ReactiveUI;
 using Syncfusion.Data.Extensions;
-using Syncfusion.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,7 +21,7 @@ using System.Threading.Tasks;
 
 namespace OMS.WPFClient.Infrastructure.Services.StatisticService
 {
-    public class StatisticLocalService : ReactiveObject, IStatisticService
+    public class StatisticService : ReactiveObject, IStatisticService
     {
         #region Declarations
         INorthwindRepository northwindRepository;
@@ -39,9 +38,17 @@ namespace OMS.WPFClient.Infrastructure.Services.StatisticService
         ReadOnlyObservableCollection<SalesByCountry> _salesByCountries;
         ReadOnlyObservableCollection<OrdersByCountry> _ordersByCountries;
         ReadOnlyObservableCollection<SalesByCategory> _salesByCategories;
+
+        IObservable<IChangeSet<CustomersByCountry>> customersByCountries;
+        IObservable<IChangeSet<PurchasesByCustomers>> purchasesByCustomers;
+        IObservable<IChangeSet<EmployeeSales>> salesByEmployees;
+        IObservable<IChangeSet<ProductsByCateogries>> productsByCategories;
+        IObservable<IChangeSet<OrdersByCountry>> ordersByCountries;
+        IObservable<IChangeSet<SalesByCountry>> salesByCountries;
+        IObservable<IChangeSet<SalesByCategory>> salesByCategories;
         #endregion
 
-        public StatisticLocalService(INorthwindRepository northwindRepository)
+        public StatisticService(INorthwindRepository northwindRepository)
         {
             this.northwindRepository = northwindRepository;
 
@@ -51,68 +58,61 @@ namespace OMS.WPFClient.Infrastructure.Services.StatisticService
             ordersList = new SourceList<Order>();
 
             #region Customers statistics
-            customersList.Connect().
+            customersByCountries = customersList.Connect().
                 GroupOn(customer => customer.Country).
                 Transform(customersGroup => new CustomersByCountry() { CountryName = customersGroup.GroupKey, CustomersCount = customersGroup.List.Count }).
                 ObserveOnDispatcher().
-                Bind(out _customersByCountries).
-                Subscribe();
+                Bind(out _customersByCountries);
 
-            orderDetailsList.Connect().
+            purchasesByCustomers = orderDetailsList.Connect().
                 Transform(orderDetail => new { CompanyName = orderDetail.Order.Customer.CompanyName, PurchaseByOrderDetail = orderDetail.UnitPrice * orderDetail.Quantity }).
                 GroupOn(orderDetail => orderDetail.CompanyName).
                 Transform(groupOfOrderDetails => new PurchasesByCustomers() { CompanyName = groupOfOrderDetails.GroupKey, Purchases = groupOfOrderDetails.List.Items.Sum(a => a.PurchaseByOrderDetail) }).
                 Sort(SortExpressionComparer<PurchasesByCustomers>.Descending(a => a.Purchases)).
                 Top(10).
                 ObserveOnDispatcher().
-                Bind(out _purchasesByCustomers).
-                Subscribe();
+                Bind(out _purchasesByCustomers);
             #endregion
 
             #region Employees statistics
-            orderDetailsList.Connect().
+            salesByEmployees = orderDetailsList.Connect().
                 Transform(orderDetail => new { LastName = orderDetail.Order.Employee.LastName, SaleByOrderDetail = orderDetail.UnitPrice * orderDetail.Quantity }).
                 GroupOn(orderDetail => orderDetail.LastName).
                 Transform(groupOfOrderDetail => new EmployeeSales() { LastName = groupOfOrderDetail.GroupKey, Sales = groupOfOrderDetail.List.Items.Sum(a => a.SaleByOrderDetail) }).
                 ObserveOnDispatcher().
                 Sort(SortExpressionComparer<EmployeeSales>.Ascending(a => a.Sales)).
-                Bind(out _salesByEmployees).
-                Subscribe();
+                Bind(out _salesByEmployees);
             #endregion
 
             #region Products statistics
-            productsList.Connect().
+            productsByCategories = productsList.Connect().
                 GroupOn(product => product.Category.CategoryName).
                 Transform(groupOfProducts => new ProductsByCateogries() { CategoryName = groupOfProducts.GroupKey, NumberOfProducts = groupOfProducts.List.Count }).
                 ObserveOnDispatcher().
-                Bind(out _productsByCategories).
-                Subscribe();
+                Bind(out _productsByCategories);
             #endregion
 
             #region Orders statistics
-            ordersList.Connect().
+            ordersByCountries = ordersList.Connect().
                 GroupOn(order => order.Customer.Country).
                 Transform(groupOfOrders => new OrdersByCountry() { Country = groupOfOrders.GroupKey, NumberOfOrders = groupOfOrders.List.Count }).
                 ObserveOnDispatcher().
                 Top(10).
-                Bind(out _ordersByCountries).
-                Subscribe();
+                Bind(out _ordersByCountries);
 
-            orderDetailsList.Connect().Transform(orderDetail => new { Country = orderDetail.Order.Customer.Country, SaleByOrderDetail = orderDetail.UnitPrice * orderDetail.Quantity }).
+            salesByCountries = orderDetailsList.Connect().Transform(orderDetail => new { Country = orderDetail.Order.Customer.Country, SaleByOrderDetail = orderDetail.UnitPrice * orderDetail.Quantity }).
                 GroupOn(orderDetail => orderDetail.Country).
                 Transform(groupOfOrderDetails => new SalesByCountry() { Country = groupOfOrderDetails.GroupKey, Sales = groupOfOrderDetails.List.Items.Sum(a => a.SaleByOrderDetail) }).
                 Sort(SortExpressionComparer<SalesByCountry>.Ascending(a => a.Sales)).
                 ObserveOnDispatcher().
-                Bind(out _salesByCountries).
-                Subscribe();
+                Bind(out _salesByCountries);
 
-            orderDetailsList.Connect().
+            salesByCategories = orderDetailsList.Connect().
                 Transform(orderDetail => new { Category = orderDetail.Product.Category.CategoryName, SaleByOrderDetail = orderDetail.UnitPrice * orderDetail.Quantity }).
                 GroupOn(orderDetail => orderDetail.Category).
                 Transform(groupOfOrderDeatils => new SalesByCategory() { Category = groupOfOrderDeatils.GroupKey, Sales = groupOfOrderDeatils.List.Items.Sum(a => a.SaleByOrderDetail) }).
                 ObserveOnDispatcher().
-                Bind(out _salesByCategories).
-                Subscribe();
+                Bind(out _salesByCategories);
             #endregion
 
             FillCollections();
@@ -121,17 +121,55 @@ namespace OMS.WPFClient.Infrastructure.Services.StatisticService
         private async void FillCollections()
         {
             var orderDetails = await northwindRepository.GetOrderDetails();
+
             var customers = await northwindRepository.GetCustomers();
             var products = await northwindRepository.GetProducts();
             var orders = await northwindRepository.GetOrders();
+            var categories = await northwindRepository.GetCategories();
+            var employees = await northwindRepository.GetEmployees();
 
+            customersList.AddRange(customers);
+            productsList.AddRange(products);
+            ordersList.AddRange(orders);
+            orderDetailsList.AddRange(orderDetails);
+
+            //Filling navigation propertie(Category) of Products
             await Task.Run(() =>
             {
-                orderDetailsList.AddRange(orderDetails);
-                customersList.AddRange(customers);
-                productsList.AddRange(products);
-                ordersList.AddRange(orders);
+                products.ForEach(product =>
+                {
+                    product.Category = categories.First(category => category.CategoryID == product.CategoryID);
+                });
             });
+
+            //Filling naviagtion properties(Customer and Employee) of Order
+            await Task.Run(() =>
+            {
+                orders.ForEach(order =>
+                {
+                    order.Customer = customers.First(customer => customer.CustomerID == order.CustomerID);
+                    order.Employee = employees.First(employee => employee.EmployeeID == order.EmployeeID);
+                });
+            });
+
+            //Filling naviagtion properties(Order and Product) of Order details
+            await Task.Run(() =>
+            {
+                orderDetails.ForEach(orderDetail =>
+                {
+                    orderDetail.Order = orders.First(order => order.OrderID == orderDetail.OrderID);
+                    orderDetail.Product = products.First(product => product.ProductID == orderDetail.ProductID);
+                });
+            });
+
+            //Starting from this moment we track changes in source lists (i.e. customersList, productsList, ordersList, orderDetailsList)
+            customersByCountries.Subscribe();
+            purchasesByCustomers.Subscribe();
+            salesByEmployees.Subscribe();
+            productsByCategories.Subscribe();
+            ordersByCountries.Subscribe();
+            salesByCountries.Subscribe();
+            salesByCategories.Subscribe();
         }
 
         #region Customers statistics

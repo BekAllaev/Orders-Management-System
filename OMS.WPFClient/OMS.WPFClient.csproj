@@ -302,8 +302,7 @@
     <Compile Include="Infrastructure\Services\InvoiceInfoService\InvoiceInfoLocal.cs" />
     <Compile Include="Infrastructure\Services\InvoiceInfoService\InvoiceInfoWeb.cs" />
     <Compile Include="Infrastructure\Services\StatisticService\IStatisticService.cs" />
-    <Compile Include="Infrastructure\Services\StatisticService\StatisticLocalService.cs" />
-    <Compile Include="Infrastructure\Services\StatisticService\StatisticWebService.cs" />
+    <Compile Include="Infrastructure\Services\StatisticService\StatisticService.cs" />
     <Compile Include="Infrastructure\Services\TitleUpdater.cs" />
     <Compile Include="Infrastructure\SettingsRepository\IUserSettingsRepository.cs" />
     <Compile Include="Infrastructure\SettingsRepository\UserSettingsRepository.cs" />
