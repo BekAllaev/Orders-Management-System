@@ -1,5 +1,6 @@
 ﻿using DynamicData;
 using DynamicData.Binding;
+using OMS.Data;
 using OMS.Data.Models;
 using OMS.DataAccessLocal;
 using OMS.WPFClient.Modules.Dashboard.ViewModels;
@@ -24,7 +25,7 @@ namespace OMS.WPFClient.Infrastructure.Services.StatisticService
     public class StatisticLocalService : ReactiveObject, IStatisticService
     {
         #region Declarations
-        NorthwindContext northwindContext;
+        INorthwindRepository northwindRepository;
 
         SourceList<Customer> customersList;
         SourceList<Order_Detail> orderDetailsList;
@@ -40,9 +41,9 @@ namespace OMS.WPFClient.Infrastructure.Services.StatisticService
         ReadOnlyObservableCollection<SalesByCategory> _salesByCategories;
         #endregion
 
-        public StatisticLocalService(NorthwindContext northwindContext)
+        public StatisticLocalService(INorthwindRepository northwindRepository)
         {
-            this.northwindContext = northwindContext;
+            this.northwindRepository = northwindRepository;
 
             productsList = new SourceList<Product>();
             customersList = new SourceList<Customer>();
@@ -119,12 +120,17 @@ namespace OMS.WPFClient.Infrastructure.Services.StatisticService
 
         private async void FillCollections()
         {
+            var orderDetails = await northwindRepository.GetOrderDetails();
+            var customers = await northwindRepository.GetCustomers();
+            var products = await northwindRepository.GetProducts();
+            var orders = await northwindRepository.GetOrders();
+
             await Task.Run(() =>
             {
-                orderDetailsList.AddRange(northwindContext.Order_Details.ToList());
-                customersList.AddRange(northwindContext.Customers.ToList());
-                productsList.AddRange(northwindContext.Products.ToList());
-                ordersList.AddRange(northwindContext.Orders.ToList());
+                orderDetailsList.AddRange(orderDetails);
+                customersList.AddRange(customers);
+                productsList.AddRange(products);
+                ordersList.AddRange(orders);
             });
         }
 
@@ -174,6 +180,8 @@ namespace OMS.WPFClient.Infrastructure.Services.StatisticService
         {
             string result = null;
 
+            //Waits until order details will be filled 
+            //TODO: Find another algorithm of waiting for filling of the collection 
             await Task.Run(() =>
             {
                 while (orderDetailsList.Count == 0) { }
