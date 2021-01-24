@@ -299,8 +299,7 @@
     <Compile Include="Infrastructure\Extensions\StringExtension.cs" />
     <Compile Include="Infrastructure\GlobalCommands.cs" />
     <Compile Include="Infrastructure\Services\InvoiceInfoService\IInvoiceInfoService.cs" />
-    <Compile Include="Infrastructure\Services\InvoiceInfoService\InvoiceInfoLocal.cs" />
-    <Compile Include="Infrastructure\Services\InvoiceInfoService\InvoiceInfoWeb.cs" />
+    <Compile Include="Infrastructure\Services\InvoiceInfoService\InvoiceInfoService.cs" />
     <Compile Include="Infrastructure\Services\StatisticService\IStatisticService.cs" />
     <Compile Include="Infrastructure\Services\StatisticService\StatisticService.cs" />
     <Compile Include="Infrastructure\Services\TitleUpdater.cs" />

@@ -56,18 +56,17 @@ namespace OMS.WPFClient.Bootsrapper
             string accessRepository = ConfigurationManager.AppSettings["AccessRepository"];
 
             Container.RegisterType<IStatisticService, StatisticService>();
+            Container.RegisterType<IInvoiceInfoService, InvoiceInfoService>();
 
             if (accessRepository == "Local")
             {
                 Container.RegisterType<INorthwindRepository, NorthwindLocalRepository>();
-                Container.RegisterType<IInvoiceInfoService, InvoiceInfoLocal>();
             }
             else if (accessRepository == "Remote")
             {
                 string serverBaseAddress = ConfigurationManager.AppSettings["ServerBaseAddress"];
                 Container.RegisterInstance(new HttpClient() { BaseAddress = new Uri(serverBaseAddress) });
                 Container.RegisterType<INorthwindRepository, NorthwindWebRepository>();
-                Container.RegisterType<IInvoiceInfoService, InvoiceInfoWeb>();
             }
             else
             {
